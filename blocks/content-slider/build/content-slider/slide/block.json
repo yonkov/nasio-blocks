@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "nasio-block/slide",
+  "title": "Slide",
+  "category": "nasio-blocks",
+  "icon": "slides",
+  "description": "Individual slide for the content slider.",
+  "parent": [
+    "nasio-block/content-slider"
+  ],
+  "usesContext": [
+    "nasio-block/displayMode"
+  ],
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "textdomain": "nasio-blocks"
+}

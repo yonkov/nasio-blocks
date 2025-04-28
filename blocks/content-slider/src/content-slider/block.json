@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"version": "0.0.1.19",
+	"name": "nasio-block/content-slider",
+	"title": "Content Slider",
+	"category": "nasio-blocks",
+	"icon": "slides",
+	"description": "Create a customizable slider with your own content blocks.",
+	"keywords": ["slider", "carousel", "content", "slideshow"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "nasio-blocks",
+	"attributes": {
+		"slidesPerView": {
+			"type": "number",
+			"default": 3
+		},
+		"spaceBetween": {
+			"type": "number",
+			"default": 20
+		},
+		"sliderHeight": {
+			"type": "number",
+			"default": 480
+		},
+		"displayMode": {
+			"type": "string",
+			"default": "carousel"
+		},
+		"effect": {
+			"type": "string",
+			"default": "slide"
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"autoplayDelay": {
+			"type": "number",
+			"default": 3000
+		},
+		"showDots": {
+			"type": "boolean",
+			"default": true
+		},
+		"showArrows": {
+			"type": "boolean",
+			"default": true
+		},
+		"draggable": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
+} 

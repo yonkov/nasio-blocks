@@ -1,0 +1,114 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "version": "0.0.1",
+  "name": "nasio-block/post-slider",
+  "title": "Post Slider",
+  "category": "nasio-blocks",
+  "icon": "slides",
+  "description": "Display carousel or fullwidth slider of your latest posts.",
+  "keywords": [
+    "slider",
+    "carousel",
+    "posts"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "nasio-blocks",
+  "attributes": {
+    "numberOfPosts": {
+      "type": "number",
+      "default": 9
+    },
+    "postCategory": {
+      "type": "string",
+      "default": ""
+    },
+    "includeStickyPost": {
+      "type": "boolean",
+      "default": true
+    },
+    "showFeaturedImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "showFallbackImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "showFallbackSvg": {
+      "type": "boolean",
+      "default": true
+    },
+    "imageOverlay": {
+      "type": "number",
+      "default": 0
+    },
+    "showExcerpt": {
+      "type": "boolean",
+      "default": true
+    },
+    "showAuthor": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDate": {
+      "type": "boolean",
+      "default": true
+    },
+    "contentPosition": {
+      "type": "string",
+      "default": "overlay-center"
+    },
+    "displayMode": {
+      "type": "string",
+      "default": "carousel"
+    },
+    "slidesPerView": {
+      "type": "number",
+      "default": 3
+    },
+    "sliderHeight": {
+      "type": "number",
+      "default": 480
+    },
+    "spaceBetween": {
+      "type": "number",
+      "default": 20
+    },
+    "loop": {
+      "type": "boolean",
+      "default": true
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "autoplayDelay": {
+      "type": "number",
+      "default": 3000
+    },
+    "showDots": {
+      "type": "boolean",
+      "default": true
+    },
+    "showArrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "draggable": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "render": "file:../../render.php"
+}

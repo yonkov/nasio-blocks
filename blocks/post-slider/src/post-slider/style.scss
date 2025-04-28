@@ -1,0 +1,380 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+// Post Slider Block Styles
+.wp-block-nasio-block-post-slider {
+	margin: 2em 0;
+
+	// Common styles for both carousel and fullwidth modes
+	.nasio-post-slider {
+		position: relative;
+		overflow: hidden;
+		padding-bottom: 50px; // Space for pagination
+	}
+	
+	.swiper-wrapper {
+		display: flex;
+		transition-duration: 0.4s;
+	}
+
+	.has-2-columns {
+		img, .fallback-svg {
+			height: 20rem;
+		}
+	}
+
+	.has-3-columns {
+		img, .fallback-svg {
+			height: 15rem;
+		}
+	}
+
+	.has-4-columns {
+		img, .fallback-svg {
+			height: 12rem;
+		}
+	}
+	
+	.swiper-slide {
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		margin-right: var(--space-between, 20px);
+	}
+
+	.fullwidth-slide {
+		height: var(--slider-height);
+	}
+
+	// Carousel mode styles
+	&.is-display-mode-carousel {
+		.swiper-slide {
+			width: 100%;
+			box-shadow: 4px 1px 30px 10px rgba(0,0,0,0.09);
+			
+			@media (min-width: 480px) {
+				// Tablet: 2 slides
+				width: calc((100% - var(--space-between, 20px)) / 2);
+			}
+			
+			@media (min-width: 768px) {
+				// Desktop: Use configured value
+				width: calc((100% - (var(--slides-per-view) - 1) * var(--space-between, 20px)) / var(--slides-per-view));
+			}
+		}
+	}
+
+	// Fullwidth slider mode styles
+	&.is-display-mode-fullwidth {
+		.swiper-slide {
+			width: 100%;
+			transition: opacity 0.4s ease;
+			position: relative; // For z-index to work properly
+		}
+
+		.nasio-post-card {
+			height: 100%;
+		}
+		
+		.nasio-post-content {
+			padding: 25px;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.nasio-post-title, 
+		.nasio-post-meta, 
+		.nasio-post-excerpt {
+			max-width: 75%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.nasio-post-excerpt {
+			color: rgba(255,255,255,0.95);
+			font-size: 1rem;
+			line-height: 1.5;
+		}
+
+		.nasio-post-meta {
+			color: rgba(255,255,255,0.95);
+			margin-bottom: 1rem;
+			font-size: 1rem;
+
+			@media (min-width: 768px) {
+				margin-bottom: 1.5rem;
+				line-height: 1.5;
+			}
+		}
+
+		.nasio-post-title {
+			font-size: 1.75rem;
+			margin-bottom: 1rem;
+			
+			@media (min-width: 480px) {
+				font-size: 2rem;
+			}
+
+			@media (min-width: 768px) {
+				font-size: 2.5rem;
+				margin-bottom: 1.25rem;
+				line-height: 1.5;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+		}
+		
+		.nasio-post-thumbnail {
+			position: relative;
+			height: 100%;
+				
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: rgba(0, 0, 0, var(--image-overlay));
+				z-index: 1;
+				transition: opacity 0.3s ease;
+			}
+			
+			&:hover::after {
+				opacity: 0.95;
+			}
+
+			img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
+				
+			.nasio-overlay-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				padding: 40px 30px;
+				z-index: 3;
+				display: flex;
+				flex-direction: column;
+				
+				@media (max-width: 768px) {
+					padding: 30px 20px;
+				}
+				
+				@media (max-width: 480px) {
+					padding: 20px 15px;
+				}
+				a {
+					color: #fff;
+				}
+			}
+		}
+	}
+
+	.no-thumbnail {
+		position: relative;
+		padding-top: 0%;
+		min-height: 15rem;
+		
+		.nasio-overlay-content {
+			position: absolute;
+			padding: 40px 30px;
+			z-index: 3;
+		}
+	}
+		
+	&.content-position-overlay-top {
+		.nasio-post-thumbnail {
+			.nasio-overlay-content {
+				top: 0;
+				justify-content: flex-start;
+			}
+		}
+	}
+	
+	&.content-position-overlay-bottom {
+		.nasio-post-thumbnail .nasio-overlay-content {
+			bottom: 0;
+			justify-content: flex-end;
+		}
+	}
+	
+	// Center overlay position
+	&.content-position-overlay-center {
+		.nasio-post-thumbnail {
+			.nasio-overlay-content {
+				top: 0;
+				bottom: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+			}
+		}
+	}
+
+	// Common card styles for both modes
+	.nasio-post-card {
+		width: 100%;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		border-radius: 8px;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+		background: #fff;
+
+		&:hover {
+			transform: translateY(-5px);
+		}
+	}
+
+	.nasio-post-thumbnail {
+		position: relative;
+
+		img {
+			object-fit: cover;
+			transition: transform 0.3s ease;
+		}
+	}
+
+	.nasio-post-card:hover .nasio-post-thumbnail img {
+		transform: scale(1.05);
+	}
+
+	.nasio-post-content {
+		padding: 20px;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.nasio-post-title {
+		margin-top: 0;
+		margin-bottom: 10px;
+		font-size: 1.2em;
+		line-height: 1.4;
+
+		a {
+			color: #333;
+			text-decoration: none;
+		}
+	}
+
+	.nasio-post-excerpt {
+		margin-bottom: 1rem;
+		color: #666;
+	}
+
+	.nasio-post-meta {
+		display: flex;
+		gap: 1rem;
+		color: #888;
+	}
+
+	.nasio-post-author,
+	.nasio-post-date {
+		display: inline-block;
+	}
+
+	// Swiper Navigation Styles
+	.swiper-button-next,
+	.swiper-button-prev {
+		color: #444;
+		background: rgba(255, 255, 255, 0.8);
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+		opacity: 0.7;
+		transition: opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+
+		&:after {
+			font-size: 18px;
+		}
+		
+		&:hover {
+			opacity: 1;
+			background: rgba(255, 255, 255, 0.95);
+			box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+		}
+	}
+
+	.swiper-pagination {
+		bottom: 0;
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		z-index: 10;
+	}
+
+	.swiper-pagination-bullet {
+		width: 10px;
+		height: 10px;
+
+		&-active {
+			background: #555;
+		}
+	}
+}
+
+/* Editor-specific styles - focused and minimal */
+.is-editor-preview {
+	&.wp-block-nasio-block-post-slider {
+		// Ensure proper spacing in editor
+		margin-bottom: 3rem;
+		
+		// Override WordPress editor styles that might interfere
+		.nasio-post-slider {
+			overflow: hidden;
+			
+			.swiper-wrapper {
+				display: flex;
+				flex-wrap: nowrap;
+			}
+			
+			// Navigation elements need more specific positioning in editor
+			.swiper-button-prev,
+			.swiper-button-next {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				z-index: 10;
+			}
+			
+			.swiper-button-prev {
+				left: 10px;
+			}
+			
+			.swiper-button-next {
+				right: 10px;
+			}
+		}
+
+		// Alignment styles
+		&.alignfull {
+            width: 100%;
+            max-width: 100%;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		
+		&.alignwide {
+			@media (min-width: 960px) {
+				width: calc(100% - 2rem);
+				margin-left: 1rem !important;
+				margin-right: 1rem !important;
+			}
+		}
+	}
+}

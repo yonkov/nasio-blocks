@@ -1,0 +1,137 @@
+/**
+ * Editor styles for the Content Slider block
+ *
+ * These styles are loaded only in the editor.
+ */
+
+// Basic fix for swiper interaction with editor
+.swiper-initialized {
+    .wp-block-cover {
+        position: relative;
+        z-index: 1;
+        
+        // Make sure inner content is directly selectable
+        .wp-block-cover__inner-container {
+            position: relative;
+            z-index: 10;
+        }
+    }
+    
+    // Ensure slide widths are calculated correctly in the editor
+    .swiper-wrapper {
+        .wp-block-nasio-block-slide {
+            box-sizing: border-box;
+        }
+    }
+}
+
+// Style the main content slider block
+.wp-block-nasio-block-content-slider {
+    position: relative;
+    // Basic editor styles
+    &.is-selected {
+        outline: 1px solid #1e1e1e;
+    }
+    
+    // Style the editor title
+    .nasio-slider-editor-title {
+        background: #f0f0f0;
+        color: #1e1e1e;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 12px;
+        margin-bottom: 15px;
+        border-radius: 2px;
+        text-align: center;
+        border: 1px solid #ddd;
+        
+        // Make the title stand out when the block is selected
+        .is-selected & {
+            background: #f8f8f8;
+            border-color: #007cba;
+        }
+    }
+    
+    // Style the Swiper container in editor
+    .swiper {
+        // Allow block UI to shine through
+        z-index: 1;
+        
+        // Make container selectable by highlighting empty areas
+        &:not(.swiper-initialized) {
+            min-height: 100px;
+            border: 1px dashed #ccc;
+        }
+
+        // Make sure slider controls are clickable and above other elements
+        .swiper-button-prev,
+        .swiper-button-next,
+        .swiper-pagination {
+            z-index: 20;
+            pointer-events: auto;
+        }
+    }
+    
+    // Special styles for fullwidth mode
+    &.is-display-mode-fullwidth {        
+        .swiper-slide {
+            width: 100%;
+        }
+        
+        // Fix for fade effect
+        .swiper-fade {
+            .swiper-slide {
+                // Override Swiper's default fade behavior
+                opacity: 0;
+                visibility: hidden;
+                
+                &.swiper-slide-active {
+                    // Only show the active slide
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+
+/* Editor styles for content slider */
+
+/* Content slider main block styles */
+.wp-block-nasio-blocks-content-slider {
+    margin-bottom: 30px;
+    
+    // Title styling in editor
+    .nasio-content-slider-title {
+        margin-bottom: 15px;
+    }
+
+    // Fix for swiper interaction in editor
+    .swiper-initialized {
+        .wp-block-cover {
+            position: relative;
+            z-index: 1;
+        }
+        
+        // Fix for swiper's grab cursor interfering with blocks
+        .swiper-slide {
+            &:hover {
+                pointer-events: auto;
+            }
+        }
+    }
+    
+    // Special styles for fullwidth mode
+    &.is-style-fullwidth {
+        width: 100%;
+        max-width: none;
+        
+        .nasio-slide {
+            height: 100%;
+            
+            .wp-block-cover {
+                height: 100%;
+            }
+        }
+    }
+}
