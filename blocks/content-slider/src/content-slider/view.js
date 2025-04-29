@@ -49,7 +49,6 @@ function initializeContentSlider() {
 
         // Base settings that apply to both modes
         const settings = {
-            spaceBetween: parseInt(slider.dataset.spaceBetween || 20),
             loop: loop,
             observer: true,
             observeParents: true,
@@ -81,8 +80,7 @@ function initializeContentSlider() {
         if (slider.dataset.showDots === 'true') {
             settings.pagination = {
                 el: slider.querySelector('.swiper-pagination'),
-                clickable: true,
-                type: 'bullets'
+                clickable: true
             };
         }
 
@@ -90,7 +88,6 @@ function initializeContentSlider() {
         if (isFullwidth) {
             // Fullwidth mode settings
             settings.slidesPerView = 1;
-            settings.effect = 'fade';
             
             // Ensure virtual slides work properly in fullwidth mode
             if (loop) {
@@ -106,6 +103,8 @@ function initializeContentSlider() {
             // Responsive breakpoints
             settings.slidesPerView = 1; // Default for mobile
             settings.slidesPerGroup = 1; // Default for mobile
+
+            settings.spaceBetween = parseInt(slider.dataset.spaceBetween || 20);
             
             settings.breakpoints = {
                 480: {
@@ -125,22 +124,6 @@ function initializeContentSlider() {
             console.error('Error initializing Swiper:', error);
         }
     });
-}
-
-// Add event listener for block editor changes if we're in the editor
-if (typeof wp !== 'undefined' && wp.data && wp.data.subscribe) {
-	// This will help reinitialize when editor changes happen
-	let lastChangeTime = 0;
-	wp.data.subscribe(() => {
-		const now = Date.now();
-		// Only reinitialize after a delay and not too frequently
-		if (now - lastChangeTime > 1000) {
-			lastChangeTime = now;
-			setTimeout(() => {
-				initializeContentSlider();
-			}, 50);
-		}
-	});
 }
 
 /**

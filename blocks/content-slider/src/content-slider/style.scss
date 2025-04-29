@@ -29,7 +29,6 @@
 		min-height: 100px;
 		display: flex;
 		flex-direction: column;
-		margin-right: var(--space-between, 20px);
 		flex-shrink: 0;
 		box-sizing: border-box;
 	}
@@ -38,6 +37,7 @@
 	&.is-display-mode-carousel {
 		.swiper-slide {
 			width: 100%;
+			border-radius: 8px;
 			
 			@media (min-width: 480px) {
 				// Tablet: 2 slides
@@ -60,21 +60,6 @@
 		.nasio-slide, .nasio-slide .wp-block-cover img {
 			height: var(--slider-height);
 		}
-		
-		// Fix for fade effect
-		.swiper-fade {
-			.swiper-slide {
-				// Override Swiper's default fade behavior
-				opacity: 0 !important;
-				visibility: hidden !important;
-				
-				&.swiper-slide-active {
-					// Only show the active slide
-					opacity: 1 !important;
-					visibility: visible !important;
-				}
-			}
-		}
 	}
 
 	// Slide styles
@@ -84,7 +69,6 @@
 		min-height: 100px;
 		display: flex;
 		flex-direction: column;
-		border-radius: 8px;
 		overflow: hidden;
 		box-sizing: border-box;
 		

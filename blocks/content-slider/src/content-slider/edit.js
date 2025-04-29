@@ -88,23 +88,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         }
     }, [innerBlocks.length, clientId, isInitialized, insertBlock]);
 
-    // Sync slides with slidesPerView changes
-    useEffect(() => {
-        if (isInitialized) {
-            // Ensure we have at least slidesPerView * 2 slides for a nice presentation
-            const minimumSlides = slidesPerView * 2;
-            
-            // Add slides if needed
-            if (innerBlocks.length < minimumSlides) {
-                const additionalSlides = minimumSlides - innerBlocks.length;
-                
-                for (let i = 0; i < additionalSlides; i++) {
-                    insertBlock(createBlock('nasio-block/slide'), innerBlocks.length, clientId);
-                }
-            }
-        }
-    }, [slidesPerView, innerBlocks.length, isInitialized, clientId, insertBlock]);
-
     // Set custom CSS variables based on attributes
     const blockProps = useBlockProps({
         className: `wp-block-nasio-block-content-slider is-display-mode-${displayMode} is-editor-preview ${className || ''}`,
@@ -130,7 +113,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             allowedBlocks: ALLOWED_BLOCKS,
             template: TEMPLATE,
             orientation: 'horizontal',
-            renderAppender: () => <InnerBlocks.ButtonBlockAppender />,
+            renderAppender: false,
         }
     );
 
@@ -146,8 +129,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
 
     // Initialize and destroy Swiper
     useEffect(() => {
-        // Only run in the editor environment
-        if (!isEditor) return;
         
         // Initialize Swiper after a short delay to ensure DOM is ready
         const timer = setTimeout(() => {
@@ -158,8 +139,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         // This ensures pagination and navigation remain functional
         const unsubscribe = wp.data.subscribe(() => {
             const selectedBlock = wp.data.select('core/block-editor').getSelectedBlock();
-            if (selectedBlock && containerRef.current && 
-                containerRef.current.contains(document.querySelector(`[data-block="${selectedBlock.clientId}"]`))) {
+            if (selectedBlock && selectedBlock.clientId === clientId) {
                 // Only reinitialize if we haven't done so recently (debounce)
                 const now = Date.now();
                 if (now - lastReinitTimeRef.current > 1000) {
@@ -174,17 +154,16 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         });
 
         return () => {
+            // Properly unsubscribe to prevent memory leaks
             unsubscribe();
             clearTimeout(timer);
             
-            // Clean up Swiper
+            // Update instead of destroying to prevent breaking when adding slides
             if (swiperInstanceRef.current) {
-                swiperInstanceRef.current.destroy(true, true);
-                swiperInstanceRef.current = null;
+                swiperInstanceRef.current.update();
             }
         };
     }, [
-        isEditor,
         displayMode,
         slidesPerView,
         spaceBetween,
@@ -200,8 +179,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
 
     // Initialize Swiper
     const initSwiper = () => {
-        // Only initialize in the editor environment
-        if (!isEditor) return;
         
         // Clean up previous Swiper instance if it exists
         if (swiperInstanceRef.current) {
@@ -220,7 +197,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             const slideElements = Array.from(swiperElement.querySelectorAll('.block-editor-block-list__layout > .wp-block-nasio-block-slide'));
             
             // Ensure all slides have the swiper-slide class
-            slideElements.forEach(slide => {
+            slideElements.forEach((slide, index) => {
                 slide.classList.add('swiper-slide');
             });
 
@@ -229,10 +206,11 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                 slidesPerView: displayMode === 'carousel' ? parseInt(slidesPerView) : 1,
                 spaceBetween: displayMode === 'carousel' ? parseInt(spaceBetween) : 0,
                 slidesPerGroup: displayMode === 'carousel' ? parseInt(slidesPerView) : 1,
-                loop: loop,
+                rewind: loop,
                 observer: true,
                 observeParents: true,
                 resizeObserver: true,
+                observeSlideChildren: true,
                 allowTouchMove: draggable,
                 simulateTouch: draggable,
                 keyboard: {
@@ -249,16 +227,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             if (displayMode === 'fullwidth') {
                 // Exactly match the code from view.js for fullwidth mode
                 settings.slidesPerView = 1;
-                settings.effect = 'fade';
-                settings.fadeEffect = { crossFade: true };
-                
-                // Match view.js looping behavior
-                if (loop) {
-                    settings.loopAdditionalSlides = 1;
-                } else {
-                    settings.loop = false;
-                    settings.rewind = false;
-                }
                 
                 // Adjust speed for smoother handling
                 settings.speed = 300;
@@ -304,9 +272,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             if (showDots) {
                 settings.pagination = {
                     el: swiperElement.querySelector('.swiper-pagination'),
-                    clickable: true,
-                    // Use correct pagination type for both modes
-                    type: 'bullets'
+                    clickable: true
                 };
 
                 // For carousel mode, we need to ensure pagination shows correct number of pages
@@ -314,14 +280,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                     // This makes pagination respect slidesPerGroup/slidesPerView
                     // and show correct number of pagination bullets
                     settings.slidesPerGroup = parseInt(slidesPerView);
-                    
-                    // Force Swiper to update pagination after initialization
-                    setTimeout(() => {
-                        if (swiperInstanceRef.current) {
-                            swiperInstanceRef.current.pagination.update();
-                            swiperInstanceRef.current.pagination.render();
-                        }
-                    }, 150);
                 }
             }
             
@@ -333,26 +291,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                 setTimeout(() => {
                     if (swiperInstanceRef.current) {
                         swiperInstanceRef.current.update();
-                        
-                        // Remove any old interceptors
-                        const existingInterceptors = containerRef.current.querySelectorAll('.nasio-cover-interceptor');
-                        existingInterceptors.forEach(interceptor => interceptor.remove());
-                        
-                        // Add event listeners for swiper controls to prevent propagation
-                        // This ensures navigation works even when a slide is selected
-                        const paginationBullets = swiperElement.querySelectorAll('.swiper-pagination-bullet');
-                        paginationBullets.forEach(bullet => {
-                            bullet.addEventListener('mousedown', e => {
-                                e.stopPropagation();
-                            });
-                        });
-                        
-                        const navButtons = swiperElement.querySelectorAll('.swiper-button-next, .swiper-button-prev');
-                        navButtons.forEach(button => {
-                            button.addEventListener('mousedown', e => {
-                                e.stopPropagation();
-                            });
-                        });
                     }
                 }, 100);
             } catch (error) {
@@ -460,14 +398,11 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             </InspectorControls>
 
             <div className="content-slider-wrapper" ref={containerRef}>
-                {/* Add title for the block in editor */}
-                {isEditor && (
-                    <div className="nasio-slider-editor-title">
-                        {displayMode === 'fullwidth' 
-                            ? __('Content Slider Preview', 'nasio-blocks') 
-                            : __('Content Carousel Preview', 'nasio-blocks')}
-                    </div>
-                )}
+                <div className="nasio-slider-editor-title">
+                    {displayMode === 'fullwidth' 
+                        ? __('Content Slider Preview', 'nasio-blocks') 
+                        : __('Content Carousel Preview', 'nasio-blocks')}
+                </div>
                 
                 <BlockContextProvider value={blockContext}>
                     <div className="nasio-content-slider swiper">

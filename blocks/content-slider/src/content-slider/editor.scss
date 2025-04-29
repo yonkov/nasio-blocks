@@ -80,16 +80,8 @@
         
         // Fix for fade effect
         .swiper-fade {
-            .swiper-slide {
-                // Override Swiper's default fade behavior
-                opacity: 0;
+            .swiper-slide-prev, .swiper-slide-next {
                 visibility: hidden;
-                
-                &.swiper-slide-active {
-                    // Only show the active slide
-                    opacity: 1;
-                    visibility: visible;
-                }
             }
         }
     }
@@ -133,5 +125,12 @@
                 height: 100%;
             }
         }
+    }
+
+    .nasio-content-slider .swiper-slide {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        position: static !important;
     }
 }
