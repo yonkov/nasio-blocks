@@ -67,54 +67,29 @@ function nasio_blocks_scripts_and_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'nasio_blocks_scripts_and_styles' );
 
-function nasio_blocks_register_shared_assets() {
-	// Register Swiper assets for all slider blocks
-	wp_register_script(
-		'nasio-swiper-js',
-		plugins_url( 'assets/lib/swiper.min.js', __FILE__ ),
-		array(),
-		'11.2.6',
-		true
-	);
-
-	wp_register_style(
-		'nasio-swiper-css',
-		plugins_url( 'assets/lib/swiper.min.css', __FILE__ ),
-		array(),
-		'11.2.6'
-	);
-}
-add_action( 'init', 'nasio_blocks_register_shared_assets', 5 ); // Lower priority to ensure it runs before block registration
-
 /**
  * Enqueue Swiper slider assets for blocks that need them
  */
 function nasio_blocks_enqueue_slider_assets() {
-    // Check if we're in the editor or if the page contains our blocks
-    $has_sliders = has_block('nasio-block/content-slider') || 
-                  has_block('nasio-block/post-slider') || 
-                  has_block('nasio-block/gallery-slider');
-                   
-    if (is_admin() || $has_sliders) {
-        // Register and enqueue Swiper scripts and styles
-        wp_register_script(
+    if (
+        nasio_blocks_is_enabled( 'content_slider' ) ||
+        nasio_blocks_is_enabled( 'post_slider' ) ||
+        nasio_blocks_is_enabled( 'gallery_slider' )
+    ) {
+        wp_enqueue_script(
             'nasio-swiper-js',
-            plugins_url('assets/lib/swiper.min.js', __FILE__),
+            plugins_url( 'assets/lib/swiper.min.js', __FILE__ ),
             array(),
-            '11.0.3',
+            '11.2.6',
             true
         );
-        
-        wp_register_style(
+
+        wp_enqueue_style(
             'nasio-swiper-css',
-            plugins_url('assets/lib/swiper.min.css', __FILE__),
+            plugins_url( 'assets/lib/swiper.min.css', __FILE__ ),
             array(),
-            '11.0.3'
+            '11.2.6'
         );
-        
-        // Enqueue them
-        wp_enqueue_script('nasio-swiper-js');
-        wp_enqueue_style('nasio-swiper-css');
     }
 }
 add_action('enqueue_block_editor_assets', 'nasio_blocks_enqueue_slider_assets');
@@ -169,6 +144,7 @@ function nasio_blocks_page_content_callback() {
 					$settings = array(
 						'post_slider'    => isset( $_POST['nasio_blocks_post_slider'] ) ? 1 : 0,
 						'content_slider' => isset( $_POST['nasio_blocks_content_slider'] ) ? 1 : 0,
+						'gallery_slider' => isset( $_POST['nasio_blocks_gallery_slider'] ) ? 1 : 0,
 						'icon_block'     => isset( $_POST['nasio_blocks_icon_block'] ) ? 1 : 0,
 						'accordion'      => isset( $_POST['nasio_blocks_accordion'] ) ? 1 : 0,
 					);
@@ -179,6 +155,7 @@ function nasio_blocks_page_content_callback() {
 				$saved = get_option( 'nasio_blocks_enabled_blocks', array(
 					'post_slider'    => 1,
 					'content_slider' => 1,
+					'gallery_slider' => 1,
 					'icon_block'     => 1,
 					'accordion'      => 1,
 				) );
@@ -197,6 +174,10 @@ function nasio_blocks_page_content_callback() {
 							<tr>
 								<th scope="row"><?php esc_html_e( 'Content Slider', 'nasio-blocks' ); ?></th>
 								<td><input type="checkbox" name="nasio_blocks_content_slider" <?php checked( $saved['content_slider'], 1 ); ?> /> Enable</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Gallery Slider', 'nasio-blocks' ); ?></th>
+								<td><input type="checkbox" name="nasio_blocks_gallery_slider" <?php checked( $saved['gallery_slider'], 1 ); ?> /> Enable</td>
 							</tr>
 							<tr>
 								<th scope="row"><?php esc_html_e( 'Icon Block', 'nasio-blocks' ); ?></th>
@@ -237,20 +218,23 @@ function nasio_blocks_settings_link( array $links ) {
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'nasio_blocks_settings_link' );
 
 /**
- * Include block directories
+ * Include block directories conditionally
+ * Based on the plugin's settings page
  */
 $block_directories = array(
-    'post-slider/post-slider.php',
-    'content-slider/content-slider.php',
-    'gallery-slider/gallery-slider.php',
-    'icon-block/icon-block.php',
-    'accordion/accordion.php',
+    'post_slider'    => 'post-slider/post-slider.php',
+    'content_slider' => 'content-slider/content-slider.php',
+    'gallery_slider' => 'gallery-slider/gallery-slider.php',
+    'icon_block'     => 'icon-block/icon-block.php',
+    'accordion'      => 'accordion/accordion.php',
 );
 
-foreach ( $block_directories as $block_dir ) {
-    $block_path = plugin_dir_path( __FILE__ ) . 'blocks/' . $block_dir;
-    if ( file_exists( $block_path ) ) {
-        require_once $block_path;
+foreach ( $block_directories as $block_key => $block_file ) {
+    if ( nasio_blocks_is_enabled( $block_key ) ) {
+        $block_path = plugin_dir_path( __FILE__ ) . 'blocks/' . $block_file;
+        if ( file_exists( $block_path ) ) {
+            require_once $block_path;
+        }
     }
 }
 
