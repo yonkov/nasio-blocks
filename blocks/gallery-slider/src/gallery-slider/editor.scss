@@ -1,0 +1,128 @@
+/**
+ * Editor specific styles for the Gallery Slider block
+ */
+
+.wp-block-nasio-block-gallery-slider {
+    position: relative;
+    margin-bottom: 50px;
+    
+    .gallery-slider-wrapper {
+        position: relative;
+        overflow: hidden;
+        z-index: 0;
+    }
+    
+    .nasio-slider-editor-title {
+        padding: 8px;
+        font-size: 14px;
+        text-align: center;
+        background-color: #f0f0f0;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        color: #555;
+    }
+    
+    .nasio-gallery-slider {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        padding-bottom: 60px;
+    }
+    
+    .swiper-wrapper {
+        display: flex;
+        align-items: center;
+        min-height: 200px;
+        cursor: grab;
+    }
+    
+    .swiper-slide {
+        height: auto;
+        box-sizing: border-box;
+        user-select: none;
+        transform-origin: center center;
+        position: relative;
+        padding: 10px;
+        
+        &.is-selected {
+            z-index: 1;
+            outline: 2px solid #007cba;
+        }
+        
+        &:hover {
+            z-index: 1;
+        }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        padding: .75rem;
+    }
+    
+    .gallery-slider-figure {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    }
+    
+    .gallery-slider-image {
+        object-fit: cover;
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        display: block;
+    }
+    
+    .gallery-slider-caption {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 10px;
+        font-size: 13px;
+        line-height: 1.4;
+        text-align: center;
+        margin-top: auto;
+        border-radius: 0 0 4px 4px;
+        
+        textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            min-height: 60px;
+            padding: 5px;
+            font-size: 13px;
+            line-height: 1.4;
+            border: none;
+            border-radius: 2px;
+            
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 2px #007cba inset;
+            }
+        }
+    }
+    
+    // Placeholder state
+    .block-editor-media-placeholder {
+        margin: 0;
+        width: 100%;
+        padding: 30px;
+        
+        .components-placeholder__label {
+            margin-bottom: 10px;
+        }
+        
+        .components-placeholder__instructions {
+            margin-bottom: 20px;
+        }
+        
+        .components-button {
+            margin: 4px;
+        }
+    }
+} 

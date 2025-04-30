@@ -63,11 +63,10 @@ function initializePostSlider() {
 			allowTouchMove: draggable,
 			simulateTouch: draggable,
 			keyboard: {
-				enabled: !draggable,
+				enabled: true,
 				onlyInViewport: true,
 			},
-			mousewheel: !draggable,
-			resizeObserver: true,
+			resizeObserver: true
 		};
 		
 		// Different settings based on displayMode

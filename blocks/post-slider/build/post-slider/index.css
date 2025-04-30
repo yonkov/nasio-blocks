@@ -1,1 +1,30 @@
-.wp-block-nasio-block-post-slider{position:relative}.wp-block-nasio-block-post-slider .nasio-post-slider-preview .nasio-slider-editor-title{background:#f0f0f0;border:1px solid #ddd;border-radius:2px;color:#1e1e1e;font-size:13px;font-weight:600;margin-bottom:15px;padding:8px 12px;text-align:center}.is-selected .wp-block-nasio-block-post-slider .nasio-post-slider-preview .nasio-slider-editor-title{background:#f8f8f8;border-color:#007cba}
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/post-slider/editor.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Editor styles for the Post Slider block
+ */
+.wp-block-nasio-block-post-slider {
+  position: relative;
+}
+.wp-block-nasio-block-post-slider .nasio-post-slider-preview .nasio-slider-editor-title {
+  background: #f0f0f0;
+  color: #1e1e1e;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+  border-radius: 2px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+.is-selected .wp-block-nasio-block-post-slider .nasio-post-slider-preview .nasio-slider-editor-title {
+  background: #f8f8f8;
+  border-color: #007cba;
+}
+.wp-block-nasio-block-post-slider .swiper-button-prev,
+.wp-block-nasio-block-post-slider .swiper-button-next {
+  padding: 0.75rem;
+}
+
+/*# sourceMappingURL=index.css.map*/

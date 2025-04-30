@@ -1,0 +1,136 @@
+/**
+ * Frontend and editor styles for the Gallery Slider block
+ */
+
+.wp-block-nasio-block-gallery-slider {
+    position: relative;
+    margin-bottom: 1.5em;
+    
+    // Set CSS variables for use throughout the component
+    --swiper-theme-color: #444;
+    --swiper-navigation-size: 1.5rem;
+    
+    .nasio-gallery-slider {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+        padding-bottom: 60px; // Increased space for pagination (matching content slider)
+    }
+    
+    .swiper-wrapper {
+        display: flex;
+        align-items: stretch;
+        transition-property: transform;
+    }
+    
+    .swiper-slide {
+        flex-shrink: 0;
+        height: auto;
+        position: relative;
+        transition-property: transform;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .gallery-slider-figure {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    }
+    
+    .gallery-slider-image {
+        object-fit: cover;
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        display: block;
+    }
+    
+    .gallery-slider-caption {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: .75rem;
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: center;
+        margin-top: auto;
+        border-radius: 0 0 4px 4px;
+    }
+    
+    // Swiper Navigation styling
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: var(--swiper-navigation-size);
+        height: var(--swiper-navigation-size);
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 1.25rem;
+        border-radius: 50%;
+        
+        &.swiper-button-disabled {
+            opacity: 0.35;
+            cursor: auto;
+            pointer-events: none;
+        }
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+    }
+    
+    .swiper-button-prev,
+    .swiper-rtl .swiper-button-next {
+        left: 10px;
+        right: auto;
+        
+        &:after {
+            content: 'prev';
+        }
+    }
+    
+    .swiper-button-next,
+    .swiper-rtl .swiper-button-prev {
+        right: 10px;
+        left: auto;
+        
+        &:after {
+            content: 'next';
+        }
+    }
+    
+    // Swiper Pagination styling
+    .swiper-pagination {
+        width: 100%;
+        
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            opacity: 0.7;
+            margin: 0 4px;
+            
+            &-active {
+                opacity: 1;
+                background: #555;
+            }
+        }
+        
+        &-clickable .swiper-pagination-bullet {
+            cursor: pointer;
+        }
+    }
+    
+    // Responsive styling for different screen sizes
+    @media screen and (max-width: 768px) {
+        .nasio-gallery-slider {
+            padding-bottom: 40px; // Add space for pagination on mobile
+        }
+        
+        .swiper-button-prev,
+        .swiper-button-next {
+            transform: scale(0.8);
+        }
+    }
+}

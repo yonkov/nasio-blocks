@@ -107,10 +107,9 @@ export default function Edit({ attributes, setAttributes, className }) {
 			allowTouchMove: draggable,
 			simulateTouch: draggable,
 			keyboard: {
-				enabled: !draggable,
+				enabled: true,
 				onlyInViewport: true,
-			},
-			mousewheel: !draggable,
+			}
 		};
 
 		// If fullwidth mode, use different settings

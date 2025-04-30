@@ -9,6 +9,10 @@
 .wp-block-nasio-block-post-slider {
 	margin: 2em 0;
 
+	// Set CSS variables for use throughout the component
+	--swiper-theme-color: #444;
+	--swiper-navigation-size: 1.5rem;
+
 	// Common styles for both carousel and fullwidth modes
 	.nasio-post-slider {
 		position: relative;
@@ -286,95 +290,45 @@
 		display: inline-block;
 	}
 
-	// Swiper Navigation Styles
-	.swiper-button-next,
-	.swiper-button-prev {
-		color: #444;
-		background: rgba(255, 255, 255, 0.8);
-		width: 40px;
-		height: 40px;
+	// Swiper Navigation styling
+	.swiper-button-prev,
+	.swiper-button-next {
+		width: var(--swiper-navigation-size);
+		height: var(--swiper-navigation-size);
+		background-color: rgba(255, 255, 255, 0.8);
+		padding: 1.25rem;
 		border-radius: 50%;
-		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-		z-index: 10;
-		opacity: 0.7;
-		transition: opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-
-		&:after {
-			font-size: 18px;
+		
+		&.swiper-button-disabled {
+			opacity: 0.35;
+			cursor: auto;
+			pointer-events: none;
 		}
 		
 		&:hover {
-			opacity: 1;
-			background: rgba(255, 255, 255, 0.95);
-			box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+			background-color: rgba(255, 255, 255, 0.95);
 		}
 	}
 
-	.swiper-pagination {
-		bottom: 0;
-		position: absolute;
-		width: 100%;
-		text-align: center;
-		z-index: 10;
-	}
-
-	.swiper-pagination-bullet {
-		width: 10px;
-		height: 10px;
-
-		&-active {
-			background: #555;
-		}
-	}
-}
-
-/* Editor-specific styles - focused and minimal */
-.is-editor-preview {
-	&.wp-block-nasio-block-post-slider {
-		// Ensure proper spacing in editor
-		margin-bottom: 3rem;
-		
-		// Override WordPress editor styles that might interfere
-		.nasio-post-slider {
-			overflow: hidden;
-			
-			.swiper-wrapper {
-				display: flex;
-				flex-wrap: nowrap;
-			}
-			
-			// Navigation elements need more specific positioning in editor
-			.swiper-button-prev,
-			.swiper-button-next {
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-				z-index: 10;
-			}
-			
-			.swiper-button-prev {
-				left: 10px;
-			}
-			
-			.swiper-button-next {
-				right: 10px;
-			}
-		}
-
-		// Alignment styles
-		&.alignfull {
-            width: 100%;
-            max-width: 100%;
-			margin-right: auto;
-			margin-left: auto;
-		}
-		
-		&.alignwide {
-			@media (min-width: 960px) {
-				width: calc(100% - 2rem);
-				margin-left: 1rem !important;
-				margin-right: 1rem !important;
-			}
-		}
-	}
+    // Swiper Pagination styling
+    .swiper-pagination {
+        width: 100%;
+        
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            opacity: 0.7;
+            margin: 0 4px;
+            
+            &-active {
+                opacity: 1;
+                background: #555;
+            }
+        }
+        
+        &-clickable .swiper-pagination-bullet {
+            cursor: pointer;
+        }
+    }
 }
