@@ -1,0 +1,56 @@
+.wp-block-nasio-block-accordion {
+	margin-bottom: 2rem;
+	
+	.nasio-accordion {
+		border: 1px solid #e0e0e0;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	
+	.nasio-accordion-item {
+		border-bottom: 1px solid #e0e0e0;
+		
+		&:last-child {
+			border-bottom: none;
+		}
+		
+		.nasio-accordion-item-header {
+			padding: 1rem;
+			background-color: #f7f7f7;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-weight: 500;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			margin-bottom: 0.5rem;
+			
+			.nasio-accordion-icon {
+				transition: transform 0.3s ease;
+				width: 24px;
+				height: 24px;
+			}
+		}
+		
+		&.is-open {
+			.nasio-accordion-icon {
+				transform: rotate(180deg);
+			}
+		}
+		
+		.nasio-accordion-item-content {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.3s ease-out;
+			
+			.nasio-accordion-item-content-inner {
+				padding: 1rem;
+			}
+		}
+
+		&.is-open .nasio-accordion-item-content {
+			max-height: none;
+		}
+	}
+}

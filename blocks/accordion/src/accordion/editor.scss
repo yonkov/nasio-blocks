@@ -1,0 +1,24 @@
+.wp-block-nasio-block-accordion {
+	// Editor specific styles
+	.nasio-accordion {
+		padding: 1px 0; // Prevent margin collapse
+	}
+	
+	.nasio-accordion-item-content {
+		// In editor, make content visible
+		max-height: none !important;
+		
+		.nasio-accordion-item-content-inner {
+			padding: 1rem;
+			border-top: 1px dashed #e0e0e0;
+		}
+	}
+	
+	// Make items look better in editor
+	.block-editor-block-list__layout {
+		.block-editor-block-list__block {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+} 

@@ -170,6 +170,7 @@ function nasio_blocks_page_content_callback() {
 						'post_slider'    => isset( $_POST['nasio_blocks_post_slider'] ) ? 1 : 0,
 						'content_slider' => isset( $_POST['nasio_blocks_content_slider'] ) ? 1 : 0,
 						'icon_block'     => isset( $_POST['nasio_blocks_icon_block'] ) ? 1 : 0,
+						'accordion'      => isset( $_POST['nasio_blocks_accordion'] ) ? 1 : 0,
 					);
 					update_option( 'nasio_blocks_enabled_blocks', $settings );
 					echo '<div class="updated"><p>Settings saved.</p></div>';
@@ -179,6 +180,7 @@ function nasio_blocks_page_content_callback() {
 					'post_slider'    => 1,
 					'content_slider' => 1,
 					'icon_block'     => 1,
+					'accordion'      => 1,
 				) );
 				?>
 				<div class="nasio-blocks-admin-content">
@@ -199,6 +201,10 @@ function nasio_blocks_page_content_callback() {
 							<tr>
 								<th scope="row"><?php esc_html_e( 'Icon Block', 'nasio-blocks' ); ?></th>
 								<td><input type="checkbox" name="nasio_blocks_icon_block" <?php checked( $saved['icon_block'], 1 ); ?> /> Enable</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Accordion', 'nasio-blocks' ); ?></th>
+								<td><input type="checkbox" name="nasio_blocks_accordion" <?php checked( $saved['accordion'], 1 ); ?> /> Enable</td>
 							</tr>
 						</table>
 						<?php submit_button( 'Save Changes', 'primary', 'nasio_blocks_settings_submit' ); ?>
@@ -238,6 +244,7 @@ $block_directories = array(
     'content-slider/content-slider.php',
     'gallery-slider/gallery-slider.php',
     'icon-block/icon-block.php',
+    'accordion/accordion.php',
 );
 
 foreach ( $block_directories as $block_dir ) {
