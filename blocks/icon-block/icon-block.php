@@ -1,0 +1,36 @@
+<?php
+/**
+ * Icon Block
+ *
+ * A component of the Nasio Blocks plugin that provides an icon block.
+ *
+ * @package Nasio Blocks
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+/**
+ * Registers the blocks and all related assets.
+ */
+function nasio_blocks_icon_block_init() {
+	
+	/**
+	 * Registers the block(s) metadata from the blocks-manifest.php file.
+	 */
+	if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
+		wp_register_block_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
+	}
+	
+	/**
+	 * Registers the block type(s) in the blocks-manifest.php file.
+	 */
+	$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
+	
+	// Register the icon block
+	if (isset($manifest_data['icon-block'])) {
+		register_block_type( __DIR__ . '/build/icon-block' );
+	}
+}
+add_action( 'init', 'nasio_blocks_icon_block_init' );

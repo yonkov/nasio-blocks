@@ -1,0 +1,23 @@
+{
+	"name": "icon-block",
+	"version": "0.0.1",
+	"description": "Icon Block - part of the Nasio Blocks plugin",
+	"author": "Atanas Yonkov",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build --blocks-manifest",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start --blocks-manifest"
+	},
+	"dependencies": {
+		"@wordpress/icons": "^9.46.0"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^30.15.0"
+	}
+}
