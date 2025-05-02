@@ -3,8 +3,8 @@
 return array(
 	'content-slider' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
-		'apiVersion' => 3,
-		'version' => '0.0.1.40',
+		'apiVersion' => 2,
+		'version' => '0.0.1',
 		'name' => 'nasio-block/content-slider',
 		'title' => 'Content Slider',
 		'category' => 'nasio-blocks',
@@ -77,7 +77,7 @@ return array(
 	),
 	'slide' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
-		'apiVersion' => 3,
+		'apiVersion' => 2,
 		'name' => 'nasio-block/slide',
 		'title' => 'Slide',
 		'category' => 'nasio-blocks',

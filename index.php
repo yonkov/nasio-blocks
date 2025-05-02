@@ -92,8 +92,7 @@ function nasio_blocks_enqueue_slider_assets() {
         );
     }
 }
-add_action('enqueue_block_editor_assets', 'nasio_blocks_enqueue_slider_assets');
-add_action('wp_enqueue_scripts', 'nasio_blocks_enqueue_slider_assets');
+add_action('enqueue_block_assets', 'nasio_blocks_enqueue_slider_assets');
 
 function nasio_blocks_is_enabled( $block_key ) {
 	$settings = get_option( 'nasio_blocks_enabled_blocks', array() );
