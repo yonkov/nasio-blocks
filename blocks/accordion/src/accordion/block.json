@@ -7,7 +7,7 @@
 	"icon": "list-view",
 	"description": "Create expandable accordion sections.",
 	"keywords": ["accordion", "faq", "toggle", "expand", "collapse"],
-	"version": "0.1.0",
+	"version": "0.0.1",
 	"textdomain": "nasio-blocks",
 	"supports": {
 		"html": false,

@@ -13,25 +13,21 @@ import { useSelect } from '@wordpress/data';
 export default function Edit({ attributes, setAttributes, clientId }) {
     const { defaultOpenItem } = attributes;
 
+    console.log(defaultOpenItem)
+
     // Get all accordion item blocks within this parent
     const accordionItems = useSelect((select) => {
-        const { getBlocks } = select('core/block-editor');
-        return getBlocks(clientId);
+        const { getBlock } = select('core/block-editor');
+        const block = getBlock(clientId);
+        return block?.innerBlocks || [];
     }, [clientId]);
-
-    // Update defaultOpenItem if the selected block no longer exists
-    useEffect(() => {
-        if (defaultOpenItem && !accordionItems.find(item => item.clientId === defaultOpenItem)) {
-            setAttributes({ defaultOpenItem: '' });
-        }
-    }, [accordionItems, defaultOpenItem, setAttributes]);
 
     // Create options for defaultOpenItem selector
     const itemOptions = [
-        { label: __('None (all collapsed)', 'nasio-blocks'), value: '' },
+        { label: __('None', 'nasio-blocks'), value: '' },
         ...accordionItems.map((item, index) => ({
             label: item.attributes.title || __('Accordion Item ', 'nasio-blocks') + (index + 1),
-            value: item.clientId
+            value: item.attributes.blockId
         }))
     ];
 
