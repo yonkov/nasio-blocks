@@ -18,9 +18,8 @@ import {
 	Modal,
 	SearchControl,
 } from '@wordpress/components';
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, useCallback, useRef, useEffect } from '@wordpress/element';
 import { link, linkOff, grid } from '@wordpress/icons';
-
 /**
  * Import all WordPress icons
  */
@@ -32,43 +31,55 @@ import * as allIcons from '@wordpress/icons';
  * @param {Object} props Block props.
  * @return {WPElement}   Element to render.
  */
+
+function debounce(func, wait) {
+	let timeout;
+	return function executedFunction(...args) {
+	  const later = () => {
+		clearTimeout(timeout);
+		func(...args);
+	  };
+	  clearTimeout(timeout);
+	  timeout = setTimeout(later, wait);
+	};
+}
+
 export default function Edit({ attributes, setAttributes }) {
-	const { 
-		icon, 
-		iconSize, 
-		url, 
-		linkTarget, 
+	const {
+		icon,
+		iconSize,
+		url,
+		linkTarget,
 		rel,
 		backgroundColor,
 		textColor,
 		borderRadius,
-		padding
+		padding,
 	} = attributes;
-	
+
 	const [isEditingURL, setIsEditingURL] = useState(false);
 	const [isIconPickerOpen, setIsIconPickerOpen] = useState(false);
-	const [searchTerm, setSearchTerm] = useState('');
-	
+
 	// Get all available WordPress icons
 	const availableIcons = useMemo(() => {
 		return Object.entries(allIcons)
-			.filter(([name, iconObj]) => 
-				typeof iconObj === 'object' && 
-				iconObj !== null && 
-				iconObj.type && 
-				iconObj.props && 
+			.filter(([name, iconObj]) =>
+				typeof iconObj === 'object' &&
+				iconObj !== null &&
+				iconObj.type &&
+				iconObj.props &&
 				name !== 'Icon' // Exclude the base Icon component
 			)
 			.map(([name, iconObj]) => ({
 				name,
 				icon: iconObj,
-				label: name.replace(/([A-Z])/g, ' $1').trim()
+				label: name.replace(/([A-Z])/g, ' $1').trim(),
 			}));
 	}, []);
-	
+
 	// Get the current icon
 	const currentIcon = icon && allIcons[icon] ? allIcons[icon] : null;
-	
+
 	// Calculate block styles
 	const blockStyles = {
 		'--icon-size': `${iconSize}px`,
@@ -77,61 +88,91 @@ export default function Edit({ attributes, setAttributes }) {
 		'--border-radius': borderRadius ? `${borderRadius}px` : '0',
 		'--padding': padding ? `${padding}px` : '0',
 	};
-	
+
 	// Get block props with styles
 	const blockProps = useBlockProps({
 		className: 'wp-block-nasio-block-icon',
 		style: blockStyles,
 	});
-	
-	// Filter icons based on search term
-	const filteredIcons = searchTerm 
-		? availableIcons.filter(iconObj => 
-			iconObj.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			iconObj.label.toLowerCase().includes(searchTerm.toLowerCase())
-		)
-		: availableIcons;
-	
+
 	// Icon picker modal component
-	const IconPicker = () => (
-		<Modal
-			title={__('Select an Icon', 'nasio-blocks')}
-			onRequestClose={() => setIsIconPickerOpen(false)}
-			className="wp-block-nasio-block-icon-picker-modal"
-		>
-			<div className="icon-picker-search">
-				<SearchControl
-					value={searchTerm}
-					onChange={setSearchTerm}
-					placeholder={__('Search icons...', 'nasio-blocks')}
-				/>
-				<p className="icon-count">
-					{filteredIcons.length} {__('icons found', 'nasio-blocks')}
-				</p>
-			</div>
-			
-			<div className="icon-picker-grid">
-				{filteredIcons.map((iconObj) => (
-					<Button
-						key={iconObj.name}
-						className={`icon-picker-button ${iconObj.name === icon ? 'is-selected' : ''}`}
-						onClick={() => {
-							setAttributes({ icon: iconObj.name });
-							setIsIconPickerOpen(false);
-						}}
-					>
-						<div className="icon-preview">
-							{iconObj.icon}
-						</div>
-						<div className="icon-name">
-							{iconObj.label}
-						</div>
-					</Button>
-				))}
-			</div>
-		</Modal>
-	);
-	
+	const IconPicker = ({ isOpen, onClose }) => {
+		const [searchTerm, setSearchTerm] = useState('');
+		const searchInputRef = useRef(null);
+
+		// Debounced search handler
+		const debouncedSetSearchTerm = useCallback(
+			debounce((value) => {
+				setSearchTerm(value);
+			}, 300),
+			[]
+		);
+
+		// Reset search term when modal closes
+		useEffect(() => {
+			if (!isOpen) {
+				setSearchTerm('');
+			}
+		}, [isOpen]);
+
+		// Maintain focus on search input
+		useEffect(() => {
+			if (isOpen && searchInputRef.current) {
+				searchInputRef.current.focus();
+			}
+		}, [isOpen, searchTerm]);
+
+		// Filter icons based on search term
+		const filteredIcons = useMemo(() => {
+			return searchTerm
+				? availableIcons.filter((iconObj) =>
+						iconObj.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+						iconObj.label.toLowerCase().includes(searchTerm.toLowerCase())
+				  )
+				: availableIcons;
+		}, [searchTerm]);
+
+		if (!isOpen) return null;
+
+		return (
+			<Modal
+				title={__('Select an Icon', 'nasio-blocks')}
+				onRequestClose={onClose}
+				isDismissible={true}
+				className="wp-block-nasio-block-icon-picker-modal"
+				shouldCloseOnClickOutside={false}
+			>
+				<div className="icon-picker-search">
+					<SearchControl
+						value={searchTerm}
+						onChange={debouncedSetSearchTerm}
+						placeholder={__('Search icons...', 'nasio-blocks')}
+						ref={searchInputRef}
+					/>
+					<p className="icon-count">
+						{filteredIcons.length} {__('icons found', 'nasio-blocks')}
+					</p>
+				</div>
+
+				<div className="icon-picker-grid">
+					{filteredIcons.map((iconObj) => (
+						<Button
+							key={iconObj.name}
+							className={`icon-picker-button ${iconObj.name === icon ? 'is-selected' : ''}`}
+							onClick={() => {
+								setAttributes({ icon: iconObj.name });
+								onClose();
+							}}
+						>
+							<div className="icon-preview">{iconObj.icon}</div>
+							<div className="icon-name">{iconObj.label}</div>
+						</Button>
+					))}
+				</div>
+			</Modal>
+		);
+	};
+
 	return (
 		<>
 			<BlockControls>
@@ -149,21 +190,21 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</ToolbarGroup>
 			</BlockControls>
-			
+
 			<InspectorControls>
 				<PanelBody title={__('Icon Settings', 'nasio-blocks')}>
 					<div className="icon-picker-preview">
 						<div className="selected-icon-preview">
 							{currentIcon ? currentIcon : <span>No icon selected</span>}
 						</div>
-						<Button 
+						<Button
 							variant="secondary"
 							onClick={() => setIsIconPickerOpen(true)}
 						>
 							{__('Choose Icon', 'nasio-blocks')}
 						</Button>
 					</div>
-					
+
 					<RangeControl
 						label={__('Size', 'nasio-blocks')}
 						value={iconSize}
@@ -172,7 +213,7 @@ export default function Edit({ attributes, setAttributes }) {
 						max={120}
 						step={1}
 					/>
-					
+
 					<RangeControl
 						label={__('Padding', 'nasio-blocks')}
 						value={padding}
@@ -183,7 +224,7 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			
+
 			{isEditingURL && (
 				<Popover
 					position="bottom center"
@@ -212,13 +253,14 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</Popover>
 			)}
-			
-			{isIconPickerOpen && <IconPicker />}
-			
+
+			<IconPicker
+				isOpen={isIconPickerOpen}
+				onClose={() => setIsIconPickerOpen(false)}
+			/>
+
 			<div {...blockProps}>
-				<div className="nasio-icon-wrapper">
-					{currentIcon && currentIcon}
-				</div>
+				<div className="nasio-icon-wrapper">{currentIcon && currentIcon}</div>
 			</div>
 		</>
 	);
