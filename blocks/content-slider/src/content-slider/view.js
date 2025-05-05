@@ -124,10 +124,3 @@ function initializeContentSlider() {
         }
     });
 }
-
-/**
- * View for the content slider block.
- */
-export function View() {
-	return null;
-}

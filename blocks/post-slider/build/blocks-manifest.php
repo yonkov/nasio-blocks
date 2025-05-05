@@ -50,7 +50,7 @@ return array(
 			),
 			'imageOverlay' => array(
 				'type' => 'number',
-				'default' => 0
+				'default' => 2
 			),
 			'showExcerpt' => array(
 				'type' => 'boolean',

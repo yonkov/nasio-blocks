@@ -5,6 +5,10 @@
  * @package Nasio Blocks
  */
 
+ if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 
 	if ( isset( $block->context['query']['postId'] ) && ! $block->context['query']['postId'] ) {
@@ -89,7 +93,7 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 		return '<p>' . __( 'No posts found.', 'nasio-blocks' ) . '</p>';
 	}
 
-	$is_editor = defined( 'REST_REQUEST' ) && REST_REQUEST && strpos( $_SERVER['REQUEST_URI'], '/wp-json/wp/v2/block-renderer' ) !== false;
+	$is_editor = function_exists( 'get_current_screen' ) && get_current_screen() && get_current_screen()->is_block_editor();
 
 	$align_class   = isset( $attributes['align'] ) ? ' align' . $attributes['align'] : '';
 	$wrapper_class = 'wp-block-nasio-block-post-slider is-display-mode-' . $display_mode . $align_class;
@@ -134,7 +138,7 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	. '--slides-per-view:' . esc_attr( $slides_per_view ) . ';'
 	. ( $slider_height > 0 ? '--slider-height:' . esc_attr( $slider_height ) . 'px;' : '' )
 	. '--space-between:' . esc_attr( $space_between ) . 'px;'
-	. '--image-overlay:' . esc_attr( isset( $attributes['imageOverlay'] ) ? $attributes['imageOverlay'] / 10 : 2 ) . ';"';
+	. '--image-overlay:' . esc_attr( isset( $attributes['imageOverlay'] ) ? $attributes['imageOverlay'] / 10 : 2/10 ) . ';"';
 
 $output = '<div class="' . esc_attr( $wrapper_class ) . '"' . $style_attributes . '>';
 
@@ -207,7 +211,7 @@ $output = '<div class="' . esc_attr( $wrapper_class ) . '"' . $style_attributes 
 					<?php elseif ( $show_fallback_image ) : ?>
 						<div>
 							<a href="<?php the_permalink(); ?>">
-								<?php echo nasio_blocks_get_svg( 'fallback-svg' ); ?>
+							<?php echo nasio_blocks_get_svg( 'fallback-svg' ); // // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</a>
 						</div>
 					<?php endif; ?>

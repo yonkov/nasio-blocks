@@ -66,16 +66,15 @@ function initializePostSlider() {
 				enabled: true,
 				onlyInViewport: true,
 			},
-			resizeObserver: true
+			resizeObserver: true,
+			rewind: loop
 		};
 		
 		// Different settings based on displayMode
 		if (displayMode === 'carousel') {
-			// Carousel displayMode
-			settings.slidesPerView = 1; // Start with 1 for mobile
-			settings.slidesPerGroup = 1; // Start with 1 for mobile
+			settings.slidesPerView = 1;
+			settings.slidesPerGroup = 1;
 			settings.spaceBetween = spaceBetween;
-			settings.rewind = loop; // Use rewind instead of loop for better performance
 			
 			// Responsive breakpoints
 			settings.breakpoints = {
@@ -95,11 +94,6 @@ function initializePostSlider() {
 			// Fullwidth displayMode
 			settings.slidesPerView = 1;
 			settings.spaceBetween = 0;
-			settings.effect = 'fade';
-			settings.fadeEffect = {
-				crossFade: true
-			};
-			settings.loop = loop; // Use regular loop for fade effect
 		}
 		
 		// Add autoplay if enabled
@@ -140,27 +134,4 @@ function initializePostSlider() {
 			console.error('Error initializing Swiper:', error);
 		}
 	});
-}
-
-// Add event listener for block editor changes if we're in the editor
-if (typeof wp !== 'undefined' && wp.data && wp.data.subscribe) {
-	// This will help reinitialize when editor changes happen
-	let lastChangeTime = 0;
-	wp.data.subscribe(() => {
-		const now = Date.now();
-		// Only reinitialize after a delay and not too frequently
-		if (now - lastChangeTime > 1000) {
-			lastChangeTime = now;
-			setTimeout(() => {
-				initializePostSlider();
-			}, 50);
-		}
-	});
-}
-
-/**
- * View for the post slider block.
- */
-export function View() {
-	return null;
 }

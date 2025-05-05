@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "nasio-block/accordion",
+  "title": "Accordion",
+  "category": "nasio-blocks",
+  "icon": "list-view",
+  "description": "Create expandable accordion sections.",
+  "keywords": [
+    "accordion",
+    "faq",
+    "toggle",
+    "expand",
+    "collapse"
+  ],
+  "version": "0.0.1",
+  "textdomain": "nasio-blocks",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "anchor": true
+  },
+  "attributes": {
+    "defaultOpenItem": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "providesContext": {
+    "nasio-block/defaultOpenItem": "defaultOpenItem"
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

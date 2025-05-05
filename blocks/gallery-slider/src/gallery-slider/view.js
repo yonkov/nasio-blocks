@@ -105,26 +105,3 @@ function initializeGallerySlider() {
         }
     });
 }
-
-// Add event listener for block editor changes if we're in the editor
-if (typeof wp !== 'undefined' && wp.data && wp.data.subscribe) {
-    // This will help reinitialize when editor changes happen
-    let lastChangeTime = 0;
-    wp.data.subscribe(() => {
-        const now = Date.now();
-        // Only reinitialize after a delay and not too frequently
-        if (now - lastChangeTime > 1000) {
-            lastChangeTime = now;
-            setTimeout(() => {
-                initializeGallerySlider();
-            }, 50);
-        }
-    });
-}
-
-/**
- * View for the gallery slider block.
- */
-export function View() {
-    return null;
-} 

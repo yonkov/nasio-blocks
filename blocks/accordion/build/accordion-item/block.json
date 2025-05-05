@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "nasio-block/accordion-item",
+  "title": "Accordion Item",
+  "category": "nasio-blocks",
+  "parent": [
+    "nasio-block/accordion"
+  ],
+  "icon": "list-view",
+  "description": "An individual accordion item.",
+  "version": "0.1.0",
+  "textdomain": "nasio-blocks",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "blockId": {
+      "type": "string"
+    }
+  },
+  "usesContext": [
+    "nasio-block/defaultOpenItem"
+  ],
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "reusable": false
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

@@ -27,20 +27,11 @@
 
 // Style the main content slider block
 .wp-block-nasio-block-content-slider {
-    position: relative;
-    // Basic editor styles
-    &.is-selected {
-        outline: 1px solid #1e1e1e;
-    }
-    
-    // Style the editor title
     .nasio-slider-editor-title {
         background: #f0f0f0;
-        color: #1e1e1e;
-        font-size: 13px;
+        font-size: .875rem;
         font-weight: 600;
         padding: 8px 12px;
-        margin-bottom: 15px;
         border-radius: 2px;
         text-align: center;
         border: 1px solid #ddd;

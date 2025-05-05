@@ -6,17 +6,13 @@ import {
     InspectorControls,
     useBlockProps,
     useInnerBlocksProps,
-    InnerBlocks,
-    BlockControls,
     BlockContextProvider,
 } from '@wordpress/block-editor';
 import {
     PanelBody,
     RangeControl,
     ToggleControl,
-    SelectControl,
-    Button,
-    Toolbar,
+    SelectControl
 } from '@wordpress/components';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -52,15 +48,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
     const [isInitialized, setIsInitialized] = useState(false);
     const containerRef = useRef(null);
     const swiperInstanceRef = useRef(null);
-    
-    // Check if we're in the editor
-    const isEditor = typeof window !== 'undefined' && 
-                    window.wp && 
-                    window.wp.data && 
-                    window.wp.blocks;
-
-    // Get the selectBlock function
-    const { selectBlock } = useDispatch('core/block-editor');
 
     const { innerBlocks } = useSelect(
         (select) => ({
@@ -117,17 +104,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         }
     );
 
-    // Add a helper function to select inner blocks
-    const selectInnerBlock = (blockClientId) => {
-        if (blockClientId) {
-            // Use setTimeout to ensure this happens after the default selection
-            setTimeout(() => {
-                selectBlock(blockClientId);
-            }, 10);
-        }
-    };
-
-    // Initialize and destroy Swiper
+    // Initialize and update Swiper
     useEffect(() => {
         
         // Initialize Swiper after a short delay to ensure DOM is ready
@@ -158,7 +135,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             unsubscribe();
             clearTimeout(timer);
             
-            // Update instead of destroying to prevent breaking when adding slides
+            // Update swiper when adding slides via the block editor
             if (swiperInstanceRef.current) {
                 swiperInstanceRef.current.update();
             }
@@ -398,11 +375,11 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             </InspectorControls>
 
             <div className="content-slider-wrapper" ref={containerRef}>
-                <div className="nasio-slider-editor-title">
+                <h3 className="nasio-slider-editor-title">
                     {displayMode === 'fullwidth' 
                         ? __('Content Slider Preview', 'nasio-blocks') 
                         : __('Content Carousel Preview', 'nasio-blocks')}
-                </div>
+                </h3>
                 
                 <BlockContextProvider value={blockContext}>
                     <div className="nasio-content-slider swiper">

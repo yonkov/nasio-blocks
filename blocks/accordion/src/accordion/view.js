@@ -84,7 +84,3 @@ function closeAccordionItem(item) {
         icon.style.transform = 'rotate(0deg)';
     }
 }
-
-export function View() {
-    return null;
-}

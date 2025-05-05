@@ -2,27 +2,16 @@
  * Editor styles for the Post Slider block
  */
 
-// Style the main post slider block in editor
 .wp-block-nasio-block-post-slider {
-    position: relative;
-    // Style the preview container
     .nasio-post-slider-preview {
-        // Style the editor title within the preview container
         .nasio-slider-editor-title {
             background: #f0f0f0;
-            color: #1e1e1e;
-            font-size: 13px;
+            font-size: .875rem;
             font-weight: 600;
             padding: 8px 12px;
-            margin-bottom: 15px;
             border-radius: 2px;
             text-align: center;
             border: 1px solid #ddd;
-            // Make the title stand out when the block is selected
-            .is-selected & {
-                background: #f8f8f8;
-                border-color: #007cba;
-            }
         }
     }
 

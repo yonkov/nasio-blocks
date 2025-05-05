@@ -5,6 +5,10 @@
  * @package Nasio Blocks
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Renders the `nasio-block/content-slider` block on the server.
  * 

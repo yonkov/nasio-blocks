@@ -45,6 +45,7 @@ export default function Edit({ attributes, setAttributes, className }) {
 		draggable,
 		includeStickyPost,
 		contentPosition,
+		imageOverlay
 	} = attributes;
 
 	const [categories, setCategories] = useState([]);
@@ -112,17 +113,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 			}
 		};
 
-		// If fullwidth mode, use different settings
-		if (displayMode === "fullwidth") {
-			settings.effect = "fade";
-			settings.fadeEffect = {
-				crossFade: true,
-			};
-			// For fullwidth we want regular loop rather than rewind
-			settings.loop = loop;
-			delete settings.rewind;
-		}
-
 		// Add autoplay if enabled
 		if (autoplay) {
 			settings.autoplay = {
@@ -150,8 +140,8 @@ export default function Edit({ attributes, setAttributes, className }) {
 
 		// Add responsive breakpoints for carousel mode
 		if (displayMode === "carousel") {
-			settings.slidesPerView = 1; // Default to 1 slide for smallest screens
-			settings.slidesPerGroup = 1; // Default to 1 for smallest screens
+			settings.slidesPerView = 1;
+			settings.slidesPerGroup = 1;
 
 			settings.breakpoints = {
 				// Breakpoints use min-width (not max-width)
@@ -260,9 +250,9 @@ export default function Edit({ attributes, setAttributes, className }) {
 					{displayMode === "fullwidth" && (
 						<RangeControl
 							label={__("Slider Overlay", "nasio-blocks")}
-							value={attributes.imageOverlay || 2}
+							value={imageOverlay || 2}
 							onChange={(value) => setAttributes({ imageOverlay: value })}
-							min={0}
+							min={1}
 							max={10}
 							help={__(
 								"Darkens the featured image. Default is 2. Higher values create a darker overlay.",

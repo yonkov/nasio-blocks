@@ -5,8 +5,7 @@
  * @package Nasio_Blocks
  */
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
+ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 

@@ -162,7 +162,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         });
     };
 
-    // Initialize and destroy Swiper
+    // Initialize and update Swiper
     useEffect(() => {
         // Initialize Swiper after a short delay to ensure DOM is ready
         const timer = setTimeout(() => {
@@ -191,7 +191,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             unsubscribe();
             clearTimeout(timer);
             
-            // Update instead of destroying to prevent breaking when adding slides
+            // Update when content in the editor changes
             if (swiperInstanceRef.current) {
                 swiperInstanceRef.current.update();
             }
@@ -480,9 +480,9 @@ export default function Edit({ attributes, setAttributes, clientId, className })
 
             <div {...blockProps}>
                 <div className="gallery-slider-wrapper" ref={containerRef}>
-                    <div className="nasio-slider-editor-title">
+                    <h3 className="nasio-slider-editor-title">
                         {__('Gallery Slider Preview', 'nasio-blocks')}
-                    </div>
+                    </h3>
                     
                     <div className="nasio-gallery-slider swiper">
                         <div className="swiper-wrapper">
