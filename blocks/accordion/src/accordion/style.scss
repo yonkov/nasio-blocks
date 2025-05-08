@@ -16,7 +16,7 @@
 		
 		.nasio-accordion-item-header {
 			padding: 1rem;
-			background-color: #f7f7f7;
+			background-color: var(--nasio-blocks-accordion-header-bgr-color, #f7f7f7);
 			cursor: pointer;
 			display: flex;
 			justify-content: space-between;
@@ -25,32 +25,43 @@
 			border: 1px solid #ddd;
 			border-radius: 4px;
 			margin-bottom: 0.5rem;
-			
-			.nasio-accordion-icon {
-				transition: transform 0.3s ease;
-				width: 24px;
-				height: 24px;
+			h3 {
+				color: var(--nasio-blocks-accordion-header-text-color, inherit);
 			}
-		}
-		
-		&.is-open {
-			.nasio-accordion-icon {
-				transform: rotate(180deg);
+			svg {
+				fill: var(--nasio-blocks-accordion-header-text-color, inherit);
 			}
-		}
-		
-		.nasio-accordion-item-content {
-			max-height: 0;
-			overflow: hidden;
-			transition: max-height 0.3s ease-out;
-			
-			.nasio-accordion-item-content-inner {
-				padding: 1rem;
-			}
-		}
-
-		&.is-open .nasio-accordion-item-content {
-			max-height: none;
 		}
 	}
+}
+
+.wp-block-nasio-block-accordion-item {
+    .nasio-accordion-icon {
+        width: 2rem;
+        height: 2rem;
+        transition: transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.is-open {
+        .nasio-accordion-icon {
+            transform: rotate(180deg);
+        }
+    }
+
+    .nasio-accordion-item-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+
+        .nasio-accordion-item-content-inner {
+            padding: 1rem;
+        }
+    }
+
+    &.is-open .nasio-accordion-item-content {
+        max-height: none;
+    }
 }

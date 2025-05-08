@@ -22,6 +22,12 @@
 		"defaultOpenItem": {
 			"type": "string",
 			"default": ""
+		},
+		"headerBackgroundColor": {
+			"type": "string"
+		},
+		"headerTextColor": {
+			"type": "string"
 		}
 	},
 	"providesContext": {

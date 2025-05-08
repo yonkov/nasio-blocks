@@ -6,12 +6,12 @@
  * Version: 0.0.1
  * Requires at least: 6.7
  * Requires PHP: 7.2
- * Author: Atanas Yonkov
+ * Author: Nasio Themes
  * Author URI: https://nasiothemes.com
  * License: GPLv2
  * Text Domain: nasio-blocks
 =====================================================================================
-Copyright (C) 2025-present Atanas Yonkov
+Copyright (C) 2025-present Nasio Themes
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2

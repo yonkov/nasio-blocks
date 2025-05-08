@@ -8,8 +8,6 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import Edit from './edit';
 import save from './save';
-import './style.scss';
-import './editor.scss';
 
 /**
  * Register the accordion item block
@@ -17,4 +15,4 @@ import './editor.scss';
 registerBlockType('nasio-block/accordion-item', {
 	edit: Edit,
 	save,
-}); 
+});

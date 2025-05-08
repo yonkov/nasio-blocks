@@ -1,10 +1,10 @@
 === Nasio Blocks ===
-Contributors: nravota12
+Contributors: nasiothemes
 Plugin Name: Nasio Blocks
 Plugin URI: https://github.com/yonkov/nasio-blocks
 Tags: gutenberg, blocks, gutenberg blocks, swiper
 Author URI: https://nasiothemes.com/
-Author: Atanas Yonkov
+Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8

@@ -17,4 +17,4 @@ import './editor.scss';
 registerBlockType('nasio-block/accordion', {
 	edit: Edit,
 	save,
-}); 
+});

@@ -11,11 +11,20 @@ import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save({ attributes }) {
-    const { defaultOpenItem } = attributes;
+    const { defaultOpenItem, headerBackgroundColor, headerTextColor } = attributes;
+
+    const style = {};
+    if (headerBackgroundColor) {
+        style['--nasio-blocks-accordion-header-bgr-color'] = headerBackgroundColor;
+    }
+    if (headerTextColor) {
+        style['--nasio-blocks-accordion-header-text-color'] = headerTextColor;
+    }
 
     const blockProps = useBlockProps.save({
         className: 'nasio-accordion',
-        'data-default-open': defaultOpenItem || ''
+        'data-default-open': defaultOpenItem || '',
+        style: style
     });
 
     return (

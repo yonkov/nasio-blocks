@@ -9,7 +9,7 @@
   ],
   "icon": "list-view",
   "description": "An individual accordion item.",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "textdomain": "nasio-blocks",
   "attributes": {
     "title": {
@@ -28,7 +28,5 @@
     "anchor": true,
     "reusable": false
   },
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css"
+  "editorScript": "file:./index.js"
 }
