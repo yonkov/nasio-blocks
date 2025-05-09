@@ -47,12 +47,12 @@ function initializePostSlider() {
 		const displayMode = swiperElement.dataset.displayMode || 'carousel';
 		const slidesPerView = parseInt(swiperElement.dataset.slidesPerView || 3);
 		const spaceBetween = parseInt(swiperElement.dataset.spaceBetween || 20);
+		const slidesPerGroup = parseInt(swiperElement.dataset.slidesPerGroup || 3);
 		const loop = swiperElement.dataset.loop === 'true';
 		const autoplay = swiperElement.dataset.autoplay === 'true';
 		const autoplayDelay = parseInt(swiperElement.dataset.autoplayDelay || 3000);
 		const showDots = swiperElement.dataset.showDots === 'true';
 		const showArrows = swiperElement.dataset.showArrows === 'true';
-		const slidesPerGroup = parseInt(swiperElement.dataset.slidesPerGroup || slidesPerView);
 		const draggable = swiperElement.dataset.draggable === 'true';
 		
 		// Base settings for both displayModes
@@ -81,8 +81,7 @@ function initializePostSlider() {
 				// When window width is >= 480px
 				480: {
 					slidesPerView: Math.min(2, slidesPerView),
-					slidesPerGroup: Math.min(2, slidesPerGroup),
-					spaceBetween: spaceBetween
+					slidesPerGroup: Math.min(2, slidesPerGroup)
 				},
 				// When window width is >= 768px
 				768: {

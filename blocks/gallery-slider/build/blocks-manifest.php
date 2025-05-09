@@ -80,6 +80,10 @@ return array(
 			'imageSizeSlug' => array(
 				'type' => 'string',
 				'default' => 'large'
+			),
+			'slidesPerGroup' => array(
+				'type' => 'number',
+				'default' => 1
 			)
 		),
 		'editorScript' => 'file:./index.js',

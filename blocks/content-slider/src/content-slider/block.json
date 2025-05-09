@@ -57,10 +57,14 @@
 		"draggable": {
 			"type": "boolean",
 			"default": true
+		},
+		"slidesPerGroup": {
+			"type": "number",
+			"default": 3
 		}
 	},
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",
     "style": "file:./style-index.css",
     "viewScript": "file:./view.js"
-} 
+}

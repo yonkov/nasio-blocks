@@ -93,26 +93,23 @@ function initializeContentSlider() {
                 settings.loopAdditionalSlides = 1;
             }
         } else {
-            // Carousel mode settings
-            const desiredSlidesPerView = parseInt(slider.dataset.slidesPerView || 3);
-            
-            // For carousel mode, make sure pagination shows correct number of pages
-            settings.slidesPerGroup = desiredSlidesPerView;
-            
-            // Responsive breakpoints
-            settings.slidesPerView = 1; // Default for mobile
-            settings.slidesPerGroup = 1; // Default for mobile
+            const slidesPerView = parseInt(slider.dataset.slidesPerView || 3);
+            const spaceBetween = parseInt(slider.dataset.spaceBetween || 20);
+            const slidesPerGroup = parseInt(slider.dataset.slidesPerGroup || 3);
 
-            settings.spaceBetween = parseInt(slider.dataset.spaceBetween || 20);
+            settings.slidesPerView = 1; // Default for mobile
+            settings.slidesPerGroup = 1;
+
+            settings.spaceBetween = spaceBetween;
             
             settings.breakpoints = {
                 480: {
-                    slidesPerView: Math.min(2, desiredSlidesPerView),
-                    slidesPerGroup: Math.min(2, desiredSlidesPerView)
+                    slidesPerView: Math.min(2, slidesPerView),
+                    slidesPerGroup: Math.min(2, slidesPerGroup)
                 },
                 768: {
-                    slidesPerView: desiredSlidesPerView,
-                    slidesPerGroup: desiredSlidesPerView
+                    slidesPerView: slidesPerView,
+                    slidesPerGroup: slidesPerGroup
                 }
             };
         }

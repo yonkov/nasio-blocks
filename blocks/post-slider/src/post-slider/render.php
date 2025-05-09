@@ -26,6 +26,7 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	$show_dots       = ! empty( $attributes['showDots'] ) ? 'true' : 'false';
 	$show_arrows     = ! empty( $attributes['showArrows'] ) ? 'true' : 'false';
 	$draggable       = ! empty( $attributes['draggable'] ) ? 'true' : 'false';
+	$slides_per_group = ( $display_mode === 'carousel' ) ? intval( $attributes['slidesPerGroup'] ?? 3 ) : 1;
 
 	$show_featured_image = $attributes['showFeaturedImage'] ?? true;
 	$show_fallback_image = $attributes['showFallbackImage'] && $attributes['showFeaturedImage'] ?? true;
@@ -131,7 +132,7 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	$data_attributes .= ' data-draggable="' . esc_attr( $draggable ) . '"';
 
 	if ( $display_mode === 'carousel' ) {
-		$data_attributes .= ' data-slides-per-group="' . esc_attr( $slides_per_view ) . '"';
+		$data_attributes .= ' data-slides-per-group="' . esc_attr( $slides_per_group ) . '"'; // Corrected line
 	}
 
 	$style_attributes = ' style="'

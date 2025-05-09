@@ -107,6 +107,10 @@ return array(
 			'draggable' => array(
 				'type' => 'boolean',
 				'default' => true
+			),
+			'slidesPerGroup' => array(
+				'type' => 'number',
+				'default' => 3
 			)
 		),
 		'editorScript' => 'file:./index.js',

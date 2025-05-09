@@ -43,6 +43,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         showDots,
         showArrows,
         draggable,
+        slidesPerGroup,
     } = attributes;
 
     const [isInitialized, setIsInitialized] = useState(false);
@@ -151,6 +152,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         showDots,
         showArrows,
         draggable,
+        slidesPerGroup,
         innerBlocks.length,
     ]);
 
@@ -182,7 +184,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             const settings = {
                 slidesPerView: displayMode === 'carousel' ? parseInt(slidesPerView) : 1,
                 spaceBetween: displayMode === 'carousel' ? parseInt(spaceBetween) : 0,
-                slidesPerGroup: displayMode === 'carousel' ? parseInt(slidesPerView) : 1,
+                slidesPerGroup: displayMode === 'carousel' ? parseInt(slidesPerGroup) : 1,
                 rewind: loop,
                 observer: true,
                 observeParents: true,
@@ -252,12 +254,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                     clickable: true
                 };
 
-                // For carousel mode, we need to ensure pagination shows correct number of pages
-                if (displayMode === 'carousel') {
-                    // This makes pagination respect slidesPerGroup/slidesPerView
-                    // and show correct number of pagination bullets
-                    settings.slidesPerGroup = parseInt(slidesPerView);
-                }
             }
             
             try {
@@ -313,6 +309,15 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                                 onChange={(value) => setAttributes({ slidesPerView: value })}
                                 min={1}
                                 max={5}
+                                help={__('The number of slides visible on the screen.', 'nasio-blocks')}
+                            />
+                            <RangeControl
+                                label={__('Slides Per Group', 'nasio-blocks')}
+                                value={slidesPerGroup}
+                                onChange={(value) => setAttributes({ slidesPerGroup: value })}
+                                min={1}
+                                max={5}
+                                help={__('The number of slides to advance.', 'nasio-blocks')}
                             />
                             <RangeControl
                                 label={__('Space Between Slides (px)', 'nasio-blocks')}

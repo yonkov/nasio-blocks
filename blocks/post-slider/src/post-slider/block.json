@@ -97,6 +97,10 @@
 		"draggable": {
 			"type": "boolean",
 			"default": true
+		},
+		"slidesPerGroup": {
+			"type": "number",
+			"default": 3
 		}
 	},
 	"editorScript": "file:./index.js",

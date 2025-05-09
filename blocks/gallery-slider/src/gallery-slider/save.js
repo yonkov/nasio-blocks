@@ -26,6 +26,7 @@ export default function save({ attributes }) {
         draggable,
         showCaptions,
         linkTo,
+        slidesPerGroup
     } = attributes;
 
     // If there are no images, don't render anything
@@ -45,6 +46,7 @@ export default function save({ attributes }) {
         'data-draggable': draggable.toString(),
         'data-show-captions': showCaptions.toString(),
         'data-link-to': linkTo,
+        'data-slides-per-group': slidesPerGroup
     });
 
     return (
@@ -96,4 +98,4 @@ export default function save({ attributes }) {
             </div>
         </div>
     );
-} 
+}

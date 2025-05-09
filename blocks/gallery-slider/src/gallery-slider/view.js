@@ -46,12 +46,13 @@ function initializeGallerySlider() {
         const draggable = slider.dataset.draggable === 'true';
         const desiredSlidesPerView = parseInt(slider.dataset.slidesPerView || 3);
         const spaceBetween = parseInt(slider.dataset.spaceBetween || 20);
+        const slidesPerGroup = parseInt(slider.dataset.slidesPerGroup || 1); // <-- ADDED HERE
 
         // Base settings that apply to all gallery sliders
         const settings = {
             slidesPerView: 1, // Default for mobile
             spaceBetween: spaceBetween,
-            slidesPerGroup: 1, // Default for mobile
+            slidesPerGroup: slidesPerGroup, // <-- MODIFIED HERE
             loop: loop,
             observer: true,
             observeParents: true,
@@ -73,11 +74,11 @@ function initializeGallerySlider() {
             breakpoints: {
                 480: {
                     slidesPerView: Math.min(2, desiredSlidesPerView),
-                    slidesPerGroup: Math.min(2, desiredSlidesPerView)
+                    slidesPerGroup: Math.min(2, slidesPerGroup) // <-- MODIFIED HERE
                 },
                 768: {
                     slidesPerView: desiredSlidesPerView,
-                    slidesPerGroup: desiredSlidesPerView
+                    slidesPerGroup: slidesPerGroup // <-- MODIFIED HERE
                 }
             }
         };
@@ -94,7 +95,7 @@ function initializeGallerySlider() {
         if (slider.dataset.showDots === 'true') {
             settings.pagination = {
                 el: slider.querySelector('.swiper-pagination'),
-                clickable: true
+                clickable: true,
             };
         }
 

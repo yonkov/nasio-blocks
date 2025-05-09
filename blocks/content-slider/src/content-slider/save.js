@@ -14,7 +14,8 @@ export default function save({ attributes }) {
         autoplayDelay = 3000,
         showDots = true,
         showArrows = true,
-        draggable = true
+        draggable = true,
+        slidesPerGroup
     } = attributes;
 
     const wrapperClass = `wp-block-nasio-block-content-slider is-display-mode-${displayMode}`;
@@ -28,7 +29,8 @@ export default function save({ attributes }) {
         'data-autoplay-delay': autoplayDelay,
         'data-show-dots': showDots,
         'data-show-arrows': showArrows,
-        'data-draggable': draggable
+        'data-draggable': draggable,
+        'data-slides-per-group': slidesPerGroup
     };
     
     // Add slides-per-view only for carousel mode

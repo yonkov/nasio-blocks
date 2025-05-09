@@ -34,6 +34,7 @@ export default function Edit({ attributes, setAttributes, className }) {
 		showAuthor,
 		showDate,
 		slidesPerView,
+		slidesPerGroup,
 		sliderHeight,
 		spaceBetween,
 		loop,
@@ -101,7 +102,7 @@ export default function Edit({ attributes, setAttributes, className }) {
 			slidesPerView: displayMode === "carousel" ? parseInt(slidesPerView) : 1,
 			sliderHeight: displayMode === "fullwidth" ? parseInt(sliderHeight) : 0,
 			spaceBetween: displayMode === "carousel" ? parseInt(spaceBetween) : 0,
-			slidesPerGroup: displayMode === "carousel" ? parseInt(slidesPerView) : 1,
+			slidesPerGroup: displayMode === "carousel" ? parseInt(slidesPerGroup) : 1,
 			rewind: loop,
 			observer: true,
 			observeParents: true,
@@ -148,12 +149,12 @@ export default function Edit({ attributes, setAttributes, className }) {
 				// When window width is >= 480px
 				480: {
 					slidesPerView: Math.min(2, slidesPerView),
-					slidesPerGroup: Math.min(2, slidesPerView),
+					slidesPerGroup: Math.min(2, slidesPerGroup)
 				},
 				// When window width is >= 768px
 				768: {
 					slidesPerView: parseInt(slidesPerView),
-					slidesPerGroup: parseInt(slidesPerView),
+					slidesPerGroup: parseInt(slidesPerGroup)
 				},
 			};
 		}
@@ -237,6 +238,15 @@ export default function Edit({ attributes, setAttributes, className }) {
 								onChange={(value) => setAttributes({ slidesPerView: value })}
 								min={1}
 								max={5}
+								help={__('The number of slides visible on the screen.', 'nasio-blocks')}
+							/>
+							<RangeControl // <-- ADDED HERE
+								label={__("Slides Per Group", "nasio-blocks")}
+								value={slidesPerGroup}
+								onChange={(value) => setAttributes({ slidesPerGroup: value })}
+								min={1}
+								max={5}
+								help={__('The number of slides to advance.', 'nasio-blocks')}
 							/>
 							<RangeControl
 								label={__("Space Between Slides (px)", "nasio-blocks")}

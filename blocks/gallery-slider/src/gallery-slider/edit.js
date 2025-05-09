@@ -53,6 +53,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         showCaptions,
         linkTo,
         imageSizeSlug,
+        slidesPerGroup,
     } = attributes;
 
     const [selectedImage, setSelectedImage] = useState(null);
@@ -206,6 +207,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         showArrows,
         draggable,
         images?.length,
+        slidesPerGroup,
     ]);
 
     // Initialize Swiper
@@ -226,7 +228,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             const settings = {
                 slidesPerView: parseInt(slidesPerView),
                 spaceBetween: parseInt(spaceBetween),
-                slidesPerGroup: parseInt(slidesPerView),
+                slidesPerGroup: parseInt(slidesPerGroup),
                 rewind: loop,
                 observer: true,
                 observeParents: true,
@@ -408,7 +410,16 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                     <RangeControl
                         label={__('Slides Per View', 'nasio-blocks')}
                         value={slidesPerView}
+                        help={ __('The number of slides visible on the screen.')}
                         onChange={(value) => setAttributes({ slidesPerView: value })}
+                        min={1}
+                        max={5}
+                    />
+                    <RangeControl
+                        label={__('Slides Per Group', 'nasio-blocks')}
+                        value={slidesPerGroup}
+                        help={ __('The number of slides to advance.')}
+                        onChange={(value) => setAttributes({ slidesPerGroup: value })}
                         min={1}
                         max={5}
                     />
@@ -537,4 +548,4 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             </div>
         </>
     );
-} 
+}
