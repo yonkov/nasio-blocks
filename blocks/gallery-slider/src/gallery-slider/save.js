@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -26,7 +26,9 @@ export default function save({ attributes }) {
         draggable,
         showCaptions,
         linkTo,
-        slidesPerGroup
+        slidesPerGroup,
+        backgroundColor,
+        sliderWidth
     } = attributes;
 
     // If there are no images, don't render anything
@@ -49,8 +51,17 @@ export default function save({ attributes }) {
         'data-slides-per-group': slidesPerGroup
     });
 
+    const styles = {};
+    if (backgroundColor) {
+        styles['--nasio-blocks-gallery-slider-background-color'] = backgroundColor;
+    }
+    if (sliderWidth) {
+        styles['--nasio-blocks-gallery-slider-width'] = sliderWidth;
+    }
+
     return (
-        <div {...blockProps}>
+        <div {...blockProps} style={styles}>
+            <InnerBlocks.Content />
             <div className="nasio-gallery-slider swiper">
                 <div className="swiper-wrapper">
                     {images.map((image) => {

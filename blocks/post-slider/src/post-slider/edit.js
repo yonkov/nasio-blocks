@@ -240,7 +240,7 @@ export default function Edit({ attributes, setAttributes, className }) {
 								max={5}
 								help={__('The number of slides visible on the screen.', 'nasio-blocks')}
 							/>
-							<RangeControl // <-- ADDED HERE
+							<RangeControl
 								label={__("Slides Per Group", "nasio-blocks")}
 								value={slidesPerGroup}
 								onChange={(value) => setAttributes({ slidesPerGroup: value })}

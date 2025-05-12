@@ -9,6 +9,8 @@ import {
     MediaUpload,
     MediaUploadCheck,
     BlockControls,
+    PanelColorSettings,
+    InnerBlocks,
 } from '@wordpress/block-editor';
 import {
     PanelBody,
@@ -16,7 +18,8 @@ import {
     ToggleControl,
     SelectControl,
     Button,
-    Toolbar
+    Toolbar,
+    __experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
@@ -24,8 +27,8 @@ import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
 import {
     caption as captionIcon,
     update,
-    fullscreen,
     trash,
+    replace
 } from '@wordpress/icons';
 
 /**
@@ -54,6 +57,8 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         linkTo,
         imageSizeSlug,
         slidesPerGroup,
+        backgroundColor,
+        sliderWidth,
     } = attributes;
 
     const [selectedImage, setSelectedImage] = useState(null);
@@ -61,6 +66,12 @@ export default function Edit({ attributes, setAttributes, clientId, className })
     const containerRef = useRef(null);
     const swiperInstanceRef = useRef(null);
     const lastReinitTimeRef = useRef(0);
+
+    // Define allowed blocks and template for the title area
+    const ALLOWED_BLOCKS_FOR_TITLE = ['core/paragraph', 'core/heading'];
+    const TEMPLATE_FOR_TITLE = [
+        ['core/paragraph', { placeholder: __('Add a title or description for the gallery...', 'nasio-blocks') }]
+    ];
 
     // Get the available image sizes
     const { imageSizes } = useSelect((select) => {
@@ -81,68 +92,80 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         style: {
             '--slides-per-view': slidesPerView,
             '--space-between': `${spaceBetween}px`,
+            ...(backgroundColor && { '--nasio-blocks-gallery-slider-background-color': backgroundColor }),
         }
     });
 
     // Handle image selection
-    const onSelectImages = (newImages) => {
-        const newIds = newImages.map((image) => image.id);
+    const onSelectImages = (newImages) => { // newImages are from MediaPlaceholder/MediaUpload
         const newImagesData = newImages.map((image) => ({
-            url: image.url,
-            alt: image.alt || '',
             id: image.id.toString(),
+            alt: image.alt || '',
             caption: image.caption || '',
             link: image.link || '',
+            url: image.sizes?.[imageSizeSlug]?.url || image.url, // Set initial URL based on current imageSizeSlug
+            media_sizes: image.sizes, // Store all available sizes for this image
         }));
 
         setAttributes({
             images: newImagesData,
-            ids: newIds,
+            ids: newImages.map((image) => image.id), // Keep ids in sync
         });
     };
 
     // Handle image replacement
-    const onReplaceImage = (selectedImages) => {
-        if (!selectedImage) return;
+    const onReplaceImage = (newMediaItem) => { // Corrected: receives a single media object
+        if (!selectedImage || !newMediaItem) { // Check selectedImage (ID of item to replace) and newMediaItem
+            return;
+        }
 
-        const currentImages = [...images];
-        const currentIndex = currentImages.findIndex(
-            (img) => img.id === selectedImage
-        );
+        const updatedImages = images.map(img => {
+            // If this image in the array is the one we mean to replace
+            if (img.id === selectedImage) {
+                return {
+                    id: newMediaItem.id.toString(),
+                    alt: newMediaItem.alt || '',
+                    caption: newMediaItem.caption || img.caption || '', // Preserve old caption if new is empty
+                    link: newMediaItem.link || img.link || '',       // Preserve old link if new is empty
+                    url: newMediaItem.sizes?.[imageSizeSlug]?.url || newMediaItem.url,
+                    media_sizes: newMediaItem.sizes, // Store all available sizes for the new image
+                };
+            }
+            return img;
+        });
 
-        if (currentIndex === -1) return;
-
-        const newImage = selectedImages[0];
-        const newImageData = {
-            url: newImage.url,
-            alt: newImage.alt || '',
-            id: newImage.id.toString(),
-            caption: newImage.caption || currentImages[currentIndex].caption || '',
-            link: newImage.link || currentImages[currentIndex].link || '',
-        };
-
-        currentImages[currentIndex] = newImageData;
-        const newIds = [...ids];
-        newIds[currentIndex] = newImage.id;
+        const newImageIds = updatedImages.map(img => parseInt(img.id));
 
         setAttributes({
-            images: currentImages,
-            ids: newIds,
+            images: updatedImages,
+            ids: newImageIds,
         });
+
+        setSelectedImage(null); // De-select the image slot after replacement
+
+        // Force Swiper to update its view after attributes change
+        if (swiperInstanceRef.current) {
+            setTimeout(() => {
+                // Check if swiper instance still exists, e.g. if block was quickly removed
+                if (swiperInstanceRef.current) {
+                    swiperInstanceRef.current.update();
+                }
+            }, 50); // A small delay can help ensure React has re-rendered
+        }
     };
 
     // Handle image removal
-    const onRemoveImage = (id) => {
-        const newImages = images.filter((img) => img.id !== id);
-        const newIds = ids.filter((imgId) => imgId !== parseInt(id));
+    const onRemoveImage = (idToRemove) => {
+        const newImages = images.filter((img) => img.id !== idToRemove);
+        const newIds = newImages.map(img => parseInt(img.id)); // Rebuild IDs from remaining images
 
         setAttributes({
             images: newImages,
             ids: newIds,
         });
 
-        if (selectedImage === id) {
-            setSelectedImage(null);
+        if (selectedImage === idToRemove) {
+            setSelectedImage(null); // Clear selection if the removed image was selected
         }
     };
 
@@ -209,6 +232,36 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         images?.length,
         slidesPerGroup,
     ]);
+
+    // Effect to update image URLs when imageSizeSlug changes
+    useEffect(() => {
+        if (!images || images.length === 0 || !imageSizeSlug) {
+            return;
+        }
+
+        let hasChanges = false;
+        const updatedImages = images.map(img => {
+            // If media_sizes isn't available for an image (e.g., older block prior to this change),
+            // we can't update its URL based on size.
+            if (!img.media_sizes) {
+                return img;
+            }
+
+            // Attempt to get the URL for the selected imageSizeSlug.
+            // Fallback to 'full' size if available, then to the current img.url as a last resort.
+            const newUrl = img.media_sizes[imageSizeSlug]?.url || img.media_sizes.full?.url || img.url;
+
+            if (img.url !== newUrl) {
+                hasChanges = true;
+                return { ...img, url: newUrl };
+            }
+            return img;
+        });
+
+        if (hasChanges) {
+            setAttributes({ images: updatedImages });
+        }
+    }, [imageSizeSlug, images, setAttributes]);
 
     // Initialize Swiper
     const initSwiper = () => {
@@ -342,31 +395,33 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             <Toolbar>
                 <MediaUploadCheck>
                     <MediaUpload
-                        onSelect={onSelectImages}
+                        onSelect={onSelectImages} // This is for adding/editing the whole gallery
                         allowedTypes={['image']}
                         multiple
                         gallery
-                        value={ids}
+                        value={ids} // Use the array of current image IDs
                         render={({ open }) => (
                             <Button
                                 onClick={open}
-                                icon={update}
+                                icon={update} // Icon for editing the gallery
                                 label={__('Edit gallery', 'nasio-blocks')}
                             />
                         )}
                     />
                 </MediaUploadCheck>
+                {/* Conditionally render controls for a selected image */}
                 {selectedImage && (
                     <>
                         <MediaUploadCheck>
                             <MediaUpload
-                                onSelect={onReplaceImage}
+                                onSelect={onReplaceImage} // This is for replacing a single image
                                 allowedTypes={['image']}
-                                value={selectedImage}
+                                multiple={false} // Only allow selecting one image for replacement
+                                value={selectedImage ? [parseInt(selectedImage)] : []} // Pass current image ID for context to media modal
                                 render={({ open }) => (
                                     <Button
                                         onClick={open}
-                                        icon="replace"
+                                        icon={replace} // Correct icon for replacing an image
                                         label={__('Replace image', 'nasio-blocks')}
                                     />
                                 )}
@@ -488,63 +543,113 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                     />
                 </PanelBody>
             </InspectorControls>
+            <InspectorControls group="styles">
+                <PanelColorSettings
+                    title={__('Color', 'nasio-blocks')}
+                    initialOpen={true}
+                    colorSettings={[
+                        {
+                            value: backgroundColor,
+                            onChange: (value) => setAttributes({ backgroundColor: value }),
+                            label: __('Background Color', 'nasio-blocks'),
+                        },
+                    ]}
+                />
+                <PanelBody title={__('Dimensions', 'nasio-blocks')} initialOpen={true}>
+                    <UnitControl
+                        label={__('Slider Width', 'nasio-blocks')}
+                        value={sliderWidth}
+                        onChange={(value) => setAttributes({ sliderWidth: value || '' })}
+                        help={__('Enter a width for the slider (e.g., 100%, 500px, 50rem). Leave empty for the slider to take the width of its container.', 'nasio-blocks')}
+                        units={[
+                            { value: 'px', label: 'px', default: 0 },
+                            { value: '%', label: '%', default: 100 },
+                            { value: 'em', label: 'em', default: 0 },
+                            { value: 'rem', label: 'rem', default: 0 },
+                            { value: 'vw', label: 'vw', default: 100 },
+                        ]}
+                    />
+                </PanelBody>
+            </InspectorControls>
 
             <div {...blockProps}>
-                <div className="gallery-slider-wrapper" ref={containerRef}>
-                    <h3 className="nasio-slider-editor-title">
-                        {__('Gallery Slider Preview', 'nasio-blocks')}
-                    </h3>
-                    
-                    <div className="nasio-gallery-slider swiper">
-                        <div className="swiper-wrapper">
-                            {images.map((image) => {
-                                const isSelected = selectedImage === image.id;
-                                const isEditing = editingCaption === image.id;
+                {images.length === 0 ? (
+                    <MediaPlaceholder
+                        icon="format-gallery"
+                        labels={{
+                            title: __('Gallery Slider', 'nasio-blocks'),
+                            instructions: __(
+                                'Drag images, upload new ones or select files from your library.',
+                                'nasio-blocks'
+                            ),
+                        }}
+                        onSelect={onSelectImages}
+                        accept="image/*"
+                        allowedTypes={['image']}
+                        multiple
+                        value={images}
+                    />
+                ) : (
+                    <div className="gallery-slider-wrapper" ref={containerRef}>
+                        <h3 className="nasio-slider-editor-title">
+                            {__('Gallery Slider Preview', 'nasio-blocks')}
+                        </h3>
+                        <InnerBlocks
+                            allowedBlocks={ALLOWED_BLOCKS_FOR_TITLE}
+                            template={TEMPLATE_FOR_TITLE}
+                            templateLock={false}
+                        />
+                        <div className="nasio-gallery-slider swiper">
+                            <div className="swiper-wrapper">
+                                {images.map((image) => {
+                                    const isSelected = selectedImage === image.id;
+                                    const isEditing = editingCaption === image.id;
 
-                                return (
-                                    <div 
-                                        key={image.id} 
-                                        className={`swiper-slide gallery-slider-item ${isSelected ? 'is-selected' : ''}`}
-                                        onClick={() => setSelectedImage(image.id)}
-                                    >
-                                        <figure className="gallery-slider-figure">
-                                            <img
-                                                src={image.url}
-                                                alt={image.alt}
-                                                data-id={image.id}
-                                                data-link={image.link}
-                                                className="gallery-slider-image"
-                                            />
-                                            {showCaptions && (image.caption || isEditing) && (
-                                                <figcaption className="gallery-slider-caption">
-                                                    {isEditing ? (
-                                                        <textarea
-                                                            value={image.caption}
-                                                            onChange={(e) => updateCaption(e.target.value, image.id)}
-                                                            autoFocus
-                                                            onClick={(e) => e.stopPropagation()}
-                                                        />
-                                                    ) : (
-                                                        image.caption
-                                                    )}
-                                                </figcaption>
-                                            )}
-                                        </figure>
-                                    </div>
-                                );
-                            })}
+                                    return (
+                                        <div 
+                                            key={image.id} 
+                                            className={`swiper-slide gallery-slider-item ${isSelected ? 'is-selected' : ''}`}
+                                            onClick={() => setSelectedImage(image.id)}
+                                        >
+                                            <figure className="gallery-slider-figure">
+                                                <img
+                                                    src={image.url}
+                                                    alt={image.alt}
+                                                    data-id={image.id}
+                                                    data-link={image.link}
+                                                    className="gallery-slider-image"
+                                                />
+                                                {showCaptions && (image.caption || isEditing) && (
+                                                    <figcaption className="gallery-slider-caption">
+                                                        {isEditing ? (
+                                                            <textarea
+                                                                value={image.caption}
+                                                                onChange={(e) => updateCaption(e.target.value, image.id)}
+                                                                autoFocus
+                                                                onClick={(e) => e.stopPropagation()}
+                                                            />
+                                                        ) : (
+                                                            image.caption
+                                                        )}
+                                                    </figcaption>
+                                                )}
+                                            </figure>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            
+                            {showDots && <div className="swiper-pagination"></div>}
+                            
+                            {showArrows && (
+                                <>
+                                    <div className="swiper-button-prev"></div>
+                                    <div className="swiper-button-next"></div>
+                                </>
+                            )}
                         </div>
-                        
-                        {showDots && <div className="swiper-pagination"></div>}
-                        
-                        {showArrows && (
-                            <>
-                                <div className="swiper-button-prev"></div>
-                                <div className="swiper-button-next"></div>
-                            </>
-                        )}
                     </div>
-                </div>
+                )}
             </div>
         </>
     );

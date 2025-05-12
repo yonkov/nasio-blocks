@@ -50,42 +50,43 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 		$query_args['cat'] = intval( $attributes['postCategory'] );
 	}
 
-	// Get sticky posts first if enabled
-	$sticky_posts   = get_option( 'sticky_posts' );
 	$include_sticky = ! empty( $attributes['includeStickyPost'] );
-	$sticky_query   = array();
-
-	if ( $include_sticky && ! empty( $sticky_posts ) ) {
-		$sticky_query = get_posts(
-			array(
-				'post__in'            => $sticky_posts,
-				'post_type'           => 'post',
-				'post_status'         => 'publish',
-				'posts_per_page'      => -1,
-				'ignore_sticky_posts' => 1,
-			)
-		);
-
-		// Get the IDs of sticky posts to exclude from regular query
-		$sticky_ids = array_map(
-			function( $post ) {
-				return $post->ID;
-			},
-			$sticky_query
-		);
-
-		// Exclude sticky posts from regular query to avoid duplicates
-		$query_args['post__not_in'] = $sticky_ids;
+	$sticky_posts   = $include_sticky ? get_option( 'sticky_posts' ) : array();
+	
+	$query_args = array(
+		'post_type'           => 'post',
+		'posts_per_page'      => -1, // Get all, limit later in PHP
+		'post_status'         => 'publish',
+		'orderby'             => 'date',
+		'order'               => 'desc',
+		'ignore_sticky_posts' => 1, // Prevent WP from pinning sticky posts automatically
+		'no_found_rows'       => true,
+	);
+	
+	if ( isset( $attributes['postCategory'] ) && ! empty( $attributes['postCategory'] ) ) {
+		$query_args['cat'] = intval( $attributes['postCategory'] );
 	}
-
-	// Get regular posts
-	$regular_posts = get_posts( $query_args );
-
-	// Combine sticky and regular posts
-	$posts = array_merge( $sticky_query, $regular_posts );
-
-	// Limit total posts to posts_per_page
+	
+	$all_posts = get_posts( $query_args );
+	
+	$sticky_posts_data = array();
+	$non_sticky_posts  = array();
+	
+	foreach ( $all_posts as $post ) {
+		if ( in_array( $post->ID, $sticky_posts, true ) ) {
+			$sticky_posts_data[] = $post;
+		} else {
+			$non_sticky_posts[] = $post;
+		}
+	}
+	
+	$posts = $include_sticky
+		? array_merge( $sticky_posts_data, $non_sticky_posts )
+		: $non_sticky_posts;
+	
+	// Limit to desired total count
 	$posts = array_slice( $posts, 0, $posts_per_page );
+	
 	if ( ! is_array( $posts ) ) {
 		$posts = array();
 	}

@@ -8,7 +8,7 @@ Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 0.0.1
+Stable tag: 0.0.2
 License: GPLv2
 
 Custom Blocks for the WordPress Block editor
@@ -59,6 +59,9 @@ Yes, you can set the number of posts to display, filter by category, and adjust 
 Yes, the sliders is fully responsive and will automatically adjust the number of visible slides based on the screen size.
 
 == Changelog ==
+
+= 0.0.2 - May 2025 =
+* Update plugin main file name and add Nasio Themes as an author and contributor. Update slider blocks to have slidesPerGroup property, improve gallery slider and accordeon blocks functionality.
 
 = 0.0.1 - May 2025 =
 * First plugin version.

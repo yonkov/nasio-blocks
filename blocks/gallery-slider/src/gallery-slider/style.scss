@@ -5,6 +5,8 @@
 .wp-block-nasio-block-gallery-slider {
     position: relative;
     margin-bottom: 1.5em;
+    background-color: var(--nasio-blocks-gallery-slider-background-color);
+    color: var(--nasio-blocks-gallery-slider-text-color);
     
     // Set CSS variables for use throughout the component
     --swiper-theme-color: #444;
@@ -15,7 +17,8 @@
         width: 100%;
         overflow: hidden;
         margin: 0 auto;
-        padding-bottom: 60px; // Increased space for pagination (matching content slider)
+        padding-bottom: 60px;
+        width: var(--nasio-blocks-gallery-slider-width, auto);
     }
     
     .swiper-wrapper {
@@ -37,13 +40,16 @@
         margin: 0;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         height: 100%;
         position: relative;
     }
     
     .gallery-slider-image {
-        object-fit: cover;
-        width: 100%;
+        object-fit: contain;
+        max-width: 100%;
+        max-height: 100%;
         height: auto;
         border-radius: 4px;
         display: block;
@@ -123,7 +129,7 @@
     // Responsive styling for different screen sizes
     @media screen and (max-width: 768px) {
         .nasio-gallery-slider {
-            padding-bottom: 40px; // Add space for pagination on mobile
+            padding-bottom: 40px;
         }
         
         .swiper-button-prev,

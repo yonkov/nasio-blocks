@@ -1,6 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
+  "version": "0.0.2",
   "name": "nasio-block/accordion",
   "title": "Accordion",
   "category": "nasio-blocks",
@@ -13,7 +14,6 @@
     "expand",
     "collapse"
   ],
-  "version": "0.0.1",
   "textdomain": "nasio-blocks",
   "supports": {
     "html": false,

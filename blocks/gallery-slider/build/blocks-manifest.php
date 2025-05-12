@@ -4,7 +4,7 @@ return array(
 	'gallery-slider' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 2,
-		'version' => '0.0.1',
+		'version' => '0.0.2',
 		'name' => 'nasio-block/gallery-slider',
 		'title' => 'Gallery Slider',
 		'category' => 'nasio-blocks',
@@ -84,6 +84,13 @@ return array(
 			'slidesPerGroup' => array(
 				'type' => 'number',
 				'default' => 1
+			),
+			'backgroundColor' => array(
+				'type' => 'string'
+			),
+			'sliderWidth' => array(
+				'type' => 'string',
+				'default' => ''
 			)
 		),
 		'editorScript' => 'file:./index.js',

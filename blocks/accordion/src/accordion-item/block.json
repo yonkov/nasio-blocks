@@ -7,7 +7,6 @@
 	"parent": ["nasio-block/accordion"],
 	"icon": "list-view",
 	"description": "An individual accordion item.",
-	"version": "0.0.1",
 	"textdomain": "nasio-blocks",
 	"attributes": {
 		"title": {

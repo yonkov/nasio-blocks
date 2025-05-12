@@ -46,13 +46,13 @@ function initializeGallerySlider() {
         const draggable = slider.dataset.draggable === 'true';
         const desiredSlidesPerView = parseInt(slider.dataset.slidesPerView || 3);
         const spaceBetween = parseInt(slider.dataset.spaceBetween || 20);
-        const slidesPerGroup = parseInt(slider.dataset.slidesPerGroup || 1); // <-- ADDED HERE
+        const slidesPerGroup = parseInt(slider.dataset.slidesPerGroup || 1);
 
         // Base settings that apply to all gallery sliders
         const settings = {
             slidesPerView: 1, // Default for mobile
             spaceBetween: spaceBetween,
-            slidesPerGroup: slidesPerGroup, // <-- MODIFIED HERE
+            slidesPerGroup: slidesPerGroup,
             loop: loop,
             observer: true,
             observeParents: true,
