@@ -30,10 +30,6 @@
       "type": "number",
       "default": 20
     },
-    "sliderHeight": {
-      "type": "number",
-      "default": 480
-    },
     "displayMode": {
       "type": "string",
       "default": "carousel"

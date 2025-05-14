@@ -42,27 +42,6 @@
 		.swiper-slide {
 			width: 100%;
 			border-radius: 8px;
-			
-			@media (min-width: 480px) {
-				// Tablet: 2 slides
-				width: calc((100% - var(--space-between)) / 2);
-			}
-			
-			@media (min-width: 768px) {
-				// Desktop: Use configured value
-				width: calc((100% - (var(--slides-per-view) - 1) * var(--space-between)) / var(--slides-per-view));
-			}
-		}
-	}
-
-	// Fullwidth slider mode styles
-	&.is-display-mode-fullwidth {
-		.swiper-slide {
-			width: 100%;
-		}
-		
-		.nasio-slide, .nasio-slide .wp-block-cover img {
-			height: var(--slider-height);
 		}
 	}
 

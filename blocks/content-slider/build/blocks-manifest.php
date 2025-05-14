@@ -33,10 +33,6 @@ return array(
 				'type' => 'number',
 				'default' => 20
 			),
-			'sliderHeight' => array(
-				'type' => 'number',
-				'default' => 480
-			),
 			'displayMode' => array(
 				'type' => 'string',
 				'default' => 'carousel'

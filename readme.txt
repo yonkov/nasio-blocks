@@ -8,13 +8,13 @@ Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 0.0.2
+Stable tag: 1.0.0
 License: GPLv2
 
-Custom Blocks for the WordPress Block editor
+Small collection of essential blocks for the WordPress Block editor
 
 == Description ==
-Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful. Post slider, Content slider, Gallery slider, Accordeon and Icon blocks.
+Custom Blocks for the WordPress Block editor. Easy to use, lightweight and useful. Post slider, Content slider, Gallery slider, Accordeon and Icon blocks.
 
 = Features =
 * **Post Slider Block**: Display your latest posts in a beautiful responsive slider using Swiper.js(swiperjs.com).
@@ -55,10 +55,19 @@ Simply edit a page or post with the block editor, click the "+" button to add a 
 = Can I customize how many posts appear in the post slider? =
 Yes, you can set the number of posts to display, filter by category, and adjust how many slides appear at once on different screen sizes.
 
+= Can I customize the height and the overlay of the content slider? =
+Yes, you can control these settings per slide. Select a cover block from the content slider, click on Styles tab and adjust accordingly.
+
 = Do the sliders work on mobile devices? =
-Yes, the sliders is fully responsive and will automatically adjust the number of visible slides based on the screen size.
+Yes, the sliders are fully responsive and will automatically adjust the number of visible slides based on the screen size.
+
+= I need only the icon and the accordeon block. I don't want a slider. Can I switch on or off blocks that I don't plan to use? =
+Yes, in the plugin settings page, you can choose which blocks to enable for maximum performance.
 
 == Changelog ==
+
+= 1.0.0 - May 2025 =
+* Update docs, improve slides and add template library with predefined layouts
 
 = 0.0.2 - May 2025 =
 * Update plugin main file name and add Nasio Themes as an author and contributor. Update slider blocks to have slidesPerGroup property, improve gallery slider and accordeon blocks functionality.

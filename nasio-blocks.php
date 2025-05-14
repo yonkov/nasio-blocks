@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 0.0.2
+ * Version: 1.0.0
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes
@@ -33,7 +33,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'Woof Woof Woof!' );
 }
 
-define( 'NASIO_BLOCKS_VERSION', '0.0.2' );
 define( 'NASIO_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NASIO_BLOCKS_URL', plugin_dir_url( __FILE__ ) );
 
@@ -62,7 +61,7 @@ add_filter( 'block_categories_all', 'nasio_blocks_register_block_category' );
  * Enqueue Swiper slider assets for the blocks that need them
  */
 function nasio_blocks_enqueue_slider_assets() {
-	if (nasio_blocks_is_enabled( 'content_slider' ) ||
+	if ( nasio_blocks_is_enabled( 'content_slider' ) ||
 		nasio_blocks_is_enabled( 'post_slider' ) ||
 		nasio_blocks_is_enabled( 'gallery_slider' )
 	) {
@@ -106,54 +105,54 @@ function nasio_blocks_settings_page() {
  * Register plugin setting and sanitize callback
  */
 function nasio_blocks_register_settings() {
-    register_setting(
-        'nasio_blocks_settings_group',
-        'nasio_blocks_enabled_blocks',
-        array(
-            'sanitize_callback' => 'nasio_blocks_sanitize_settings',
-            'default'           => array(
-                'post_slider'    => 1,
-                'content_slider' => 1,
-                'gallery_slider' => 1,
-                'icon_block'     => 1,
-                'accordion'      => 1,
-            ),
-        )
-    );
+	register_setting(
+		'nasio_blocks_settings_group',
+		'nasio_blocks_enabled_blocks',
+		array(
+			'sanitize_callback' => 'nasio_blocks_sanitize_settings',
+			'default'           => array(
+				'post_slider'    => 1,
+				'content_slider' => 1,
+				'gallery_slider' => 1,
+				'icon_block'     => 1,
+				'accordion'      => 1,
+			),
+		)
+	);
 
-    add_settings_section(
-        'nasio_blocks_main_section',
-        esc_html__( 'Available Blocks', 'nasio-blocks' ),
-        function() {
-            echo '<p>' . esc_html__( 'Enable or disable individual blocks:', 'nasio-blocks' ) . '</p>';
-        },
-        'nasio_blocks'
-    );
+	add_settings_section(
+		'nasio_blocks_main_section',
+		esc_html__( 'Available Blocks', 'nasio-blocks' ),
+		function() {
+			echo '<p>' . esc_html__( 'Enable or disable individual blocks:', 'nasio-blocks' ) . '</p>';
+		},
+		'nasio_blocks'
+	);
 
-    $fields = array(
-        'post_slider'    => esc_html__( 'Post Slider', 'nasio-blocks' ),
-        'content_slider' => esc_html__( 'Content Slider', 'nasio-blocks' ),
-        'gallery_slider' => esc_html__( 'Gallery Slider', 'nasio-blocks' ),
-        'icon_block'     => esc_html__( 'Icon Block', 'nasio-blocks' ),
-        'accordion'      => esc_html__( 'Accordion', 'nasio-blocks' ),
-    );
+	$fields = array(
+		'post_slider'    => esc_html__( 'Post Slider', 'nasio-blocks' ),
+		'content_slider' => esc_html__( 'Content Slider', 'nasio-blocks' ),
+		'gallery_slider' => esc_html__( 'Gallery Slider', 'nasio-blocks' ),
+		'icon_block'     => esc_html__( 'Icon Block', 'nasio-blocks' ),
+		'accordion'      => esc_html__( 'Accordion', 'nasio-blocks' ),
+	);
 
-    foreach ( $fields as $field_id => $field_label ) {
-        add_settings_field(
-            'nasio_blocks_' . $field_id,
-            $field_label,
-            function() use ( $field_id ) {
-                $options = get_option( 'nasio_blocks_enabled_blocks', array() );
-                $value   = isset( $options[ $field_id ] ) ? (int) $options[ $field_id ] : 0;
-                ?>
-                <input type="checkbox" name="nasio_blocks_enabled_blocks[<?php echo esc_attr( $field_id ); ?>]" value="1" <?php checked( $value, 1 ); ?> />
-                <?php esc_html_e( 'Enable', 'nasio-blocks' ); ?>
-                <?php
-            },
-            'nasio_blocks',
-            'nasio_blocks_main_section'
-        );
-    }
+	foreach ( $fields as $field_id => $field_label ) {
+		add_settings_field(
+			'nasio_blocks_' . $field_id,
+			$field_label,
+			function() use ( $field_id ) {
+				$options = get_option( 'nasio_blocks_enabled_blocks', array() );
+				$value   = isset( $options[ $field_id ] ) ? (int) $options[ $field_id ] : 0;
+				?>
+				<input type="checkbox" name="nasio_blocks_enabled_blocks[<?php echo esc_attr( $field_id ); ?>]" value="1" <?php checked( $value, 1 ); ?> />
+				<?php esc_html_e( 'Enable', 'nasio-blocks' ); ?>
+				<?php
+			},
+			'nasio_blocks',
+			'nasio_blocks_main_section'
+		);
+	}
 }
 add_action( 'admin_init', 'nasio_blocks_register_settings' );
 
@@ -161,14 +160,14 @@ add_action( 'admin_init', 'nasio_blocks_register_settings' );
  * Sanitize the checkbox settings
  */
 function nasio_blocks_sanitize_settings( $input ) {
-    $sanitized = array();
-    $valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion' );
+	$sanitized  = array();
+	$valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion' );
 
-    foreach ( $valid_keys as $key ) {
-        $sanitized[ $key ] = isset( $input[ $key ] ) ? (int) (bool) $input[ $key ] : 0;
-    }
+	foreach ( $valid_keys as $key ) {
+		$sanitized[ $key ] = isset( $input[ $key ] ) ? (int) (bool) $input[ $key ] : 0;
+	}
 
-    return $sanitized;
+	return $sanitized;
 }
 
 
@@ -208,7 +207,8 @@ function nasio_blocks_page_content_callback() {
 					<p><?php esc_html_e( 'Enable or disable individual blocks:', 'nasio-blocks' ); ?></p>
 
 					<form method="post" action="options.php">
-						<?php settings_fields( 'nasio_blocks_settings_group' );
+						<?php
+						settings_fields( 'nasio_blocks_settings_group' );
 						?>
 						<input type="hidden" name="nasio_blocks_enabled_blocks[__submitted]" value="1" />
 						<table class="form-table">	
@@ -263,7 +263,7 @@ function nasio_blocks_settings_link( array $links ) {
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'nasio_blocks_settings_link' );
 
 /**
- * Include block directories conditionally
+ * Include blocks conditionally
  * Based on the plugin's settings page
  */
 $block_directories = array(
@@ -282,6 +282,37 @@ foreach ( $block_directories as $block_key => $block_file ) {
 		}
 	}
 }
+
+/**
+ * Register custom pattern category.
+ */
+function nasio_blocks_register_pattern_category() {
+	register_block_pattern_category(
+		'nasio-patterns',
+		array( 'label' => __( 'Nasio Patterns', 'nasio-blocks' ) )
+	);
+}
+add_action( 'init', 'nasio_blocks_register_pattern_category' );
+
+/**
+ * Register block patterns.
+ */
+function nasio_blocks_register_patterns() {
+	$pattern_files = glob( NASIO_BLOCKS_PATH . 'patterns/*.php' );
+	foreach ( $pattern_files as $pattern_file ) {
+		$pattern_properties = require $pattern_file;
+		if ( is_array( $pattern_properties ) ) {
+			$pattern_name = 'nasio-blocks/' . basename( $pattern_file, '.php' );
+			register_block_pattern( $pattern_name, $pattern_properties );
+		}
+	}
+}
+add_action( 'init', 'nasio_blocks_register_patterns', 10 );
+
+/**
+ * Register plugins
+ */
+require_once NASIO_BLOCKS_PATH . '/plugins/template-library.php';
 
 /**
  * Custom svg icons

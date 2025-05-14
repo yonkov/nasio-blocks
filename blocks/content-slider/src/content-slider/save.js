@@ -7,7 +7,6 @@ export default function save({ attributes }) {
     const {
         slidesPerView = 3,
         spaceBetween = 20,
-        sliderHeight = 480,
         loop = true,
         displayMode = 'carousel',
         autoplay = false,
@@ -42,8 +41,7 @@ export default function save({ attributes }) {
         className: wrapperClass,
         style: {
             '--slides-per-view': slidesPerView,
-            '--space-between': `${spaceBetween}px`,
-            '--slider-height': displayMode === 'fullwidth' ? `${sliderHeight}px` : undefined, // Save slider height for frontend
+            '--space-between': `${spaceBetween}px`
         },
         ...dataAttributes,
     });

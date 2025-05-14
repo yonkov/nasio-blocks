@@ -35,7 +35,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
     const {
         slidesPerView,
         spaceBetween,
-        sliderHeight,
         loop,
         displayMode,
         autoplay,
@@ -43,7 +42,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         showDots,
         showArrows,
         draggable,
-        slidesPerGroup,
+        slidesPerGroup
     } = attributes;
 
     const [isInitialized, setIsInitialized] = useState(false);
@@ -81,8 +80,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         className: `wp-block-nasio-block-content-slider is-display-mode-${displayMode} is-editor-preview ${className || ''}`,
         style: {
             '--slides-per-view': slidesPerView,
-            '--space-between': `${spaceBetween}px`,
-            '--slider-height': displayMode === 'fullwidth' ? `${sliderHeight}px` : 'auto'
+            '--space-between': `${spaceBetween}px`
         }
     });
 
@@ -145,7 +143,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         displayMode,
         slidesPerView,
         spaceBetween,
-        sliderHeight,
         loop,
         autoplay,
         autoplayDelay,
@@ -192,10 +189,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                 observeSlideChildren: true,
                 allowTouchMove: draggable,
                 simulateTouch: draggable,
-                keyboard: {
-                    enabled: true,
-                    onlyInViewport: true,
-                },
                 preventClicks: false,
                 preventClicksPropagation: false,
                 touchStartPreventDefault: false,
@@ -206,7 +199,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             if (displayMode === 'fullwidth') {
                 // Exactly match the code from view.js for fullwidth mode
                 settings.slidesPerView = 1;
-                
                 // Adjust speed for smoother handling
                 settings.speed = 300;
             }
@@ -327,15 +319,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                                 max={50}
                             />
                         </>
-                    )}
-                    {displayMode === 'fullwidth' && (
-                        <RangeControl
-                            label={__('Slider height (px)', 'nasio-blocks')}
-                            value={sliderHeight}
-                            onChange={(value) => setAttributes({ sliderHeight: value })}
-                            min={250}
-                            max={1000}
-                        />
                     )}
                     <ToggleControl
                         label={__('Show Dots (Pagination)', 'nasio-blocks')}
