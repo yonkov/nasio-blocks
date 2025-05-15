@@ -162,13 +162,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 		try {
 			// Initialize Swiper
 			swiperInstanceRef.current = new window.Swiper(swiperElement, settings);
-
-			// Force update after initialization to make sure everything is rendered correctly
-			setTimeout(() => {
-				if (swiperInstanceRef.current) {
-					swiperInstanceRef.current.update();
-				}
-			}, 100);
 		} catch (error) {
 			console.error("Error initializing Swiper:", error);
 		}
@@ -183,7 +176,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 				swiperInstanceRef.current = null;
 			}
 
-			// Initialize Swiper after a short delay to ensure DOM is ready
 			const timer = setTimeout(() => {
 				initSwiper();
 			}, 1000); // Use longer timeout to ensure ServerSideRender has fully completed

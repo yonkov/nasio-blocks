@@ -71,6 +71,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                     insertBlock(createBlock('nasio-block/slide'), innerBlocks.length, clientId);
                 }
                 setIsInitialized(true);
+                initSwiper();
             }
         }
     }, [innerBlocks.length, clientId, isInitialized, insertBlock]);
@@ -168,15 +169,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             
             if (!swiperElement) return;
 
-            // Get all slide blocks - use a more specific selector to only get direct children
-            // that are slide blocks to avoid any duplicate counting
-            const slideElements = Array.from(swiperElement.querySelectorAll('.block-editor-block-list__layout > .wp-block-nasio-block-slide'));
-            
-            // Ensure all slides have the swiper-slide class
-            slideElements.forEach((slide, index) => {
-                slide.classList.add('swiper-slide');
-            });
-
             // Set up Swiper settings
             const settings = {
                 slidesPerView: displayMode === 'carousel' ? parseInt(slidesPerView) : 1,
@@ -251,13 +243,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             try {
                 // Initialize Swiper for both modes
                 swiperInstanceRef.current = new window.Swiper(swiperElement, settings);
-                
-                // Force update after initialization
-                setTimeout(() => {
-                    if (swiperInstanceRef.current) {
-                        swiperInstanceRef.current.update();
-                    }
-                }, 100);
             } catch (error) {
                 console.error('Error initializing Swiper:', error);
             }
