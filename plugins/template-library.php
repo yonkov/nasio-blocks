@@ -9,9 +9,9 @@ function nasio_enqueue_block_editor_assets() {
 	wp_enqueue_script(
 		'nasio-template-library-script',
 		plugins_url( 'assets/js/editor-script.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-element', 'wp-edit-post', 'wp-components', 'wp-data', 'wp-editor', 'wp-i18n' ),
-		true,
-		filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/editor-script.js' )
+		array( 'wp-blocks', 'wp-element', 'wp-edit-post', 'wp-components', 'wp-data', 'wp-editor', 'wp-i18n', 'wp-block-editor' ),
+		filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/editor-script.js' ),
+		true
 	);
 
 	wp_enqueue_style(

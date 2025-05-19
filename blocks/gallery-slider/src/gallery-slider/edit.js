@@ -9,7 +9,6 @@ import {
     MediaUpload,
     MediaUploadCheck,
     BlockControls,
-    PanelColorSettings,
     InnerBlocks,
 } from '@wordpress/block-editor';
 import {
@@ -57,8 +56,8 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         linkTo,
         imageSizeSlug,
         slidesPerGroup,
-        backgroundColor,
-        sliderWidth,
+        customImageWidth,
+        customImageHeight
     } = attributes;
 
     const [selectedImage, setSelectedImage] = useState(null);
@@ -81,10 +80,15 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         };
     }, []);
 
-    const imageSizeOptions = imageSizes.map(({ name, slug }) => ({
-        value: slug,
-        label: name,
-    }));
+    // Add standard image size options plus custom option
+    const imageSizeOptions = [
+        ...imageSizes.map(({ name, slug }) => ({
+            value: slug,
+            label: name,
+        })),
+        // Add custom dimensions option
+        { value: 'custom', label: __('Custom', 'nasio-blocks') }
+    ];
 
     // Set custom CSS variables based on attributes
     const blockProps = useBlockProps({
@@ -92,20 +96,39 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         style: {
             '--slides-per-view': slidesPerView,
             '--space-between': `${spaceBetween}px`,
-            ...(backgroundColor && { '--nasio-blocks-gallery-slider-background-color': backgroundColor }),
         }
     });
 
     // Handle image selection
-    const onSelectImages = (newImages) => { // newImages are from MediaPlaceholder/MediaUpload
-        const newImagesData = newImages.map((image) => ({
-            id: image.id.toString(),
-            alt: image.alt || '',
-            caption: image.caption || '',
-            link: image.link || '',
-            url: image.sizes?.[imageSizeSlug]?.url || image.url, // Set initial URL based on current imageSizeSlug
-            media_sizes: image.sizes, // Store all available sizes for this image
-        }));
+    const onSelectImages = (newImages) => {
+        const newImagesData = newImages.map((image) => {
+            let imageUrl;
+            
+            // Determine which URL to use based on the selected image size
+            if (imageSizeSlug === 'custom') {
+                // For custom dimensions, use the full size image
+                imageUrl = image.sizes?.full?.url || image.url;
+            } else {
+                // For standard WordPress image sizes
+                imageUrl = image.sizes?.[imageSizeSlug]?.url || image.sizes?.full?.url || image.url;
+            }
+            
+            // Store image dimensions for reference
+            const dimensions = image.sizes?.full 
+                ? { width: image.sizes.full.width, height: image.sizes.full.height }
+                : { width: image.width, height: image.height };
+            
+            return {
+                id: image.id.toString(),
+                alt: image.alt || '',
+                caption: image.caption || '',
+                link: image.link || '',
+                url: imageUrl,
+                media_sizes: image.sizes,
+                originalWidth: dimensions.width,
+                originalHeight: dimensions.height
+            };
+        });
 
         setAttributes({
             images: newImagesData,
@@ -114,7 +137,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
     };
 
     // Handle image replacement
-    const onReplaceImage = (newMediaItem) => { // Corrected: receives a single media object
+    const onReplaceImage = (newMediaItem) => { // Receives a single media object
         if (!selectedImage || !newMediaItem) { // Check selectedImage (ID of item to replace) and newMediaItem
             return;
         }
@@ -122,13 +145,31 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         const updatedImages = images.map(img => {
             // If this image in the array is the one we mean to replace
             if (img.id === selectedImage) {
+                let imageUrl;
+                
+                // Determine which URL to use based on the selected image size
+                if (imageSizeSlug === 'custom') {
+                    // For custom dimensions, use the full size image
+                    imageUrl = newMediaItem.sizes?.full?.url || newMediaItem.url;
+                } else {
+                    // For standard WordPress image sizes
+                    imageUrl = newMediaItem.sizes?.[imageSizeSlug]?.url || newMediaItem.sizes?.full?.url || newMediaItem.url;
+                }
+                
+                // Store image dimensions for reference
+                const dimensions = newMediaItem.sizes?.full 
+                    ? { width: newMediaItem.sizes.full.width, height: newMediaItem.sizes.full.height }
+                    : { width: newMediaItem.width, height: newMediaItem.height };
+                
                 return {
                     id: newMediaItem.id.toString(),
                     alt: newMediaItem.alt || '',
-                    caption: newMediaItem.caption || img.caption || '', // Preserve old caption if new is empty
-                    link: newMediaItem.link || img.link || '',       // Preserve old link if new is empty
-                    url: newMediaItem.sizes?.[imageSizeSlug]?.url || newMediaItem.url,
-                    media_sizes: newMediaItem.sizes, // Store all available sizes for the new image
+                    caption: newMediaItem.caption || img.caption || '',
+                    link: newMediaItem.link || img.link || '',
+                    url: imageUrl,
+                    media_sizes: newMediaItem.sizes,
+                    originalWidth: dimensions.width,
+                    originalHeight: dimensions.height
                 };
             }
             return img;
@@ -146,11 +187,10 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         // Force Swiper to update its view after attributes change
         if (swiperInstanceRef.current) {
             setTimeout(() => {
-                // Check if swiper instance still exists, e.g. if block was quickly removed
                 if (swiperInstanceRef.current) {
                     swiperInstanceRef.current.update();
                 }
-            }, 50); // A small delay can help ensure React has re-rendered
+            }, 50);
         }
     };
 
@@ -165,7 +205,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         });
 
         if (selectedImage === idToRemove) {
-            setSelectedImage(null); // Clear selection if the removed image was selected
+            setSelectedImage(null);
         }
     };
 
@@ -188,7 +228,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
 
     // Initialize and update Swiper
     useEffect(() => {
-        // Initialize Swiper after a short delay to ensure DOM is ready
         const timer = setTimeout(() => {
             initSwiper();
         }, 500);
@@ -247,9 +286,20 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                 return img;
             }
 
-            // Attempt to get the URL for the selected imageSizeSlug.
-            // Fallback to 'full' size if available, then to the current img.url as a last resort.
-            const newUrl = img.media_sizes[imageSizeSlug]?.url || img.media_sizes.full?.url || img.url;
+            let newUrl = null;
+
+            // Handle image size selection
+            if (imageSizeSlug === 'custom') {
+                // For custom dimensions, we'll use the original full size image
+                // In a production environment, you might want to implement an API call to get resized images
+                newUrl = img.media_sizes?.full?.url || img.url;
+                
+                // We could implement custom image resizing here in the future,
+                // but for now we'll use the full size image and apply CSS dimensions
+            } else {
+                // For standard WordPress image sizes, try to get the appropriate URL
+                newUrl = img.media_sizes[imageSizeSlug]?.url || img.media_sizes.full?.url || img.url;
+            }
 
             if (img.url !== newUrl) {
                 hasChanges = true;
@@ -261,7 +311,13 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         if (hasChanges) {
             setAttributes({ images: updatedImages });
         }
-    }, [imageSizeSlug, images, setAttributes]);
+
+        // If using custom dimensions, we need to get proper URLs through the WordPress REST API
+        if (imageSizeSlug === 'custom' && ids.length) {
+            // For a complete implementation, we would integrate with WordPress image processing API
+            // For now, we'll use full size images with CSS styling for custom dimensions
+        }
+    }, [imageSizeSlug, customImageWidth, customImageHeight, images, ids, setAttributes]);
 
     // Initialize Swiper
     const initSwiper = () => {
@@ -468,7 +524,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                         help={ __('The number of slides visible on the screen.')}
                         onChange={(value) => setAttributes({ slidesPerView: value })}
                         min={1}
-                        max={5}
+                        max={6}
                     />
                     <RangeControl
                         label={__('Slides Per Group', 'nasio-blocks')}
@@ -540,35 +596,53 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                         value={imageSizeSlug}
                         options={imageSizeOptions}
                         onChange={(value) => setAttributes({ imageSizeSlug: value })}
+                        help={__('Select an image size or choose Custom Dimensions for specific width/height', 'nasio-blocks')}
                     />
-                </PanelBody>
-            </InspectorControls>
-            <InspectorControls group="styles">
-                <PanelColorSettings
-                    title={__('Color', 'nasio-blocks')}
-                    initialOpen={true}
-                    colorSettings={[
-                        {
-                            value: backgroundColor,
-                            onChange: (value) => setAttributes({ backgroundColor: value }),
-                            label: __('Background Color', 'nasio-blocks'),
-                        },
-                    ]}
-                />
-                <PanelBody title={__('Dimensions', 'nasio-blocks')} initialOpen={true}>
-                    <UnitControl
-                        label={__('Slider Width', 'nasio-blocks')}
-                        value={sliderWidth}
-                        onChange={(value) => setAttributes({ sliderWidth: value || '' })}
-                        help={__('Enter a width for the slider (e.g., 100%, 500px, 50rem). Leave empty for the slider to take the width of its container.', 'nasio-blocks')}
-                        units={[
-                            { value: 'px', label: 'px', default: 0 },
-                            { value: '%', label: '%', default: 100 },
-                            { value: 'em', label: 'em', default: 0 },
-                            { value: 'rem', label: 'rem', default: 0 },
-                            { value: 'vw', label: 'vw', default: 100 },
-                        ]}
-                    />
+                    
+                    {imageSizeSlug === 'custom' && (
+                        <>
+                            <div className="custom-image-dimensions">
+                                <div style={{ display: 'flex', gap: '16px', marginBottom: '8px' }}>
+                                    <div style={{ flex: 1 }}>
+                                        <UnitControl
+                                            label={__('Width', 'nasio-blocks')}
+                                            value={customImageWidth || ''}
+                                            onChange={(value) => {
+                                                // Handle unit conversions and properly store values
+                                                if (value === '') {
+                                                    setAttributes({ customImageWidth: '' });
+                                                } else {
+                                                    setAttributes({ customImageWidth: value });
+                                                }
+                                            }}
+                                            units={[
+                                                { value: 'px', label: 'px', default: 0 },
+                                                { value: 'rem', label: 'rem', default: 0 }
+                                            ]}
+                                        />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <UnitControl
+                                            label={__('Height', 'nasio-blocks')}
+                                            value={customImageHeight || ''}
+                                            onChange={(value) => {
+                                                // Handle unit conversions and properly store values
+                                                if (value === '') {
+                                                    setAttributes({ customImageHeight: '' });
+                                                } else {
+                                                    setAttributes({ customImageHeight: value });
+                                                }
+                                            }}
+                                            units={[
+                                                { value: 'px', label: 'px', default: 0 },
+                                                { value: 'rem', label: 'rem', default: 0 }
+                                            ]}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </PanelBody>
             </InspectorControls>
 
@@ -618,6 +692,13 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                                                     data-id={image.id}
                                                     data-link={image.link}
                                                     className="gallery-slider-image"
+                                                    style={
+                                                        imageSizeSlug === 'custom' && (customImageWidth || customImageHeight) ? {
+                                                            width: customImageWidth || undefined,
+                                                            height: customImageHeight || undefined,
+                                                            objectFit: (customImageWidth && customImageHeight) ? 'cover' : undefined
+                                                        } : undefined
+                                                    }
                                                 />
                                                 {showCaptions && (image.caption || isEditing) && (
                                                     <figcaption className="gallery-slider-caption">

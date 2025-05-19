@@ -6,7 +6,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: .5rem;
 }
 
 .nasio-pattern-item h4 {
@@ -17,12 +17,11 @@
 
 .nasio-pattern-item-preview {
     border: 1px dashed #eee;
-    padding: 10px;
-    flex-grow: 1;
-    min-height: 100px;
-    max-height: 250px;
-    overflow-y: auto;
+    flex-grow: 1; /* This will still work as .nasio-pattern-item is flex (column) */
+    overflow: hidden;
     background: #f9f9f9;
+    position: relative;
+    min-height: 240px;
 }
 
 .nasio-patterns-flex-container {
@@ -32,6 +31,6 @@
 }
 
 .nasio-pattern-item-wrapper {
-    width: calc(50% - 10px);
+    width: calc(33% - 1rem);
     box-sizing: border-box;
 }

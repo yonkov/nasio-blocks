@@ -27,8 +27,9 @@ export default function save({ attributes }) {
         showCaptions,
         linkTo,
         slidesPerGroup,
-        backgroundColor,
-        sliderWidth
+        imageSizeSlug,
+        customImageWidth,
+        customImageHeight
     } = attributes;
 
     // If there are no images, don't render anything
@@ -48,24 +49,20 @@ export default function save({ attributes }) {
         'data-draggable': draggable.toString(),
         'data-show-captions': showCaptions.toString(),
         'data-link-to': linkTo,
-        'data-slides-per-group': slidesPerGroup
+        'data-slides-per-group': slidesPerGroup,
+        'data-image-size': imageSizeSlug,
+        'data-custom-width': customImageWidth,
+        'data-custom-height': customImageHeight
     });
 
-    const styles = {};
-    if (backgroundColor) {
-        styles['--nasio-blocks-gallery-slider-background-color'] = backgroundColor;
-    }
-    if (sliderWidth) {
-        styles['--nasio-blocks-gallery-slider-width'] = sliderWidth;
-    }
-
     return (
-        <div {...blockProps} style={styles}>
+        <div {...blockProps}>
             <InnerBlocks.Content />
             <div className="nasio-gallery-slider swiper">
                 <div className="swiper-wrapper">
                     {images.map((image) => {
                         const imgClasses = 'gallery-slider-image';
+                        
                         let imgElement = (
                             <img
                                 src={image.url}

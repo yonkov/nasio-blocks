@@ -2,9 +2,37 @@
  * Editor specific styles for the Gallery Slider block
  */
 
+// Custom image dimensions input styles
+.custom-image-dimensions {
+    margin-top: 1em;
+    
+    .components-base-control {
+        margin-bottom: 16px;
+    }
+    
+    .components-input-control__container {
+        display: flex;
+        align-items: center;
+        
+        input {
+            width: 80px;
+            margin-right: 8px;
+        }
+        
+        .components-input-control__suffix {
+            color: #757575;
+        }
+    }
+    
+    .components-base-control__help {
+        margin-top: 4px;
+        font-size: 12px;
+        color: #757575;
+    }
+}
+
 .wp-block-nasio-block-gallery-slider {
     position: relative;
-    margin-bottom: 50px;
     
     .gallery-slider-wrapper {
         position: relative;
@@ -22,19 +50,9 @@
         border-radius: 4px;
     }
     
-    .nasio-gallery-slider {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        margin: 0 auto;
-        border-radius: 5px;
-        padding-bottom: 60px;
-    }
-    
     .swiper-wrapper {
         display: flex;
         align-items: center;
-        min-height: 200px;
         cursor: grab;
     }
     

@@ -3,6 +3,7 @@ const { registerPlugin } = wp.plugins;
 const { Modal, Button, Spinner } = wp.components;
 const { dispatch, useSelect, subscribe } = wp.data;
 const { __ } = wp.i18n;
+const { BlockPreview } = wp.blockEditor; // Import BlockPreview
 
 // Displays a modal with patterns
 const NasioPatternsModalView = ({ isOpen, setOpen }) => {
@@ -36,9 +37,8 @@ const NasioPatternsModalView = ({ isOpen, setOpen }) => {
 	}, [isOpen, fetchedPatterns]);
 
 	const insertPattern = (content) => {
-		dispatch('core/block-editor').insertBlocks(
-			wp.blocks.rawHandler({ HTML: content })
-		);
+		const blocks = wp.blocks.parse(content);
+		dispatch('core/block-editor').insertBlocks(blocks);
 		setOpen(false);
 	};
 
@@ -52,14 +52,17 @@ const NasioPatternsModalView = ({ isOpen, setOpen }) => {
 			title: __( 'Select a Nasio Pattern', 'nasio-blocks' ),
 			onRequestClose: () => { setOpen(false); },
 			className: 'nasio-patterns-modal',
-			style: { width: '80%', maxWidth: '960px' }
+			// Adjust modal style if needed, BlockPreview might take more space or behave differently
+			style: { width: '80%', maxWidth: '960px', minHeight: '50vh' } 
 		},
 		displayablePatterns === null && createElement(Spinner),
-		displayablePatterns && displayablePatterns.length === 0 && createElement('p', null, __( 'No Nasio patterns found.', 'nasio-blocks' ) ),
+		displayablePatterns && displayablePatterns.length === 0 && createElement(Spinner),
 		displayablePatterns && displayablePatterns.length > 0 &&
 			createElement('div', { className: 'nasio-patterns-flex-container' },
-				displayablePatterns.map((pattern) =>
-					createElement(
+				displayablePatterns.map((pattern) => {
+					// Convert pattern content string to an array of blocks for BlockPreview
+					const patternBlocks = wp.blocks.parse(pattern.content);
+					return createElement(
 						'div',
 						{
 							key: pattern.name || pattern.title,
@@ -72,9 +75,16 @@ const NasioPatternsModalView = ({ isOpen, setOpen }) => {
 							},
 							createElement('h4', null, pattern.title),
 							createElement('div', {
-								className: 'nasio-pattern-item-preview',
-								dangerouslySetInnerHTML: { __html: pattern.content },
-							}),
+								className: 'nasio-pattern-item-preview', // Keep this class for sizing the preview area
+							},
+							// Use BlockPreview component
+							patternBlocks && patternBlocks.length > 0 ? 
+							createElement(BlockPreview, {
+								blocks: patternBlocks,
+								viewportWidth: 1200, // Simulate desktop width
+								// additionalWrapperProps: { style: { height: '100%' } } // Optional: if you need to force height
+							}) : createElement('p', null, 'Error parsing pattern content.')
+							),
 							createElement(
 								Button,
 								{
@@ -85,8 +95,8 @@ const NasioPatternsModalView = ({ isOpen, setOpen }) => {
 								__( 'Insert', 'nasio-blocks' )
 							)
 						)
-					)
-				)
+					);
+				})
 			)
 	);
 };

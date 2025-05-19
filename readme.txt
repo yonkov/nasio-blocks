@@ -8,7 +8,7 @@ Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
@@ -20,9 +20,9 @@ Custom Blocks for the WordPress Block editor. Easy to use, lightweight and usefu
 
 ### Post Slider Block
 
-Display your latest posts in a beautiful responsive slider using [Swiper.js](https://swiperjs.com) - a lightweight vanilla JS slider with RTL support.
+Display your latest posts in a beautiful responsive slider using [Swiper.js](https://swiperjs.com) - lightweight and fully responsive vanilla JS slider with RTL support.
 
-* Choose between Fullwidth Slider or Carousel (multi-column slider) display mode
+* Choose between Fullwidth Slider (single column) or Carousel (multi-column slider) display mode
 * Fully customizable settings for number of posts, category filtering and flexible display options
 * Responsive design that works on all devices
 * Support for featured images, excerpts, post metadata and more
@@ -42,6 +42,7 @@ Display galleries in beautiful multi-column carousels.
 
 * Fully customizable settings for slider behavior
 * Ability to add a gallery using the familiar Block Editor interface
+* Ability to set custom image sizes
 * Responsive design that works on all devices
 
 ### Icon Block 
@@ -77,10 +78,16 @@ Yes, you can control these settings per slide. Select a cover block from the con
 = Do the sliders work on mobile devices? =
 Yes, the sliders are fully responsive and will automatically adjust the number of visible slides based on the screen size.
 
+= 5. I don't have time and patience to create content from scratch. Are there templates with demo content that I can use to speed things up? =
+Yes, the plugin registers block patterns that can easily be imported to your posts and pages. Simply go to the Block Editor, click on "Template Library" in the top left-hand side of the screen and insert the pattern of choice. We will be adding more patterns in the future.
+
 = I need only the icon and the accordeon block. I don't want a slider. Can I switch on or off blocks that I don't plan to use? =
 Yes, in the plugin settings page, you can choose which blocks to enable for maximum performance.
 
 == Changelog ==
+
+= 1.0.2 - May 2025 =
+* Improve the gallery slider and update the template library to include partners pattern
 
 = 1.0.1 - May 2025 =
 * Fix content slider block editor initialization issue and testimonial pattern display. Improve docs.

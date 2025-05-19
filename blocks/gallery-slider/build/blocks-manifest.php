@@ -81,16 +81,17 @@ return array(
 				'type' => 'string',
 				'default' => 'large'
 			),
+			'customImageWidth' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'customImageHeight' => array(
+				'type' => 'string',
+				'default' => ''
+			),
 			'slidesPerGroup' => array(
 				'type' => 'number',
 				'default' => 1
-			),
-			'backgroundColor' => array(
-				'type' => 'string'
-			),
-			'sliderWidth' => array(
-				'type' => 'string',
-				'default' => ''
 			)
 		),
 		'editorScript' => 'file:./index.js',
