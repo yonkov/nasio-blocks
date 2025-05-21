@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$logos = [
+$logos = array(
 	NASIO_BLOCKS_URL . 'assets/img/partners/logo-01.png',
 	NASIO_BLOCKS_URL . 'assets/img/partners/logo-02.png',
 	NASIO_BLOCKS_URL . 'assets/img/partners/logo-03.png',
@@ -14,7 +14,7 @@ $logos = [
 	NASIO_BLOCKS_URL . 'assets/img/partners/logo-07.png',
 	NASIO_BLOCKS_URL . 'assets/img/partners/logo-08.png',
 	NASIO_BLOCKS_URL . 'assets/img/partners/logo-09.png',
-];
+);
 
 $content = '<!-- wp:group {"align":"full","style":{"spacing":{"blockGap":"0","padding":{"top":"0","bottom":"1rem"}}},"backgroundColor":"silver-blue","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-silver-blue-background-color has-background" style="padding-top:0;padding-bottom:1rem"><!-- wp:nasio-block/gallery-slider {"images":[

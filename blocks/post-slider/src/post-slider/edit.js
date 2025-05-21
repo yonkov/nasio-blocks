@@ -170,12 +170,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 	// Initialize Swiper in the editor
 	useEffect(() => {
 		if (!isLoading) {
-			// Clean up previous Swiper instance if it exists
-			if (swiperInstanceRef.current) {
-				swiperInstanceRef.current.destroy();
-				swiperInstanceRef.current = null;
-			}
-
 			const timer = setTimeout(() => {
 				initSwiper();
 			}, 1000); // Use longer timeout to ensure ServerSideRender has fully completed
@@ -183,7 +177,7 @@ export default function Edit({ attributes, setAttributes, className }) {
 			return () => {
 				clearTimeout(timer);
 				if (swiperInstanceRef.current) {
-					swiperInstanceRef.current.destroy();
+					swiperInstanceRef.current.update();
 					swiperInstanceRef.current = null;
 				}
 			};
