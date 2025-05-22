@@ -1,29 +1,19 @@
-/**
- * WordPress dependencies
- */
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import { __ } from '@wordpress/i18n';
+import {
+	InspectorControls,
+} from '@wordpress/block-editor';
 import {
 	PanelBody,
 	RangeControl,
-	ToggleControl,
 	SelectControl,
+	ToggleControl,
 	Spinner,
-} from "@wordpress/components";
-import { __ } from "@wordpress/i18n";
-import { useEffect, useState, useRef } from "@wordpress/element";
-import apiFetch from "@wordpress/api-fetch";
-import ServerSideRender from "@wordpress/server-side-render";
+} from '@wordpress/components';
+import ServerSideRender from '@wordpress/server-side-render';
+import apiFetch from '@wordpress/api-fetch';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useBlockProps } from '@wordpress/block-editor';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @param  root0
- * @param  root0.attributes
- * @param  root0.setAttributes
- * @param  root0.className     The class name provided by the block editor
- * @return {Element} Element to render.
- */
 export default function Edit({ attributes, setAttributes, className }) {
 	const {
 		numberOfPosts,
@@ -68,28 +58,25 @@ export default function Edit({ attributes, setAttributes, className }) {
 		});
 	}, []);
 
-	// Initialize Swiper handler function
-	const initSwiper = () => {
-		// Only run this after the preview has loaded and if Swiper is available
+	// Memoize the Swiper initialization handler
+	const initSwiper = useCallback(() => {
 		if (!previewRef.current) {
 			return;
 		}
 
-		// Check if Swiper is available in the window
 		if (typeof window.Swiper === "undefined") {
 			console.error("Swiper is not loaded in the editor");
 			return;
 		}
 
-		// Find the slider container within our preview
 		const swiperElement = previewRef.current.querySelector(
 			".nasio-post-slider",
 		);
 
-		if (!swiperElement) {
-			console.error("Swiper element not found in the DOM");
-			return;
-		}
+		// if (!swiperElement) {
+		// 	console.error("Swiper element not found in the DOM");
+		// 	return;
+		// }
 
 		// Clean up any existing Swiper instance
 		if (swiperInstanceRef.current) {
@@ -97,7 +84,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 			swiperInstanceRef.current = null;
 		}
 
-		// Different settings based on mode
 		const settings = {
 			slidesPerView: displayMode === "carousel" ? parseInt(slidesPerView) : 1,
 			sliderHeight: displayMode === "fullwidth" ? parseInt(sliderHeight) : 0,
@@ -114,7 +100,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 			}
 		};
 
-		// Add autoplay if enabled
 		if (autoplay) {
 			settings.autoplay = {
 				delay: autoplayDelay,
@@ -123,7 +108,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 			};
 		}
 
-		// Add pagination if enabled
 		if (showDots) {
 			settings.pagination = {
 				el: ".swiper-pagination",
@@ -131,7 +115,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 			};
 		}
 
-		// Add navigation if enabled
 		if (showArrows) {
 			settings.navigation = {
 				nextEl: ".swiper-button-next",
@@ -139,19 +122,14 @@ export default function Edit({ attributes, setAttributes, className }) {
 			};
 		}
 
-		// Add responsive breakpoints for carousel mode
 		if (displayMode === "carousel") {
 			settings.slidesPerView = 1;
 			settings.slidesPerGroup = 1;
-
 			settings.breakpoints = {
-				// Breakpoints use min-width (not max-width)
-				// When window width is >= 480px
 				480: {
 					slidesPerView: Math.min(2, slidesPerView),
 					slidesPerGroup: Math.min(2, slidesPerGroup)
 				},
-				// When window width is >= 768px
 				768: {
 					slidesPerView: parseInt(slidesPerView),
 					slidesPerGroup: parseInt(slidesPerGroup)
@@ -160,34 +138,48 @@ export default function Edit({ attributes, setAttributes, className }) {
 		}
 
 		try {
-			// Initialize Swiper
 			swiperInstanceRef.current = new window.Swiper(swiperElement, settings);
 		} catch (error) {
 			console.error("Error initializing Swiper:", error);
 		}
-	};
-
-	// Initialize Swiper in the editor
-	useEffect(() => {
-		if (!isLoading) {
-			const timer = setTimeout(() => {
-				initSwiper();
-			}, 1000); // Use longer timeout to ensure ServerSideRender has fully completed
-
-			return () => {
-				clearTimeout(timer);
-				if (swiperInstanceRef.current) {
-					swiperInstanceRef.current.update();
-					swiperInstanceRef.current = null;
-				}
-			};
-		}
-	}, [isLoading, ...Object.values(attributes)]);
+	}, [
+		displayMode,
+		slidesPerView,
+		slidesPerGroup,
+		sliderHeight,
+		spaceBetween,
+		loop,
+		autoplay,
+		autoplayDelay,
+		showDots,
+		showArrows,
+		draggable
+	]);
+	// Initialize Swiper after the ServerSideRender completes
+    useEffect(() => {
+        if (!previewRef.current) return;
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if ('childList' !== mutation.type) continue;
+                for (const node of mutation.addedNodes) {
+                    if ('DIV' !== node.tagName || !node.classList.contains('ssr')) continue;
+                    initSwiper();
+					setTimeout(() => {
+						initSwiper();
+					}, 500);
+                    return;
+                }
+            }
+        })
+        observer.observe(previewRef.current, {
+            childList: true,
+            subtree: true,
+        })
+        return () => observer.disconnect();
+    }, [initSwiper])
 
 	const blockProps = useBlockProps({
-		className: `wp-block-nasio-block-post-slider is-display-mode-${displayMode} is-editor-preview ${
-			className || ""
-		}`,
+		className: `wp-block-nasio-block-post-slider is-display-mode-${displayMode} is-editor-preview ${className || ""}`,
 	});
 
 	return (
@@ -404,10 +396,14 @@ export default function Edit({ attributes, setAttributes, className }) {
 						<p>{__("Loading categories...", "nasio-blocks")}</p>
 					</div>
 				) : (
-					<ServerSideRender
-						block="nasio-block/post-slider"
-						attributes={attributes}
-					/>
+					<>
+						<ServerSideRender
+							skipBlockSupportAttributes
+							block="nasio-block/post-slider"
+							attributes={attributes}
+							className="ssr"
+						/>
+					</>
 				)}
 			</div>
 		</div>

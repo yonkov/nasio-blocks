@@ -87,7 +87,7 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 == Changelog ==
 
 = 1.0.2 - May 2025 =
-* Improve the gallery slider and update the template library to include partners pattern
+* Improve the gallery slider, fix post slider ServerRender and update the template library to include partners pattern
 
 = 1.0.1 - May 2025 =
 * Fix content slider block editor initialization issue and testimonial pattern display. Improve docs.

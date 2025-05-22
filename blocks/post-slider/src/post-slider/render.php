@@ -16,7 +16,7 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	}
 
 	$display_mode    = isset( $attributes['displayMode'] ) ? $attributes['displayMode'] : 'carousel';
-	$posts_per_page  = isset( $attributes['numberOfPosts'] ) ? $attributes['numberOfPosts'] : 9;
+	$posts_per_page  = isset( $attributes['numberOfPosts'] ) ? $attributes['numberOfPosts'] : 6;
 	$slides_per_view = ( $display_mode === 'carousel' ) ? intval( $attributes['slidesPerView'] ?? 3 ) : 1;
 	$slider_height   = ( $display_mode === 'fullwidth' ) ? intval( $attributes['sliderHeight'] ?? 480 ) : 0;
 	$space_between   = ( $display_mode === 'carousel' ) ? intval( $attributes['spaceBetween'] ?? 20 ) : 0;

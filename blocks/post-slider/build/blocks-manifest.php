@@ -26,7 +26,7 @@ return array(
 		'attributes' => array(
 			'numberOfPosts' => array(
 				'type' => 'number',
-				'default' => 9
+				'default' => 6
 			),
 			'postCategory' => array(
 				'type' => 'string',

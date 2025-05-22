@@ -16,7 +16,7 @@
 	"attributes": {
 		"numberOfPosts": {
 			"type": "number",
-			"default": 9
+			"default": 6
 		},
 		"postCategory": {
 			"type": "string",
