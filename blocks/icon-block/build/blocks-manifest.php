@@ -4,7 +4,7 @@ return array(
 	'icon-block' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'version' => '0.0.2',
+		'version' => '1.0.0',
 		'name' => 'nasio-block/icon-block',
 		'title' => 'Icon Block',
 		'category' => 'nasio-blocks',
@@ -69,9 +69,13 @@ return array(
 				'type' => 'number',
 				'default' => 0
 			),
-			'padding' => array(
-				'type' => 'number',
-				'default' => 8
+			'alignment' => array(
+				'type' => 'string',
+				'default' => 'left'
+			),
+			'itemsJustification' => array(
+				'type' => 'string',
+				'default' => 'center'
 			)
 		),
 		'editorScript' => 'file:./index.js',

@@ -66,7 +66,13 @@ const NasioPatternsModalView = ({ isOpen, setOpen }) => {
 						'div',
 						{
 							key: pattern.name || pattern.title,
-							className: 'nasio-pattern-item-wrapper'
+							className: 'nasio-pattern-item-wrapper',
+							onClick: (e) => {
+								// Prevent double-insert if Insert button is clicked
+								if (e.target.closest('button')) return;
+								insertPattern(pattern.content);
+							},
+							style: { cursor: 'pointer' },
 						},
 						createElement(
 							'div',
@@ -90,7 +96,10 @@ const NasioPatternsModalView = ({ isOpen, setOpen }) => {
 								{
 									isPrimary: true,
 									style: { marginTop: '15px' },
-									onClick: () => insertPattern(pattern.content),
+									onClick: (e) => {
+										e.stopPropagation();
+										insertPattern(pattern.content);
+									},
 								},
 								__( 'Insert', 'nasio-blocks' )
 							)

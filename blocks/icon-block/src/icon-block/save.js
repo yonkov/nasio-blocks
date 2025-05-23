@@ -20,7 +20,8 @@ export default function save({ attributes }) {
 		backgroundColor,
 		textColor,
 		borderRadius,
-		padding
+		padding,
+		itemsJustification = 'center',
 	} = attributes;
 	
 	// Calculate block styles
@@ -42,7 +43,7 @@ export default function save({ attributes }) {
 	
 	// Create icon content
 	const iconContent = (
-		<div className="nasio-icon-wrapper">
+		<div className={`nasio-icon-wrapper is-justified-${itemsJustification}`}>
 			{currentIcon && currentIcon}
 		</div>
 	);

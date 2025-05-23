@@ -10,9 +10,16 @@
     --swiper-theme-color: #444;
     --swiper-navigation-size: 1.5rem;
     --swiper-pagination-bottom: 1rem;
+    --swiper-navigation-top-offset: 50%;
+   
+    @media(min-width:80rem){
+	    &:not(.alignfull){
+			--swiper-navigation-sides-offset: -3rem;
+		}
+    }
     
     .nasio-gallery-slider {
-        position: relative;
+        position: static;
         width: 100%;
         overflow: hidden;
         padding-bottom: 4.5rem;
@@ -67,7 +74,7 @@
         width: var(--swiper-navigation-size);
         height: var(--swiper-navigation-size);
         background-color: rgba(255, 255, 255, 0.8);
-        padding: 1.25rem;
+        padding: 1.25em;
         border-radius: 50%;
         
         &.swiper-button-disabled {
@@ -78,26 +85,6 @@
         
         &:hover {
             background-color: rgba(255, 255, 255, 0.95);
-        }
-    }
-    
-    .swiper-button-prev,
-    .swiper-rtl .swiper-button-next {
-        left: 10px;
-        right: auto;
-        
-        &:after {
-            content: 'prev';
-        }
-    }
-    
-    .swiper-button-next,
-    .swiper-rtl .swiper-button-prev {
-        right: 10px;
-        left: auto;
-        
-        &:after {
-            content: 'next';
         }
     }
     

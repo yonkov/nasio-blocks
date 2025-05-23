@@ -44,10 +44,10 @@ function initializePostSlider() {
 		if (!swiperElement) return;
 		
 		// Get settings from data attributes
-		const displayMode = swiperElement.dataset.displayMode || 'carousel';
+		const displayMode = swiperElement.dataset.mode || 'carousel';
 		const slidesPerView = parseInt(swiperElement.dataset.slidesPerView || 3);
 		const spaceBetween = parseInt(swiperElement.dataset.spaceBetween || 20);
-		const slidesPerGroup = parseInt(swiperElement.dataset.slidesPerGroup || 3);
+		const slidesPerGroup = parseInt(swiperElement.dataset.slidesPerGroup || (displayMode === 'carousel' ? 3 : 1));
 		const loop = swiperElement.dataset.loop === 'true';
 		const autoplay = swiperElement.dataset.autoplay === 'true';
 		const autoplayDelay = parseInt(swiperElement.dataset.autoplayDelay || 3000);
@@ -57,6 +57,9 @@ function initializePostSlider() {
 		
 		// Base settings for both displayModes
 		const settings = {
+			slidesPerView: displayMode === 'carousel' ? parseInt(slidesPerView) : 1,
+			spaceBetween: displayMode === 'carousel' ? parseInt(spaceBetween) : 0,
+			slidesPerGroup: displayMode === 'carousel' ? parseInt(slidesPerGroup) : 1,
 			observer: true,
 			observeParents: true,
 			observeSlideChildren: true,
@@ -70,11 +73,10 @@ function initializePostSlider() {
 			rewind: loop
 		};
 		
-		// Different settings based on displayMode
+		// Apply breakpoints only for carousel mode
 		if (displayMode === 'carousel') {
 			settings.slidesPerView = 1;
 			settings.slidesPerGroup = 1;
-			settings.spaceBetween = spaceBetween;
 			
 			// Responsive breakpoints
 			settings.breakpoints = {
@@ -89,10 +91,6 @@ function initializePostSlider() {
 					slidesPerGroup: slidesPerGroup
 				}
 			};
-		} else {
-			// Fullwidth displayMode
-			settings.slidesPerView = 1;
-			settings.spaceBetween = 0;
 		}
 		
 		// Add autoplay if enabled

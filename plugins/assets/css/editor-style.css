@@ -16,12 +16,21 @@
 }
 
 .nasio-pattern-item-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border: 1px dashed #eee;
-    flex-grow: 1; /* This will still work as .nasio-pattern-item is flex (column) */
-    overflow: hidden;
     background: #f9f9f9;
     position: relative;
-    min-height: 240px;
+    height: 200px;
+    overflow: scroll;
+    padding: .75rem;
+    cursor: pointer;
+}
+
+.nasio-pattern-item-preview .block-editor-block-preview__container {
+    overflow-y: scroll;
 }
 
 .nasio-patterns-flex-container {
@@ -30,7 +39,9 @@
     gap: 20px;
 }
 
-.nasio-pattern-item-wrapper {
-    width: calc(33% - 1rem);
-    box-sizing: border-box;
+@media(min-width:40rem){
+    .nasio-pattern-item-wrapper {
+        width: calc(33% - 1rem);
+        box-sizing: border-box;
+    }
 }

@@ -8,14 +8,17 @@
 // Post Slider Block Styles
 .wp-block-nasio-block-post-slider {
 	margin: 2em 0;
+	position: relative;
 
 	// Set CSS variables for use throughout the component
 	--swiper-theme-color: #444;
 	--swiper-navigation-size: 1.5rem;
+	--swiper-navigation-top-offset: 44%;
+	--swiper-navigation-sides-offset: .5rem;
 
 	// Common styles for both carousel and fullwidth modes
 	.nasio-post-slider {
-		position: relative;
+		position: static;
 		overflow: hidden;
 		padding-bottom: 50px; // Space for pagination
 	}
@@ -54,8 +57,18 @@
 		height: var(--slider-height);
 	}
 
+	.nasio-post-meta {
+		font-size: 75%;
+ 		padding: .25rem 0 1rem;
+	}
+
 	// Carousel mode styles
 	&.is-display-mode-carousel {
+		@media(min-width:80rem){
+			&:not(.alignfull){
+				--swiper-navigation-sides-offset: -3rem;
+			}
+    	}
 		.swiper-slide {
 			width: 100%;
 			box-shadow: 4px 1px 30px 10px rgba(0,0,0,0.09);
@@ -74,6 +87,7 @@
 
 	// Fullwidth slider mode styles
 	&.is-display-mode-fullwidth {
+
 		.swiper-slide {
 			width: 100%;
 			transition: opacity 0.4s ease;
@@ -85,7 +99,6 @@
 		}
 		
 		.nasio-post-content {
-			padding: 25px;
 			display: flex;
 			flex-direction: column;
 		}
@@ -117,7 +130,6 @@
 
 		.nasio-post-title {
 			font-size: 1.75rem;
-			margin-bottom: 1rem;
 			
 			@media (min-width: 480px) {
 				font-size: 2rem;
@@ -255,7 +267,7 @@
 	}
 
 	.nasio-post-content {
-		padding: 20px;
+		padding: 1rem 1.5rem 1.75rem;
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
@@ -264,8 +276,8 @@
 
 	.nasio-post-title {
 		margin-top: 0;
-		margin-bottom: 10px;
-		font-size: 1.2em;
+		margin-bottom: 1rem;
+		font-size: 1.25rem;
 		line-height: 1.4;
 
 		a {

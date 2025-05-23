@@ -7,6 +7,8 @@ import {
 	useBlockProps,
 	BlockControls,
 	__experimentalLinkControl as LinkControl,
+	JustifyToolbar,
+	BlockVerticalAlignmentToolbar,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -54,7 +56,7 @@ export default function Edit({ attributes, setAttributes }) {
 		backgroundColor,
 		textColor,
 		borderRadius,
-		padding,
+		itemsJustification = 'center',
 	} = attributes;
 
 	const [isEditingURL, setIsEditingURL] = useState(false);
@@ -86,7 +88,6 @@ export default function Edit({ attributes, setAttributes }) {
 		'--background-color': backgroundColor ? `var(--wp--preset--color--${backgroundColor})` : 'transparent',
 		'--text-color': textColor ? `var(--wp--preset--color--${textColor})` : 'currentColor',
 		'--border-radius': borderRadius ? `${borderRadius}px` : '0',
-		'--padding': padding ? `${padding}px` : '0',
 	};
 
 	// Get block props with styles
@@ -176,6 +177,11 @@ export default function Edit({ attributes, setAttributes }) {
 	return (
 		<>
 			<BlockControls>
+				<JustifyToolbar
+					value={itemsJustification}
+					onChange={(newJustification) => setAttributes({ itemsJustification: newJustification })}
+					allowJustify
+				/>
 				<ToolbarGroup>
 					<ToolbarButton
 						icon={grid}
@@ -206,20 +212,11 @@ export default function Edit({ attributes, setAttributes }) {
 					</div>
 
 					<RangeControl
-						label={__('Size', 'nasio-blocks')}
+						label={__('Size (px)', 'nasio-blocks')}
 						value={iconSize}
 						onChange={(value) => setAttributes({ iconSize: value })}
 						min={12}
 						max={120}
-						step={1}
-					/>
-
-					<RangeControl
-						label={__('Padding', 'nasio-blocks')}
-						value={padding}
-						onChange={(value) => setAttributes({ padding: value })}
-						min={0}
-						max={50}
 						step={1}
 					/>
 				</PanelBody>
@@ -260,7 +257,7 @@ export default function Edit({ attributes, setAttributes }) {
 			/>
 
 			<div {...blockProps}>
-				<div className="nasio-icon-wrapper">{currentIcon && currentIcon}</div>
+				<div className={`nasio-icon-wrapper is-justified-${itemsJustification}`}>{currentIcon && currentIcon}</div>
 			</div>
 		</>
 	);

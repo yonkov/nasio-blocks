@@ -6,18 +6,20 @@
 .wp-block-nasio-block-content-slider {
 	margin: 2em 0;
 	box-sizing: border-box;
+	position: relative;
 
 	// Set CSS variables for use throughout the component
-	--swiper-theme-color: #444;
+	--swiper-theme-color: #333;
 	--swiper-navigation-size: 1.5rem;
+	--swiper-navigation-top-offset: 44%;
+	--swiper-navigation-sides-offset: .5rem;
 
 	// Common styles for both carousel and fullwidth modes
 	.nasio-content-slider {
-		position: relative;
-		padding-bottom: 60px; // Space for pagination
+		position: static;
+		padding-bottom: 4rem; // Space for pagination
 		display: block;
 		width: 100%;
-		box-sizing: border-box;
 	}
 	
 	.swiper-wrapper {
@@ -25,7 +27,6 @@
 		width: 100%;
 		height: auto;
 		flex-wrap: nowrap;
-		box-sizing: border-box;
 	}
 	
 	.swiper-slide {
@@ -34,11 +35,16 @@
 		display: flex;
 		flex-direction: column;
 		flex-shrink: 0;
-		box-sizing: border-box;
 	}
 
 	// Carousel mode styles
 	&.is-display-mode-carousel {
+		@media(min-width:80rem){
+	    	&:not(.alignfull){
+				--swiper-navigation-sides-offset: -3rem;
+			}
+    	}
+		
 		.swiper-slide {
 			width: 100%;
 			border-radius: 8px;
@@ -70,28 +76,20 @@
     .swiper-button-next {
         width: var(--swiper-navigation-size);
         height: var(--swiper-navigation-size);
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 1.25rem;
+		background-color: rgba(255, 255, 255, 0.8);
+        padding: 1.25em;
         border-radius: 50%;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.95);
+		}
         
         &.swiper-button-disabled {
             opacity: 0.35;
             cursor: auto;
             pointer-events: none;
         }
-        
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.95);
-        }
     }
-	
-	.swiper-button-prev {
-		left: 10px;
-	}
-	
-	.swiper-button-next {
-		right: 10px;
-	}
 
     // Swiper Pagination styling
     .swiper-pagination {
@@ -106,7 +104,7 @@
             
             &-active {
                 opacity: 1;
-                background: #555;
+                background: var(--swiper-theme-color);
             }
         }
         

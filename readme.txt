@@ -16,7 +16,7 @@ Small collection of essential blocks for the WordPress Block editor
 == Description ==
 Custom Blocks for the WordPress Block editor. Easy to use, lightweight and useful. Post slider, Content slider, Gallery slider, Accordeon and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
 
-= Features =
+== Features ==
 
 ### Post Slider Block
 
@@ -78,7 +78,7 @@ Yes, you can control these settings per slide. Select a cover block from the con
 = Do the sliders work on mobile devices? =
 Yes, the sliders are fully responsive and will automatically adjust the number of visible slides based on the screen size.
 
-= 5. I don't have time and patience to create content from scratch. Are there templates with demo content that I can use to speed things up? =
+= I don't have time and patience to create content from scratch. Are there templates with demo content that I can use to speed things up? =
 Yes, the plugin registers block patterns that can easily be imported to your posts and pages. Simply go to the Block Editor, click on "Template Library" in the top left-hand side of the screen and insert the pattern of choice. We will be adding more patterns in the future.
 
 = I need only the icon and the accordeon block. I don't want a slider. Can I switch on or off blocks that I don't plan to use? =
@@ -87,7 +87,7 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 == Changelog ==
 
 = 1.0.2 - May 2025 =
-* Improve the gallery slider, fix post slider ServerRender and update the template library to include partners pattern
+* Improve the gallery slider, fix post slider ServerRender and update the template library to include partners and features pattern. Improve sliders styles.
 
 = 1.0.1 - May 2025 =
 * Fix content slider block editor initialization issue and testimonial pattern display. Improve docs.
@@ -101,3 +101,11 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 = 0.0.1 - May 2025 =
 * First plugin version.
 * Added Post Slider block, Content slider and Gallery slider with Swiper.js integration. Added Accordeon block. Added icon block.
+
+== Screenshots ==
+
+1. Accordeon block
+2. Gallery slider
+3. Content slider
+4. Icon block
+5. Template library
