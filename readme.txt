@@ -87,7 +87,7 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 == Changelog ==
 
 = 1.0.3 - May 2025 =
-* Improve theme compatibility
+* Improve theme compatibility and add fullwidth slider pattern
 
 = 1.0.2 - May 2025 =
 * Improve the gallery slider, fix post slider ServerRender and update the template library to include partners and features pattern. Improve sliders styles.
@@ -109,6 +109,7 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 
 1. Accordeon block
 2. Gallery slider
-3. Content slider
-4. Icon block
-5. Template library
+3. Content slider (carousel)
+4. Content slider (fullwidth)
+5. Icon block
+6. Template library

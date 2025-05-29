@@ -81,7 +81,6 @@ export default function Edit({ attributes, setAttributes, clientId, className })
     const blockProps = useBlockProps({
         className: `wp-block-nasio-block-content-slider is-display-mode-${displayMode} is-editor-preview ${className || ''}`,
         style: {
-            '--slides-per-view': slidesPerView,
             '--space-between': `${spaceBetween}px`,
             '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
         }

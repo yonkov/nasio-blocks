@@ -41,7 +41,6 @@ export default function save({ attributes }) {
     const blockProps = useBlockProps.save({
         className: 'wp-block-nasio-block-gallery-slider',
         style: {
-            '--slides-per-view': slidesPerView,
             '--space-between': `${spaceBetween}px`,
             '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
         },

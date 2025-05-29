@@ -29,19 +29,18 @@ export default function save({ attributes }) {
         'data-autoplay-delay': autoplayDelay,
         'data-show-dots': showDots,
         'data-show-arrows': showArrows,
-        'data-draggable': draggable,
-        'data-slides-per-group': slidesPerGroup
+        'data-draggable': draggable
     };
     
-    // Add slides-per-view only for carousel mode
+    // Add slides-per-view and slides-per-group only for carousel mode
     if (displayMode === 'carousel') {
         dataAttributes['data-slides-per-view'] = slidesPerView;
+        dataAttributes['data-slides-per-group'] = slidesPerGroup;
     }
 
     const blockProps = useBlockProps.save({
         className: wrapperClass,
         style: {
-            '--slides-per-view': slidesPerView,
             '--space-between': `${spaceBetween}px`,
             '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
         },

@@ -49,7 +49,7 @@ function initializeContentSlider() {
 
         // Base settings that apply to both modes
         const settings = {
-            loop: loop,
+            rewind: loop,
             observer: true,
             observeParents: true,
             resizeObserver: true,
@@ -85,14 +85,13 @@ function initializeContentSlider() {
 
         // Different settings based on display mode
         if (isFullwidth) {
-            // Fullwidth mode settings
             settings.slidesPerView = 1;
             
             // Ensure virtual slides work properly in fullwidth mode
             if (loop) {
                 settings.loopAdditionalSlides = 1;
             }
-        } else {
+        } else { // Carousel mode
             const slidesPerView = parseInt(slider.dataset.slidesPerView || 3);
             const spaceBetween = parseInt(slider.dataset.spaceBetween || 20);
             const slidesPerGroup = parseInt(slider.dataset.slidesPerGroup || 3);
