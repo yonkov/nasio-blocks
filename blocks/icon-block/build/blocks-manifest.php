@@ -4,7 +4,7 @@ return array(
 	'icon-block' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'version' => '1.0.0',
+		'version' => '1.0.2',
 		'name' => 'nasio-block/icon-block',
 		'title' => 'Icon Block',
 		'category' => 'nasio-blocks',

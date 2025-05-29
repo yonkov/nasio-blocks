@@ -15,16 +15,12 @@
         }
     }
 
-    &.is-display-mode-carousel {
-        @media(min-width:80rem){
-			&:not(.alignfull){
-				--swiper-navigation-sides-offset: .5rem;
-			}
-        }
-    }
-
     .swiper-button-prev,
     .swiper-button-next {
-        padding: .75em;
+        padding: 1.5rem;
+    }
+
+    @media (min-width: 60rem) {
+        --swiper-navigation-sides-offset: var(--swiper-navigation-sides-dynamic-offset);
     }
 }

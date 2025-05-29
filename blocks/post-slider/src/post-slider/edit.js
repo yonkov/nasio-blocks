@@ -36,7 +36,8 @@ export default function Edit({ attributes, setAttributes, className }) {
 		draggable,
 		includeStickyPost,
 		contentPosition,
-		imageOverlay
+		imageOverlay,
+		arrowOffset
 	} = attributes;
 
 	const [categories, setCategories] = useState([]);
@@ -72,11 +73,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 		const swiperElement = previewRef.current.querySelector(
 			".nasio-post-slider",
 		);
-
-		// if (!swiperElement) {
-		// 	console.error("Swiper element not found in the DOM");
-		// 	return;
-		// }
 
 		// Clean up any existing Swiper instance
 		if (swiperInstanceRef.current) {
@@ -153,7 +149,8 @@ export default function Edit({ attributes, setAttributes, className }) {
 		autoplayDelay,
 		showDots,
 		showArrows,
-		draggable
+		draggable,
+		arrowOffset
 	]);
 	// Initialize Swiper after the ServerSideRender completes
     useEffect(() => {
@@ -163,7 +160,6 @@ export default function Edit({ attributes, setAttributes, className }) {
                 if ('childList' !== mutation.type) continue;
                 for (const node of mutation.addedNodes) {
                     if ('DIV' !== node.tagName || !node.classList.contains('ssr')) continue;
-                    initSwiper();
 					setTimeout(() => {
 						initSwiper();
 					}, 500);
@@ -180,6 +176,9 @@ export default function Edit({ attributes, setAttributes, className }) {
 
 	const blockProps = useBlockProps({
 		className: `wp-block-nasio-block-post-slider is-display-mode-${displayMode} is-editor-preview ${className || ""}`,
+		style: {
+			'--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
+		}
 	});
 
 	return (
@@ -267,6 +266,19 @@ export default function Edit({ attributes, setAttributes, className }) {
 						checked={showArrows}
 						onChange={() => setAttributes({ showArrows: !showArrows })}
 					/>
+					{showArrows && (
+						<RangeControl
+							label={__("Arrow Offset (px)", "nasio-blocks")}
+							value={arrowOffset}
+							onChange={(value) => setAttributes({ arrowOffset: value })}
+							min={-80}
+							max={20}
+							help={__(
+								"Choose how to position the arrows relative to the slider. Negative values move the arrows outside the slider.",
+								"nasio-blocks"
+							)}
+						/>
+					)}
 					<ToggleControl
 						label={__("Drag Slides", "nasio-blocks")}
 						checked={draggable}

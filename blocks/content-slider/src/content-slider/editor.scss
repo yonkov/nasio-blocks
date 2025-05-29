@@ -1,7 +1,6 @@
 /**
  * Editor styles for the Content Slider block
  *
- * These styles are loaded only in the editor.
  */
 
 // Basic fix for swiper interaction with editor
@@ -27,6 +26,8 @@
 
 // Style the main content slider block
 .wp-block-nasio-block-content-slider {
+    margin-bottom: 30px;
+    
     .nasio-slider-editor-title {
         background: #f0f0f0;
         font-size: .875rem;
@@ -45,64 +46,30 @@
     
     // Style the Swiper container in editor
     .swiper {
-        // Allow block UI to shine through
         z-index: 1;
-        
-        // Make container selectable by highlighting empty areas
         &:not(.swiper-initialized) {
             min-height: 100px;
             border: 1px dashed #ccc;
         }
-
-        .swiper-button-prev,
-        .swiper-button-next {
-            padding: .75em;
-        }
     }
-    
-    // Special styles for fullwidth mode
-    &.is-display-mode-fullwidth {        
-        .swiper-slide {
-            width: 100%;
-        }
-    }
-
-    &.is-display-mode-carousel {
-        @media(min-width:80rem){
-			&:not(.alignfull){
-				--swiper-navigation-sides-offset: .5rem;
-			}
-        }
-    }
-}
-
-/* Editor styles for content slider */
-
-/* Content slider main block styles */
-.wp-block-nasio-blocks-content-slider {
-    margin-bottom: 30px;
     
     // Title styling in editor
     .nasio-content-slider-title {
         margin-bottom: 15px;
     }
 
-    // Fix for swiper interaction in editor
     .swiper-initialized {
         .wp-block-cover {
             position: relative;
             z-index: 1;
         }
         
-        // Fix for swiper's grab cursor interfering with blocks
         .swiper-slide {
             &:hover {
                 pointer-events: auto;
             }
         }
     }
-    
-    // Special styles for fullwidth mode
     &.is-style-fullwidth {
         width: 100%;
         max-width: none;
@@ -114,5 +81,9 @@
                 height: 100%;
             }
         }
+    }
+
+    @media screen and (min-width: 80rem) {
+        --swiper-navigation-sides-offset: var(--swiper-navigation-sides-dynamic-offset);
     }
 }

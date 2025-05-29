@@ -32,19 +32,6 @@
 }
 
 .wp-block-nasio-block-gallery-slider {
-    position: relative;
-
-    @media(min-width:80rem){
-	    &:not(.alignfull){
-			--swiper-navigation-sides-offset: .5rem;
-		}
-    }
-    
-    .gallery-slider-wrapper {
-        position: relative;
-        overflow: hidden;
-        z-index: 0;
-    }
     
     .nasio-slider-editor-title {
         padding: 8px;
@@ -78,11 +65,6 @@
         &:hover {
             z-index: 1;
         }
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-        padding: .75em;
     }
     
     .gallery-slider-caption {
@@ -130,5 +112,9 @@
         .components-button {
             margin: 4px;
         }
+    }
+
+    @media screen and (min-width: 60rem) {
+        --swiper-navigation-sides-offset: var(--swiper-navigation-sides-dynamic-offset);
     }
 }

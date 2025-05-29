@@ -11,12 +11,7 @@
     --swiper-navigation-size: 1.5rem;
     --swiper-pagination-bottom: 1rem;
     --swiper-navigation-top-offset: 50%;
-   
-    @media(min-width:80rem){
-	    &:not(.alignfull){
-			--swiper-navigation-sides-offset: -3rem;
-		}
-    }
+    --swiper-navigation-sides-offset: .5rem;
     
     .nasio-gallery-slider {
         position: static;
@@ -55,7 +50,7 @@
         max-width: 100%;
         max-height: 100%;
         height: auto;
-        border-radius: 4px;
+        border-radius: .5rem;
         display: block;
     }
     
@@ -71,11 +66,16 @@
     // Swiper Navigation styling
     .swiper-button-prev,
     .swiper-button-next {
+        box-sizing: border-box;
         width: var(--swiper-navigation-size);
         height: var(--swiper-navigation-size);
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 1.25em;
+        background-color: rgba(255, 255, 255, 0.75);
+        padding: 1.5rem;
         border-radius: 50%;
+
+        &:focus {
+			outline: none;
+		}
         
         &.swiper-button-disabled {
             opacity: 0.35;
@@ -110,7 +110,10 @@
         }
     }
     
-    // Responsive styling for different screen sizes
+    @media screen and (min-width: 80rem) {
+        --swiper-navigation-sides-offset: var(--swiper-navigation-sides-dynamic-offset);
+    }
+    
     @media screen and (max-width: 768px) {
         .nasio-gallery-slider {
             padding-bottom: 3rem;

@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes
@@ -56,6 +56,15 @@ function nasio_blocks_register_block_category( $categories ) {
 }
 
 add_filter( 'block_categories_all', 'nasio_blocks_register_block_category' );
+
+/**
+ * Enqueue global block styles.
+ */
+function nasio_blocks_styles() {
+	wp_enqueue_style( 'nasio-blocks-style', NASIO_BLOCKS_URL . 'assets/css/main.css', array(), filemtime( NASIO_BLOCKS_PATH . 'assets/css/main.css' ) );
+}
+
+add_action( 'enqueue_block_assets', 'nasio_blocks_styles' );
 
 /**
  * Enqueue Swiper slider assets for the blocks that need them

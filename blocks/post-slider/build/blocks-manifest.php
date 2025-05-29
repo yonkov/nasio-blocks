@@ -4,7 +4,7 @@ return array(
 	'post-slider' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 2,
-		'version' => '0.0.2',
+		'version' => '1.0.2',
 		'name' => 'nasio-block/post-slider',
 		'title' => 'Post Slider',
 		'category' => 'nasio-blocks',
@@ -111,6 +111,10 @@ return array(
 			'slidesPerGroup' => array(
 				'type' => 'number',
 				'default' => 3
+			),
+			'arrowOffset' => array(
+				'type' => 'number',
+				'default' => 8
 			)
 		),
 		'editorScript' => 'file:./index.js',

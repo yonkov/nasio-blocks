@@ -13,6 +13,7 @@ export default function save({ attributes }) {
         autoplayDelay = 3000,
         showDots = true,
         showArrows = true,
+        arrowOffset = 8,
         draggable = true,
         slidesPerGroup
     } = attributes;
@@ -41,7 +42,8 @@ export default function save({ attributes }) {
         className: wrapperClass,
         style: {
             '--slides-per-view': slidesPerView,
-            '--space-between': `${spaceBetween}px`
+            '--space-between': `${spaceBetween}px`,
+            '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
         },
         ...dataAttributes,
     });

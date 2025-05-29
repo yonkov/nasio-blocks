@@ -4,7 +4,7 @@ return array(
 	'content-slider' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 2,
-		'version' => '1.0.0.1',
+		'version' => '1.0.2',
 		'name' => 'nasio-block/content-slider',
 		'title' => 'Content Slider',
 		'category' => 'nasio-blocks',
@@ -60,6 +60,10 @@ return array(
 			'showArrows' => array(
 				'type' => 'boolean',
 				'default' => true
+			),
+			'arrowOffset' => array(
+				'type' => 'number',
+				'default' => 8
 			),
 			'draggable' => array(
 				'type' => 'boolean',

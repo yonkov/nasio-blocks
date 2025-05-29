@@ -27,6 +27,7 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	$show_arrows     = ! empty( $attributes['showArrows'] ) ? 'true' : 'false';
 	$draggable       = ! empty( $attributes['draggable'] ) ? 'true' : 'false';
 	$slides_per_group = ( $display_mode === 'carousel' ) ? intval( $attributes['slidesPerGroup'] ?? 3 ) : 1;
+	$arrow_offset    = intval( $attributes['arrowOffset'] ?? 8 );
 
 	$show_featured_image = $attributes['showFeaturedImage'] ?? true;
 	$show_fallback_image = $attributes['showFallbackImage'] && $attributes['showFeaturedImage'] ?? true;
@@ -140,7 +141,8 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	. '--slides-per-view:' . esc_attr( $slides_per_view ) . ';'
 	. ( $slider_height > 0 ? '--slider-height:' . esc_attr( $slider_height ) . 'px;' : '' )
 	. '--space-between:' . esc_attr( $space_between ) . 'px;'
-	. '--image-overlay:' . esc_attr( isset( $attributes['imageOverlay'] ) ? $attributes['imageOverlay'] / 10 : 2/10 ) . ';"';
+	. '--image-overlay:' . esc_attr( isset( $attributes['imageOverlay'] ) ? $attributes['imageOverlay'] / 10 : 2/10 ) . ';'
+	. '--swiper-navigation-sides-dynamic-offset:' . esc_attr( $arrow_offset ) . 'px;"';
 
 $output = '<div class="' . esc_attr( $wrapper_class ) . '"' . $style_attributes . '>';
 

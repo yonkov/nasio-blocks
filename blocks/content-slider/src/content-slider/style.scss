@@ -8,11 +8,9 @@
 	box-sizing: border-box;
 	position: relative;
 
-	// Set CSS variables for use throughout the component
 	--swiper-theme-color: #333;
 	--swiper-navigation-size: 1.5rem;
 	--swiper-navigation-top-offset: 44%;
-	--swiper-navigation-sides-offset: .5rem;
 
 	// Common styles for both carousel and fullwidth modes
 	.nasio-content-slider {
@@ -39,12 +37,6 @@
 
 	// Carousel mode styles
 	&.is-display-mode-carousel {
-		@media(min-width:80rem){
-	    	&:not(.alignfull){
-				--swiper-navigation-sides-offset: -3rem;
-			}
-    	}
-		
 		.swiper-slide {
 			width: 100%;
 			border-radius: 8px;
@@ -71,14 +63,18 @@
 		}
 	}
 
-    // Swiper Navigation styling
     .swiper-button-prev,
     .swiper-button-next {
+		box-sizing: border-box;
         width: var(--swiper-navigation-size);
         height: var(--swiper-navigation-size);
-		background-color: rgba(255, 255, 255, 0.8);
-        padding: 1.25em;
+		background-color: rgba(255, 255, 255, 0.75);
+        padding: 1.5rem;
         border-radius: 50%;
+
+		&:focus {
+			outline: none;
+		}
 
 		&:hover {
 			background-color: rgba(255, 255, 255, 0.95);
@@ -91,7 +87,6 @@
         }
     }
 
-    // Swiper Pagination styling
     .swiper-pagination {
         width: 100%;
         
@@ -111,5 +106,9 @@
         &-clickable .swiper-pagination-bullet {
             cursor: pointer;
         }
+    }
+    
+    @media screen and (min-width: 80rem) {
+        --swiper-navigation-sides-offset: var(--swiper-navigation-sides-dynamic-offset);
     }
 }

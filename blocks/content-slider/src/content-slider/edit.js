@@ -41,6 +41,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         autoplayDelay,
         showDots,
         showArrows,
+        arrowOffset,
         draggable,
         slidesPerGroup
     } = attributes;
@@ -81,7 +82,8 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         className: `wp-block-nasio-block-content-slider is-display-mode-${displayMode} is-editor-preview ${className || ''}`,
         style: {
             '--slides-per-view': slidesPerView,
-            '--space-between': `${spaceBetween}px`
+            '--space-between': `${spaceBetween}px`,
+            '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
         }
     });
 
@@ -149,6 +151,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         autoplayDelay,
         showDots,
         showArrows,
+        arrowOffset,
         draggable,
         slidesPerGroup,
         innerBlocks.length,
@@ -315,6 +318,16 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                         checked={showArrows}
                         onChange={() => setAttributes({ showArrows: !showArrows })}
                     />
+                    {showArrows && (
+                        <RangeControl
+                            label={__("Arrow Offset (px)", "nasio-blocks")}
+                            value={arrowOffset}
+                            onChange={(value) => setAttributes({ arrowOffset: value })}
+                            min={-80}
+                            max={20}
+                            help={__("Choose how to position the arrows relative to the slider. Negative values move the arrows outside the slider.", "nasio-blocks")}
+                        />
+                    )}
                     <ToggleControl
                         label={__('Drag Slides', 'nasio-blocks')}
                         checked={draggable}
