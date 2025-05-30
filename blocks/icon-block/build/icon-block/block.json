@@ -34,9 +34,21 @@
   },
   "textdomain": "nasio-blocks",
   "attributes": {
+    "iconType": {
+      "type": "string",
+      "default": "wordpress",
+      "enum": [
+        "wordpress",
+        "custom"
+      ]
+    },
     "icon": {
       "type": "string",
       "default": "starFilled"
+    },
+    "customSvg": {
+      "type": "string",
+      "default": ""
     },
     "iconSize": {
       "type": "number",

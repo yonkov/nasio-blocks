@@ -19,6 +19,9 @@ import {
 	Popover,
 	Modal,
 	SearchControl,
+	RadioControl,
+	TextareaControl,
+	Notice,
 } from '@wordpress/components';
 import { useState, useMemo, useCallback, useRef, useEffect } from '@wordpress/element';
 import { link, linkOff, grid } from '@wordpress/icons';
@@ -46,9 +49,81 @@ function debounce(func, wait) {
 	};
 }
 
+// Function to validate and sanitize SVG input
+function validateSvg(svgString) {
+	if (!svgString.trim()) {
+		return { isValid: false, error: __('SVG cannot be empty', 'nasio-blocks') };
+	}
+	
+	// Basic SVG validation - check if it starts with <svg and ends with </svg>
+	const trimmedSvg = svgString.trim();
+	if (!trimmedSvg.startsWith('<svg') || !trimmedSvg.endsWith('</svg>')) {
+		return { 
+			isValid: false, 
+			error: __('Invalid SVG format. Must start with <svg and end with </svg>', 'nasio-blocks') 
+		};
+	}
+	
+	// Check for potentially dangerous content
+	const dangerousPatterns = [
+		/<script/i,
+		/javascript:/i,
+		/on\w+\s*=/i, // onclick, onload, etc.
+		/<iframe/i,
+		/<object/i,
+		/<embed/i,
+	];
+	
+	for (const pattern of dangerousPatterns) {
+		if (pattern.test(trimmedSvg)) {
+			return { 
+				isValid: false, 
+				error: __('SVG contains potentially unsafe content', 'nasio-blocks') 
+			};
+		}
+	}
+	
+	return { isValid: true, error: null };
+}
+
+// Function to render custom SVG with proper styling
+function renderCustomSvg(svgString, iconSize, textColor) {
+	if (!svgString) return null;
+	
+	try {
+		// Parse the SVG to modify its attributes
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(svgString, 'image/svg+xml');
+		const svgElement = doc.querySelector('svg');
+		
+		if (!svgElement) return null;
+		
+		// Apply size and color styling
+		svgElement.setAttribute('width', iconSize);
+		svgElement.setAttribute('height', iconSize);
+		
+		// Apply color to fill attribute if textColor is set
+		if (textColor) {
+			const colorValue = textColor.startsWith('var(') ? textColor : `var(--wp--preset--color--${textColor})`;
+			svgElement.setAttribute('fill', 'currentColor');
+			svgElement.style.color = colorValue;
+		} else {
+			svgElement.setAttribute('fill', 'currentColor');
+		}
+		
+		// Return the modified SVG as JSX
+		return <div dangerouslySetInnerHTML={{ __html: svgElement.outerHTML }} />;
+	} catch (error) {
+		console.error('Error parsing custom SVG:', error);
+		return <span>{__('Invalid SVG', 'nasio-blocks')}</span>;
+	}
+}
+
 export default function Edit({ attributes, setAttributes }) {
 	const {
+		iconType,
 		icon,
+		customSvg,
 		iconSize,
 		url,
 		linkTarget,
@@ -61,6 +136,17 @@ export default function Edit({ attributes, setAttributes }) {
 
 	const [isEditingURL, setIsEditingURL] = useState(false);
 	const [isIconPickerOpen, setIsIconPickerOpen] = useState(false);
+	const [svgValidation, setSvgValidation] = useState({ isValid: true, error: null });
+
+	// Validate custom SVG when it changes
+	useEffect(() => {
+		if (iconType === 'custom' && customSvg) {
+			const validation = validateSvg(customSvg);
+			setSvgValidation(validation);
+		} else {
+			setSvgValidation({ isValid: true, error: null });
+		}
+	}, [customSvg, iconType]);
 
 	// Get all available WordPress icons
 	const availableIcons = useMemo(() => {
@@ -79,8 +165,18 @@ export default function Edit({ attributes, setAttributes }) {
 			}));
 	}, []);
 
-	// Get the current icon
-	const currentIcon = icon && allIcons[icon] ? allIcons[icon] : null;
+	// Get the current icon based on type
+	const getCurrentIcon = () => {
+		if (iconType === 'custom') {
+			if (customSvg && svgValidation.isValid) {
+				return renderCustomSvg(customSvg, iconSize, textColor);
+			}
+			return <span className="custom-svg-placeholder">{__('Add custom SVG', 'nasio-blocks')}</span>;
+		}
+		return icon && allIcons[icon] ? allIcons[icon] : null;
+	};
+
+	const currentIcon = getCurrentIcon();
 
 	// Calculate block styles
 	const blockStyles = {
@@ -183,11 +279,13 @@ export default function Edit({ attributes, setAttributes }) {
 					allowJustify
 				/>
 				<ToolbarGroup>
-					<ToolbarButton
-						icon={grid}
-						label={__('Choose Icon', 'nasio-blocks')}
-						onClick={() => setIsIconPickerOpen(true)}
-					/>
+					{iconType === 'wordpress' && (
+						<ToolbarButton
+							icon={grid}
+							label={__('Choose Icon', 'nasio-blocks')}
+							onClick={() => setIsIconPickerOpen(true)}
+						/>
+					)}
 					<ToolbarButton
 						icon={url ? link : linkOff}
 						label={url ? __('Edit link', 'nasio-blocks') : __('Add link', 'nasio-blocks')}
@@ -199,17 +297,59 @@ export default function Edit({ attributes, setAttributes }) {
 
 			<InspectorControls>
 				<PanelBody title={__('Icon Settings', 'nasio-blocks')}>
-					<div className="icon-picker-preview">
-						<div className="selected-icon-preview">
-							{currentIcon ? currentIcon : <span>No icon selected</span>}
-						</div>
-						<Button
-							variant="secondary"
-							onClick={() => setIsIconPickerOpen(true)}
-						>
-							{__('Choose Icon', 'nasio-blocks')}
-						</Button>
-					</div>
+					<RadioControl
+						label={__('Icon Type', 'nasio-blocks')}
+						selected={iconType}
+						options={[
+							{ label: __('WordPress Icons', 'nasio-blocks'), value: 'wordpress' },
+							{ label: __('Custom SVG', 'nasio-blocks'), value: 'custom' },
+						]}
+						onChange={(value) => setAttributes({ iconType: value })}
+					/>
+
+					{iconType === 'wordpress' && (
+						<>
+							<div className="icon-picker-preview">
+								<div className="selected-icon-preview">
+									{icon && allIcons[icon] ? allIcons[icon] : <span>No icon selected</span>}
+								</div>
+								<Button
+									variant="secondary"
+									onClick={() => setIsIconPickerOpen(true)}
+								>
+									{__('Choose Icon', 'nasio-blocks')}
+								</Button>
+							</div>
+						</>
+					)}
+
+					{iconType === 'custom' && (
+						<>
+							<TextareaControl
+								label={__('Custom SVG Code', 'nasio-blocks')}
+								value={customSvg}
+								onChange={(value) => setAttributes({ customSvg: value })}
+								placeholder={__('Add your SVG code here...', 'nasio-blocks')}
+								help={__('Enter valid SVG markup.', 'nasio-blocks')}
+								rows={6}
+							/>
+							
+							{!svgValidation.isValid && (
+								<Notice status="error" isDismissible={false}>
+									{svgValidation.error}
+								</Notice>
+							)}
+
+							{customSvg && svgValidation.isValid && (
+								<div className="custom-svg-preview">
+									<label>{__('Preview:', 'nasio-blocks')}</label>
+									<div className="selected-icon-preview">
+										{renderCustomSvg(customSvg, iconSize, textColor)}
+									</div>
+								</div>
+							)}
+						</>
+					)}
 
 					<RangeControl
 						label={__('Size (px)', 'nasio-blocks')}

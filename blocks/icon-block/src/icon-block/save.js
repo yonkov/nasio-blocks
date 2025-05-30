@@ -12,7 +12,9 @@ import * as allIcons from '@wordpress/icons';
  */
 export default function save({ attributes }) {
 	const { 
+		iconType,
 		icon, 
+		customSvg,
 		iconSize, 
 		url, 
 		linkTarget, 
@@ -38,8 +40,36 @@ export default function save({ attributes }) {
 		style: blockStyles,
 	});
 	
-	// Get the current icon
-	const currentIcon = icon && allIcons[icon] ? allIcons[icon] : null;
+	// Get the current icon based on type
+	const getCurrentIcon = () => {
+		if (iconType === 'custom' && customSvg) {
+			// For custom SVG, we need to sanitize and render it safely
+			try {
+				// Parse the SVG to modify its attributes
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(customSvg, 'image/svg+xml');
+				const svgElement = doc.querySelector('svg');
+				
+				if (svgElement) {
+					// Apply size attributes
+					svgElement.setAttribute('width', iconSize);
+					svgElement.setAttribute('height', iconSize);
+					svgElement.setAttribute('fill', 'currentColor');
+					
+					// Return as dangerouslySetInnerHTML for frontend rendering
+					return <div dangerouslySetInnerHTML={{ __html: svgElement.outerHTML }} />;
+				}
+			} catch (error) {
+				console.error('Error parsing custom SVG:', error);
+				return null;
+			}
+		}
+		
+		// For WordPress icons
+		return icon && allIcons[icon] ? allIcons[icon] : null;
+	};
+	
+	const currentIcon = getCurrentIcon();
 	
 	// Create icon content
 	const iconContent = (

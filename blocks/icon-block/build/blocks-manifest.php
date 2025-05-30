@@ -37,9 +37,21 @@ return array(
 		),
 		'textdomain' => 'nasio-blocks',
 		'attributes' => array(
+			'iconType' => array(
+				'type' => 'string',
+				'default' => 'wordpress',
+				'enum' => array(
+					'wordpress',
+					'custom'
+				)
+			),
 			'icon' => array(
 				'type' => 'string',
 				'default' => 'starFilled'
+			),
+			'customSvg' => array(
+				'type' => 'string',
+				'default' => ''
 			),
 			'iconSize' => array(
 				'type' => 'number',

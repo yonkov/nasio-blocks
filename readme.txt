@@ -47,14 +47,15 @@ Display galleries in beautiful multi-column carousels.
 
 ### Icon Block 
 
-Display svg icons from the WordPress [Icons Library](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-icons/). Allow users to add beautiful and scalable svg icons on their website without excessive font libraries - only the specified icons are loaded on the frontend.
+Display svg icons from the WordPress [Icons Library](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-icons/) or upload custom svg icons. Allow users to add beautiful and scalable svg icons on their website without excessive font libraries - only the specified icons are loaded on the frontend.
 
-* Different font size, color and background color.
+* Different font size, color and background color
 * Different spacing options
+* Option to add custom svg icons
 
-### Accordeon
+### Accordeon Block
 
-Display an FAQ-style section in the form of expandable/collabsible accordeons.
+Display an FAQ-style section in the form of expandable/collabsible dropdowns.
 
 * Show a default Open Item
 * Change header background and text color
@@ -87,7 +88,7 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 == Changelog ==
 
 = 1.0.3 - May 2025 =
-* Improve theme compatibility and add fullwidth slider pattern
+* Improve theme compatibility and add fullwidth slider pattern.Add option to add custom svg icons.
 
 = 1.0.2 - May 2025 =
 * Improve the gallery slider, fix post slider ServerRender and update the template library to include partners and features pattern. Improve sliders styles.

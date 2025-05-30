@@ -234,7 +234,6 @@
 	// Common card styles for both modes
 	.nasio-post-card {
 		width: 100%;
-		height: auto;
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
@@ -264,7 +263,6 @@
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
 	}
 
 	.nasio-post-title {
