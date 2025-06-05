@@ -18,7 +18,7 @@ require_once __DIR__ . '/src/content-slider/render.php';
  * Registers the blocks and all related assets.
  */
 function nasio_blocks_content_slider_block_init() {
-	
+
 	/**
 	 * Registers the block(s) metadata from the blocks-manifest.php file.
 	 * Added to WordPress 6.7 to improve the performance of block type registration.
@@ -27,14 +27,15 @@ function nasio_blocks_content_slider_block_init() {
 	if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
 		wp_register_block_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
 	}
-	
+
 	/**
 	 * Registers the block type(s) in the blocks-manifest.php file.
 	 */
 	$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
-	
+	$registry      = WP_Block_Type_Registry::get_instance();
+
 	// Register the content-slider block
-	if (isset($manifest_data['content-slider'])) {
+	if ( ! $registry->is_registered( 'nasio-block/content-slider' ) && isset( $manifest_data['content-slider'] ) ) {
 		register_block_type(
 			__DIR__ . '/build/content-slider',
 			array(
@@ -42,9 +43,9 @@ function nasio_blocks_content_slider_block_init() {
 			)
 		);
 	}
-	
+
 	// Register the slide block
-	if (isset($manifest_data['slide'])) {
+	if ( ! $registry->is_registered( 'nasio-block/slide' ) && isset( $manifest_data['slide'] ) ) {
 		register_block_type( __DIR__ . '/build/content-slider/slide' );
 	}
 }

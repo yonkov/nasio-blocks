@@ -27,9 +27,9 @@ function nasio_blocks_icon_block_init() {
 	 * Registers the block type(s) in the blocks-manifest.php file.
 	 */
 	$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
+	$registry = WP_Block_Type_Registry::get_instance();
 	
-	// Register the icon block
-	if (isset($manifest_data['icon-block'])) {
+	if (! $registry->is_registered( 'nasio-block/icon-block' ) && isset($manifest_data['icon-block'])) {
 		register_block_type( __DIR__ . '/build/icon-block' );
 	}
 }

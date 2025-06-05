@@ -8,7 +8,7 @@ Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
@@ -86,6 +86,9 @@ Yes, the plugin registers block patterns that can easily be imported to your pos
 Yes, in the plugin settings page, you can choose which blocks to enable for maximum performance.
 
 == Changelog ==
+
+= 1.0.4 - June 2025 =
+* Clean up code.
 
 = 1.0.3 - May 2025 =
 * Improve theme compatibility and add fullwidth slider pattern.Add option to add custom svg icons.

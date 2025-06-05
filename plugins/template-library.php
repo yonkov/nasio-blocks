@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-function nasio_enqueue_block_editor_assets() {
+function nasio_blocks_enqueue_block_editor_assets() {
 	wp_enqueue_script(
 		'nasio-template-library-script',
 		plugins_url( 'assets/js/editor-script.js', __FILE__ ),
@@ -21,4 +21,4 @@ function nasio_enqueue_block_editor_assets() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'assets/css/editor-style.css' )
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'nasio_enqueue_block_editor_assets' );
+add_action( 'enqueue_block_editor_assets', 'nasio_blocks_enqueue_block_editor_assets' );

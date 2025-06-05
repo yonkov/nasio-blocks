@@ -34,11 +34,11 @@ function nasio_blocks_post_slider_block_init() {
 	 * Registers the block type(s) in the blocks-manifest.php file.
 	 */
 	$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
-	
-	// Only register the post-slider block
-	if (isset($manifest_data['post-slider'])) {
+	$registry      = WP_Block_Type_Registry::get_instance();
+
+	if ( ! $registry->is_registered( 'nasio-block/post-slider' ) && isset( $manifest_data['post-slider'] ) ) {
 		register_block_type(
-			__DIR__ . "/build/post-slider",
+			__DIR__ . '/build/post-slider',
 			array(
 				'render_callback' => 'nasio_blocks_render_post_slider',
 			)

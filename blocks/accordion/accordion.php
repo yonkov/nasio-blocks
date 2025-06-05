@@ -5,7 +5,7 @@
  * @package Nasio_Blocks
  */
 
- if ( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -17,11 +17,12 @@ function nasio_blocks_accordion_register_block() {
 		return;
 	}
 
-	// Register parent accordion block.
-	register_block_type( __DIR__ . '/build/accordion' );
+	$registry = WP_Block_Type_Registry::get_instance();
 
-	// Register child accordion item block.
-	register_block_type( __DIR__ . '/build/accordion-item' );
+	if ( ! $registry->is_registered( 'nasio-block/accordion' ) || ! $registry->is_registered( 'nasio-block/accordion-item' ) ) {
+		register_block_type( __DIR__ . '/build/accordion' );
+		register_block_type( __DIR__ . '/build/accordion-item' );
+	}
 }
 add_action( 'init', 'nasio_blocks_accordion_register_block' );
 
