@@ -1,0 +1,47 @@
+.wp-block-nasio-block-tabs {
+	// Editor-specific styles for tab blocks
+	.nasio-tab {
+		border: 1px dashed #e0e0e0;
+		border-radius: 4px;
+		padding: 1rem;
+		margin-bottom: 1rem;
+		margin-top: 4rem;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+		
+		&.is-active {
+			border-color: #007cba;
+			border-style: solid;
+			background-color: rgba(0, 124, 186, 0.05);
+		}
+		
+		.nasio-tab-header {
+			margin-bottom: 1rem;
+			
+			h3 {
+				font-size: 16px;
+				font-weight: 600;
+			}
+		}
+	}
+	
+	// Editor-specific enhancements for nav buttons
+	.nasio-tabs-nav {
+		margin-bottom: 1rem;
+		
+		.nasio-tab-nav-button {
+			span {
+				color: inherit;
+				font-weight: inherit;
+				font-size: inherit;
+				
+				&:focus {
+					outline: none;
+					box-shadow: none;
+				}
+			}
+		}
+	}
+}

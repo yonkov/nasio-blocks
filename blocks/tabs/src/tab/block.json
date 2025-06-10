@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "nasio-block/tab",
+	"title": "Tab",
+	"category": "nasio-blocks",
+	"parent": ["nasio-block/tabs"],
+	"icon": "table-row-before",
+	"description": "An individual tab item.",
+	"textdomain": "nasio-blocks",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Tab"
+		},
+		"blockId": {
+			"type": "string"
+		}
+	},
+	"usesContext": ["nasio-block/defaultActiveTab", "nasio-block/activeTabId"],
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js"
+}

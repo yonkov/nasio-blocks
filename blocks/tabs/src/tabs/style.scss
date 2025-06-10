@@ -1,0 +1,76 @@
+.wp-block-nasio-block-tabs {
+	margin-bottom: 2rem;
+	
+	.nasio-tabs {
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	
+	.nasio-tabs-nav {
+		display: flex;
+		
+		.nasio-tab-nav-button {
+			padding: 1rem 1.5rem;
+			background-color: var(--tabs-bg-color);
+			color: var(--tabs-text-color);
+			border: none;
+			border-top: 1px solid #e0e0e0;
+			border-bottom: 1px solid #e0e0e0;
+			border-right: 1px solid #e0e0e0;
+			cursor: pointer;
+			font-weight: 500;
+			transition: all 0.3s ease;
+			flex: 1;
+			text-align: center;
+			
+			&:last-child {
+				border-right: none;
+			}
+			
+			&:hover {
+				background-color: #e0e0e0;
+			}
+			
+			&.is-active {
+				background-color: var(--tabs-active-bg-color);
+				color: var(--tabs-active-text-color);
+			}
+		}
+	}
+	
+	.nasio-tab {
+		.nasio-tab-header {
+			display: block;
+			padding: 1rem;
+			background-color: #f8f9fa;
+			border: 1px solid #dee2e6;
+			margin-bottom: 1rem;
+			border-radius: 4px;
+			
+			// Hide on frontend - navigation handles the titles
+			body:not(.wp-admin) & {
+				display: none;
+			}
+		}
+		
+		.nasio-tab-content {
+			padding: 1.5rem 0;
+			
+			.nasio-tab-content-inner {
+				> *:first-child {
+					margin-top: 0;
+				}
+				
+				> *:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	
+	@media(max-width:40rem){
+		.nasio-tabs-nav {
+			flex-direction: column;
+		}
+	}
+}

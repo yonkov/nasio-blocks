@@ -11,6 +11,7 @@
 	--swiper-theme-color: #333;
 	--swiper-navigation-size: 1.5rem;
 	--swiper-navigation-top-offset: 44%;
+	--swiper-pagination-bullet-size: .75rem;
 
 	// Common styles for both carousel and fullwidth modes
 	.nasio-content-slider {
@@ -91,8 +92,6 @@
         width: 100%;
         
         .swiper-pagination-bullet {
-            width: 10px;
-            height: 10px;
             background: #ccc;
             opacity: 0.7;
             margin: 0 4px;

@@ -14,10 +14,6 @@
 	--wp--preset--color--text-secondary: #646363;
 }
 
-.nasio-pattern .wp-block-columns {
-	gap: .75rem;
-}
-
 .nasio-pattern h2 {
 	font-size: var(--wp--preset--font-size--large);
 }

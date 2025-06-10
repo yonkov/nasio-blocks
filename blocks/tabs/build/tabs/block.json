@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "version": "1.0.4",
+  "name": "nasio-block/tabs",
+  "title": "Tabs",
+  "category": "nasio-blocks",
+  "icon": "table-row-before",
+  "description": "Create content tabs.",
+  "keywords": [
+    "tabs",
+    "content",
+    "sections",
+    "navigation"
+  ],
+  "textdomain": "nasio-blocks",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "anchor": true
+  },
+  "attributes": {
+    "defaultActiveTab": {
+      "type": "string",
+      "default": ""
+    },
+    "activeTabId": {
+      "type": "string",
+      "default": ""
+    },
+    "tabHeaderBackgroundColor": {
+      "type": "string"
+    },
+    "tabHeaderTextColor": {
+      "type": "string"
+    },
+    "tabHeaderActiveBackgroundColor": {
+      "type": "string"
+    },
+    "tabHeaderActiveTextColor": {
+      "type": "string"
+    }
+  },
+  "providesContext": {
+    "nasio-block/defaultActiveTab": "defaultActiveTab",
+    "nasio-block/activeTabId": "activeTabId"
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

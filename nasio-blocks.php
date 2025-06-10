@@ -125,6 +125,7 @@ function nasio_blocks_register_settings() {
 				'gallery_slider' => 1,
 				'icon_block'     => 1,
 				'accordion'      => 1,
+				'tabs'           => 1
 			),
 		)
 	);
@@ -144,6 +145,7 @@ function nasio_blocks_register_settings() {
 		'gallery_slider' => esc_html__( 'Gallery Slider', 'nasio-blocks' ),
 		'icon_block'     => esc_html__( 'Icon Block', 'nasio-blocks' ),
 		'accordion'      => esc_html__( 'Accordion', 'nasio-blocks' ),
+		'tabs'           => esc_html__( 'Tabs', 'nasio-blocks' )
 	);
 
 	foreach ( $fields as $field_id => $field_label ) {
@@ -170,7 +172,7 @@ add_action( 'admin_init', 'nasio_blocks_register_settings' );
  */
 function nasio_blocks_sanitize_settings( $input ) {
 	$sanitized  = array();
-	$valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion' );
+	$valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion', 'tabs' );
 
 	foreach ( $valid_keys as $key ) {
 		$sanitized[ $key ] = isset( $input[ $key ] ) ? (int) (bool) $input[ $key ] : 0;
@@ -197,19 +199,17 @@ function nasio_blocks_page_content_callback() {
 			<a href="<?php echo esc_url( admin_url( 'options-general.php?page=nasio_blocks&tab=faq' ) ); ?>" class="nav-tab <?php echo esc_attr( $active_tab === 'faq' ? 'nav-tab-active' : '' ); ?>"><?php esc_html_e( 'FAQ', 'nasio-blocks' ); ?></a>
 		</h2>
 
-		<?php
-		switch ( $active_tab ) :
+		<?php		switch ( $active_tab ) :
 			case 'blocks':
-				$saved = get_option(
-					'nasio_blocks_enabled_blocks',
-					array(
-						'post_slider'    => 1,
-						'content_slider' => 1,
-						'gallery_slider' => 1,
-						'icon_block'     => 1,
-						'accordion'      => 1,
-					)
+				$defaults = array(
+					'post_slider'    => 1,
+					'content_slider' => 1,
+					'gallery_slider' => 1,
+					'icon_block'     => 1,
+					'accordion'      => 1,
+					'tabs'           => 1,
 				);
+				$saved = wp_parse_args( get_option( 'nasio_blocks_enabled_blocks', array() ), $defaults );
 				?>
 				<div class="nasio-blocks-admin-content">
 					<h3><?php esc_html_e( 'Available Blocks', 'nasio-blocks' ); ?></h3>
@@ -236,10 +236,13 @@ function nasio_blocks_page_content_callback() {
 							<tr>
 								<th scope="row"><?php esc_html_e( 'Icon Block', 'nasio-blocks' ); ?></th>
 								<td><input type="checkbox" name="nasio_blocks_enabled_blocks[icon_block]" value="1" <?php checked( $saved['icon_block'], 1 ); ?> /> Enable</td>
-							</tr>
-							<tr>
+							</tr>							<tr>
 								<th scope="row"><?php esc_html_e( 'Accordion', 'nasio-blocks' ); ?></th>
 								<td><input type="checkbox" name="nasio_blocks_enabled_blocks[accordion]" value="1" <?php checked( $saved['accordion'], 1 ); ?> /> Enable</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Tabs', 'nasio-blocks' ); ?></th>
+								<td><input type="checkbox" name="nasio_blocks_enabled_blocks[tabs]" value="1" <?php checked( $saved['tabs'], 1 ); ?> /> Enable</td>
 							</tr>
 						</table>
 						<?php submit_button( __( 'Save Changes', 'nasio-blocks' ) ); ?>
@@ -281,6 +284,7 @@ $block_directories = array(
 	'gallery_slider' => 'gallery-slider/gallery-slider.php',
 	'icon_block'     => 'icon-block/icon-block.php',
 	'accordion'      => 'accordion/accordion.php',
+	'tabs'           => 'tabs/tabs.php',
 );
 
 foreach ( $block_directories as $block_key => $block_file ) {

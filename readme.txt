@@ -29,7 +29,7 @@ Display your latest posts in a beautiful responsive slider using [Swiper.js](htt
 
 ### Content Slider Block
 
-Create beautiful responsive sliders using the WordPress [Cover block](https://wordpress.org/documentation/article/cover-block/).
+Create beautiful responsive sliders using the WordPress [Cover block](https://wordpress.org/documentation/article/cover-block/) and Swiper.js.
 
 * Choose between Fullwidth Slider or Carousel (multi-column slider) display mode
 * Fully customizable settings for slider behavior
@@ -60,6 +60,15 @@ Display an FAQ-style section in the form of expandable/collabsible dropdowns.
 * Show a default Open Item
 * Change header background and text color
 
+### Tabs Block
+
+Create organized content sections with tabbed navigation.
+
+* Customizable tab colors and styling
+* Set default active tab
+* Responsive design that stacks tabs vertically on mobile
+* Easy content management through the Block Editor interface
+
 == Installation ==
 1. Take the easy route and install through the WordPress plugin installer or download the .zip file and upload the unzipped folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
@@ -88,7 +97,7 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 == Changelog ==
 
 = 1.0.4 - June 2025 =
-* Clean up code.
+* Add tabs block. Clean up code.
 
 = 1.0.3 - May 2025 =
 * Improve theme compatibility and add fullwidth slider pattern.Add option to add custom svg icons.
@@ -111,9 +120,10 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 
 == Screenshots ==
 
-1. Accordeon block
-2. Gallery slider
-3. Content slider (carousel)
-4. Content slider (fullwidth)
-5. Icon block
-6. Template library
+1. Template library
+2. FAQ pattern (Accordeon block)
+3. Partners pattern (Gallery slider block)
+4. Testimonials pattern (Content slider block)
+5. Testimonials pattern 2 (Content slider block)
+6. Hero pattern (Content slider block)
+7. Features pattern (Icon block)
