@@ -4,6 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Edit function for the Tab block
@@ -15,12 +16,28 @@ export default function Edit({ attributes, setAttributes, clientId, context }) {
     // Check if this tab is the active one
     const isActiveTab = activeTabId === clientId;
 
-    // Set blockId on mount if not already set
+    // Get all tab blocks from the parent to check for duplicates
+    const parentTabBlocks = useSelect((select) => {
+        const { getBlockParents, getBlocks } = select('core/block-editor');
+        const parents = getBlockParents(clientId);
+        const parentId = parents[parents.length - 1];
+        if (parentId) {
+            const parentBlock = select('core/block-editor').getBlock(parentId);
+            return parentBlock?.innerBlocks?.filter(block => block.name === 'nasio-block/tab') || [];
+        }
+        return [];
+    }, [clientId]);
+
+    // Set blockId on mount or detect duplicates and fix them
     useEffect(() => {
-        if (!blockId) {
+        const needsNewId = !blockId || 
+            parentTabBlocks.filter(tab => tab.attributes.blockId === blockId).length > 1;
+        
+        if (needsNewId) {
+            // Generate a unique blockId using clientId (which is always unique)
             setAttributes({ blockId: clientId });
         }
-    }, [blockId, clientId, setAttributes]);
+    }, [blockId, clientId, setAttributes, parentTabBlocks]);
     
     return (
         <div {...useBlockProps({

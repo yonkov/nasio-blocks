@@ -20,7 +20,12 @@ function initTabs() {
 
         // Initialize tabs
         tabs.forEach((tab, index) => {
-            const isDefaultActive = defaultActiveTab && tab.dataset.blockId === defaultActiveTab;
+            
+            const tabBlockId = tab.dataset.blockId || '';
+            const isDefaultActive = defaultActiveTab && (
+                tabBlockId === defaultActiveTab || 
+                tab.getAttribute('data-client-id') === defaultActiveTab
+            );
             const isFirstTab = index === 0 && !defaultActiveTab;
             
             if (isDefaultActive || isFirstTab) {
@@ -50,7 +55,10 @@ function createTabNavigation(container, tabs) {
     tabs.forEach((tab, index) => {
         const button = document.createElement('button');
         button.className = 'nasio-tab-nav-button';
-        button.textContent = tab.querySelector('.nasio-tab-title')?.textContent || `Tab ${index + 1}`;
+
+        const titleElement = tab.querySelector('.nasio-tab-title');
+        button.textContent = titleElement?.textContent || `Tab ${index + 1}`;
+        
         button.setAttribute('data-tab-index', index);
         tabNav.appendChild(button);
     });
