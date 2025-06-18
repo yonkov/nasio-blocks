@@ -14,11 +14,11 @@ License: GPLv2
 Small collection of essential blocks for the WordPress Block editor
 
 == Description ==
-Custom Blocks for the WordPress Block editor. Easy to use, lightweight and useful. Post slider, Content slider, Gallery slider, Accordeon and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
+Custom Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Accordeon and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
 
 == Features ==
 
-### Post Slider Block
+= Post Slider Block =
 
 Display your latest posts in a beautiful responsive slider using [Swiper.js](https://swiperjs.com) - lightweight and fully responsive vanilla JS slider with RTL support.
 
@@ -27,7 +27,7 @@ Display your latest posts in a beautiful responsive slider using [Swiper.js](htt
 * Responsive design that works on all devices
 * Support for featured images, excerpts, post metadata and more
 
-### Content Slider Block
+= Content Slider Block =
 
 Create beautiful responsive sliders using the WordPress [Cover block](https://wordpress.org/documentation/article/cover-block/) and Swiper.js.
 
@@ -36,7 +36,7 @@ Create beautiful responsive sliders using the WordPress [Cover block](https://wo
 * Ability to add, delete and edit slides through the familiar Block Editor interface
 * Responsive design that works on all devices
 
-### Gallery Slider Block
+= Gallery Slider Block =
 
 Display galleries in beautiful multi-column carousels.
 
@@ -45,7 +45,7 @@ Display galleries in beautiful multi-column carousels.
 * Ability to set custom image sizes
 * Responsive design that works on all devices
 
-### Icon Block 
+= Icon Block =
 
 Display svg icons from the WordPress [Icons Library](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-icons/) or upload custom svg icons. Allow users to add beautiful and scalable svg icons on their website without excessive font libraries - only the specified icons are loaded on the frontend.
 
@@ -53,14 +53,14 @@ Display svg icons from the WordPress [Icons Library](https://developer.wordpress
 * Different spacing options
 * Option to add custom svg icons
 
-### Accordeon Block
+= Accordeon Block =
 
 Display an FAQ-style section in the form of expandable/collabsible dropdowns.
 
 * Show a default Open Item
 * Change header background and text color
 
-### Tabs Block
+= Tabs Block =
 
 Create organized content sections with tabbed navigation.
 
@@ -68,6 +68,10 @@ Create organized content sections with tabbed navigation.
 * Set default active tab
 * Responsive design that stacks tabs vertically on mobile
 * Easy content management through the Block Editor interface
+
+= Template Library
+
+List of Block patterns created with the Block Editor and using the above custom Gutenberg blocks.
 
 == Installation ==
 1. Take the easy route and install through the WordPress plugin installer or download the .zip file and upload the unzipped folder to the `/wp-content/plugins/` directory
@@ -120,10 +124,10 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 
 == Screenshots ==
 
-1. Template library
-2. FAQ pattern (Accordeon block)
-3. Partners pattern (Gallery slider block)
-4. Testimonials pattern (Content slider block)
-5. Testimonials pattern 2 (Content slider block)
-6. Hero pattern (Content slider block)
-7. Features pattern (Icon block)
+1. FAQ pattern (Accordeon block)
+2. Partners pattern (Gallery slider block)
+3. Testimonials pattern (Content slider block)
+4. Testimonials pattern 2 (Content slider block)
+5. Hero pattern (Content slider block)
+6. Features pattern (Icon block)
+7. Template library

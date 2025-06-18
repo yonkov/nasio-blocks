@@ -56,7 +56,7 @@ function initializeGallerySlider() {
             slidesPerView: 1, // Default for mobile
             spaceBetween: spaceBetween,
             slidesPerGroup: slidesPerGroup,
-            loop: loop,
+            rewind: loop,
             observer: true,
             observeParents: true,
             resizeObserver: true,
