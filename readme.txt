@@ -14,7 +14,7 @@ License: GPLv2
 Small collection of essential blocks for the WordPress Block editor
 
 == Description ==
-Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Accordeon and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
+Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Tabs, Accordeon, and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
 
 == Features ==
 

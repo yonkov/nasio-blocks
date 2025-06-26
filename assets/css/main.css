@@ -38,3 +38,22 @@
 .nasio-pattern .wp-block-cover .wp-block-cover__inner-container {
 	width: 100%;
 }
+
+/*Zoom in hover animation for tabs pattern */
+.nasio-pattern-tabs figure {
+    display: inline-block;
+    overflow: hidden;
+}
+.nasio-pattern-tabs figure a {
+	display: block;
+	height: 100%;
+}
+.nasio-pattern-tabs img {
+    transition: all 0.4s ease;
+    display: block;
+}
+.nasio-pattern-tabs figure:hover img {
+    transform: scale(1.05);
+	opacity: .95;
+	filter: brightness(95%)
+}
