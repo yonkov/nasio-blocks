@@ -7,7 +7,9 @@
     margin-bottom: 1.5em;
     
     // Set CSS variables for use throughout the component
-    --swiper-theme-color: #444;
+    --swiper-theme-color: var(--arrow-color, #444);
+    --swiper-pagination-color: var(--pagination-active-color, #444);
+    --swiper-pagination-inactive-color: var(--pagination-inactive-color, #ccc);
     --swiper-navigation-size: 1.5rem;
     --swiper-pagination-bottom: 1rem;
     --swiper-navigation-top-offset: 50%;
@@ -70,7 +72,7 @@
         box-sizing: border-box;
         width: var(--swiper-navigation-size);
         height: var(--swiper-navigation-size);
-        background-color: rgba(255, 255, 255, 0.75);
+        background-color: var(--arrow-bg-color);
         padding: 1.5rem;
         border-radius: 50%;
 
@@ -84,9 +86,9 @@
             pointer-events: none;
         }
         
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.95);
-        }
+		&:hover {
+			opacity: 0.85;
+		}
     }
     
     // Swiper Pagination styling
@@ -94,13 +96,13 @@
         width: 100%;
         
         .swiper-pagination-bullet {
-            background: #ccc;
+            background: var(--swiper-pagination-inactive-color);
             opacity: 0.7;
             margin: 0 4px;
             
             &-active {
                 opacity: 1;
-                background: #555;
+                background: var(--swiper-pagination-color);
             }
         }
         

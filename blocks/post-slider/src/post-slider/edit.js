@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import {
 	InspectorControls,
+	PanelColorSettings,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -8,6 +9,7 @@ import {
 	SelectControl,
 	ToggleControl,
 	Spinner,
+	__experimentalText as Text
 } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import apiFetch from '@wordpress/api-fetch';
@@ -37,7 +39,11 @@ export default function Edit({ attributes, setAttributes, className }) {
 		includeStickyPost,
 		contentPosition,
 		imageOverlay,
-		arrowOffset
+		arrowOffset,
+		arrowColor,
+		arrowBackgroundColor,
+		paginationActiveColor,
+		paginationInactiveColor
 	} = attributes;
 
 	const [categories, setCategories] = useState([]);
@@ -257,11 +263,6 @@ export default function Edit({ attributes, setAttributes, className }) {
 						/> 
 					}
 					<ToggleControl
-						label={__("Show Dots (Pagination)", "nasio-blocks")}
-						checked={showDots}
-						onChange={() => setAttributes({ showDots: !showDots })}
-					/>
-					<ToggleControl
 						label={__("Show Arrows (Navigation)", "nasio-blocks")}
 						checked={showArrows}
 						onChange={() => setAttributes({ showArrows: !showArrows })}
@@ -279,6 +280,11 @@ export default function Edit({ attributes, setAttributes, className }) {
 							)}
 						/>
 					)}
+					<ToggleControl
+						label={__("Show Dots (Pagination)", "nasio-blocks")}
+						checked={showDots}
+						onChange={() => setAttributes({ showDots: !showDots })}
+					/>
 					<ToggleControl
 						label={__("Drag Slides", "nasio-blocks")}
 						checked={draggable}
@@ -394,6 +400,51 @@ export default function Edit({ attributes, setAttributes, className }) {
 						}
 					/>
 				</PanelBody>
+			</InspectorControls>
+		
+			<InspectorControls group="styles">
+				{showArrows && (
+					<PanelColorSettings
+						title={__("Arrows Colors", "nasio-blocks")}
+						colorSettings={[
+							{
+								value: arrowColor,
+								onChange: (color) => setAttributes({ arrowColor: color || '#333' }),
+								label: __("Arrows Color", "nasio-blocks"),
+								disableCustomColors: false,
+								clearable: false,
+							},
+							{
+								value: arrowBackgroundColor,
+								onChange: (color) => setAttributes({ arrowBackgroundColor: color }),
+								label: __("Arrows Background Color", "nasio-blocks"),
+								disableCustomColors: false,
+								clearable: true,
+							},
+						]}
+					/>
+				)}
+				{showDots && (
+					<PanelColorSettings
+						title={__("Dots Colors", "nasio-blocks")}
+						colorSettings={[
+							{
+								value: paginationInactiveColor,
+								onChange: (color) => setAttributes({ paginationInactiveColor: color || '#ccc' }),
+								label: __("Dots Color", "nasio-blocks"),
+								disableCustomColors: false,
+								clearable: false,
+							},
+							{
+								value: paginationActiveColor,
+								onChange: (color) => setAttributes({ paginationActiveColor: color || '#333' }),
+								label: __("Active Dot Color", "nasio-blocks"),
+								disableCustomColors: false,
+								clearable: false,
+							},
+						]}
+					/>
+				)}
 			</InspectorControls>
 
 			<div className="nasio-post-slider-preview" ref={previewRef}>

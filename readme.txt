@@ -100,6 +100,9 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 
 == Changelog ==
 
+= 1.0.5 - June 2025 =
+* Improve slider blocks to adjust arrow and dot colors.
+
 = 1.0.4 - June 2025 =
 * Add tabs block. Clean up code.
 

@@ -9,6 +9,39 @@
 	exit;
 }
 
+
+/**
+ * Helper function to add opacity to color
+ */
+if ( ! function_exists( 'nasio_blocks_add_opacity_to_color' ) ) {
+	function nasio_blocks_add_opacity_to_color( $color, $opacity = 0.75 ) {
+		if ( empty( $color ) ) {
+			return $color;
+		}
+		
+		// If it's already rgba, return as is
+		if ( strpos( $color, 'rgba' ) !== false ) {
+			return $color;
+		}
+		
+		// If it's rgb, convert to rgba
+		if ( strpos( $color, 'rgb' ) !== false ) {
+			return str_replace( 'rgb(', 'rgba(', str_replace( ')', ", {$opacity})", $color ) );
+		}
+		
+		// If it's hex, convert to rgba
+		if ( strpos( $color, '#' ) === 0 ) {
+			$hex = str_replace( '#', '', $color );
+			$r = hexdec( substr( $hex, 0, 2 ) );
+			$g = hexdec( substr( $hex, 2, 2 ) );
+			$b = hexdec( substr( $hex, 4, 2 ) );
+			return "rgba({$r}, {$g}, {$b}, {$opacity})";
+		}
+		
+		return $color;
+	}
+}
+
 function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 
 	if ( isset( $block->context['query']['postId'] ) && ! $block->context['query']['postId'] ) {
@@ -28,6 +61,17 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	$draggable       = ! empty( $attributes['draggable'] ) ? 'true' : 'false';
 	$slides_per_group = ( $display_mode === 'carousel' ) ? intval( $attributes['slidesPerGroup'] ?? 3 ) : 1;
 	$arrow_offset    = intval( $attributes['arrowOffset'] ?? 8 );
+
+	// Color attributes
+	$arrow_color = $attributes['arrowColor'] ?? '#333';
+	$arrow_bg_color = $attributes['arrowBackgroundColor'] ?? '';
+	$pagination_active_color = $attributes['paginationActiveColor'] ?? '#333';
+	$pagination_inactive_color = $attributes['paginationInactiveColor'] ?? '#ccc';
+
+	// Add opacity to arrow background color
+	if ( ! empty( $arrow_bg_color ) ) {
+		$arrow_bg_color = nasio_blocks_add_opacity_to_color( $arrow_bg_color, 0.75 );
+	}
 
 	$show_featured_image = $attributes['showFeaturedImage'] ?? true;
 	$show_fallback_image = $attributes['showFallbackImage'] && $attributes['showFeaturedImage'] ?? true;
@@ -142,9 +186,11 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	. ( $slider_height > 0 ? '--slider-height:' . esc_attr( $slider_height ) . 'px;' : '' )
 	. '--space-between:' . esc_attr( $space_between ) . 'px;'
 	. '--image-overlay:' . esc_attr( isset( $attributes['imageOverlay'] ) ? $attributes['imageOverlay'] / 10 : 2/10 ) . ';'
-	. '--swiper-navigation-sides-dynamic-offset:' . esc_attr( $arrow_offset ) . 'px;"';
-
-$output = '<div class="' . esc_attr( $wrapper_class ) . '"' . $style_attributes . '>';
+	. '--swiper-navigation-sides-dynamic-offset:' . esc_attr( $arrow_offset ) . 'px;'
+	. '--arrow-color:' . esc_attr( $arrow_color ) . ';'
+	. ( ! empty( $arrow_bg_color ) ? '--arrow-bg-color:' . esc_attr( $arrow_bg_color ) . ';' : '' )
+	. '--pagination-active-color:' . esc_attr( $pagination_active_color ) . ';'
+	. '--pagination-inactive-color:' . esc_attr( $pagination_inactive_color ) . ';"';
 
 	$output = '<div class="' . esc_attr( $wrapper_class ) . '"' . $style_attributes . '>';
 

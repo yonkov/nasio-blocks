@@ -4,7 +4,7 @@ return array(
 	'content-slider' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 2,
-		'version' => '1.0.2',
+		'version' => '1.0.2.1.7',
 		'name' => 'nasio-block/content-slider',
 		'title' => 'Content Slider',
 		'category' => 'nasio-blocks',
@@ -72,6 +72,21 @@ return array(
 			'slidesPerGroup' => array(
 				'type' => 'number',
 				'default' => 3
+			),
+			'arrowColor' => array(
+				'type' => 'string',
+				'default' => '#333'
+			),
+			'arrowBackgroundColor' => array(
+				'type' => 'string'
+			),
+			'paginationActiveColor' => array(
+				'type' => 'string',
+				'default' => '#333'
+			),
+			'paginationInactiveColor' => array(
+				'type' => 'string',
+				'default' => '#ccc'
 			)
 		),
 		'editorScript' => 'file:./index.js',

@@ -15,8 +15,37 @@ export default function save({ attributes }) {
         showArrows = true,
         arrowOffset = 8,
         draggable = true,
-        slidesPerGroup
+        slidesPerGroup,
+        arrowColor = '#333',
+        arrowBackgroundColor,
+        paginationActiveColor = '#333',
+        paginationInactiveColor = '#ccc'
     } = attributes;
+
+    // Helper function to add opacity to color
+    const addOpacityToColor = (color, opacity = 0.75) => {
+        if (!color) return color;
+        
+        // If it's already rgba, return as is
+        if (color.includes('rgba')) return color;
+        
+        // If it's rgb, convert to rgba
+        if (color.includes('rgb')) {
+            return color.replace('rgb(', 'rgba(').replace(')', `, ${opacity})`);
+        }
+        
+        // If it's hex, convert to rgba
+        if (color.startsWith('#')) {
+            const hex = color.replace('#', '');
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        }
+        
+        // For named colors or other formats, wrap in rgba if possible
+        return color;
+    };
 
     const wrapperClass = `wp-block-nasio-block-content-slider is-display-mode-${displayMode}`;
     
@@ -42,7 +71,11 @@ export default function save({ attributes }) {
         className: wrapperClass,
         style: {
             '--space-between': `${spaceBetween}px`,
-            '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
+            '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`,
+            '--arrow-color': arrowColor,
+            ...(arrowBackgroundColor && { '--arrow-bg-color': addOpacityToColor(arrowBackgroundColor, 0.75) }),
+            '--pagination-active-color': paginationActiveColor,
+            '--pagination-inactive-color': paginationInactiveColor
         },
         ...dataAttributes,
     });

@@ -7,6 +7,7 @@ import {
     useBlockProps,
     useInnerBlocksProps,
     BlockContextProvider,
+    PanelColorSettings,
 } from '@wordpress/block-editor';
 import {
     PanelBody,
@@ -43,8 +44,37 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         showArrows,
         arrowOffset,
         draggable,
-        slidesPerGroup
+        slidesPerGroup,
+        arrowColor,
+        arrowBackgroundColor,
+        paginationActiveColor,
+        paginationInactiveColor
     } = attributes;
+
+    // Helper function to add opacity to color
+    const addOpacityToColor = (color, opacity = 0.75) => {
+        if (!color) return color;
+        
+        // If it's already rgba, return as is
+        if (color.includes('rgba')) return color;
+        
+        // If it's rgb, convert to rgba
+        if (color.includes('rgb')) {
+            return color.replace('rgb(', 'rgba(').replace(')', `, ${opacity})`);
+        }
+        
+        // If it's hex, convert to rgba
+        if (color.startsWith('#')) {
+            const hex = color.replace('#', '');
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        }
+        
+        // For named colors or other formats, return as is
+        return color;
+    };
 
     const [isInitialized, setIsInitialized] = useState(false);
     const containerRef = useRef(null);
@@ -82,7 +112,11 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         className: `wp-block-nasio-block-content-slider is-display-mode-${displayMode} is-editor-preview ${className || ''}`,
         style: {
             '--space-between': `${spaceBetween}px`,
-            '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`
+            '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`,
+            '--arrow-color': arrowColor,
+            ...(arrowBackgroundColor && { '--arrow-bg-color': addOpacityToColor(arrowBackgroundColor, 0.75) }),
+            '--pagination-active-color': paginationActiveColor,
+            '--pagination-inactive-color': paginationInactiveColor
         }
     });
 
@@ -357,6 +391,51 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                         />
                     )}
                 </PanelBody>
+            </InspectorControls>
+
+            <InspectorControls group="styles">
+                {showArrows && (
+                    <PanelColorSettings
+                        title={__("Arrows Colors", "nasio-blocks")}
+                        colorSettings={[
+                            {
+                                value: arrowColor,
+                                onChange: (color) => setAttributes({ arrowColor: color || '#333' }),
+                                label: __("Arrows Color", "nasio-blocks"),
+                                disableCustomColors: false,
+                                clearable: false,
+                            },
+                            {
+                                value: arrowBackgroundColor,
+                                onChange: (color) => setAttributes({ arrowBackgroundColor: color }),
+                                label: __("Arrows Background Color", "nasio-blocks"),
+                                disableCustomColors: false,
+                                clearable: true,
+                            },
+                        ]}
+                    />
+                )}
+                {showDots && (
+                    <PanelColorSettings
+                        title={__("Dots Colors", "nasio-blocks")}
+                        colorSettings={[
+                            {
+                                value: paginationInactiveColor,
+                                onChange: (color) => setAttributes({ paginationInactiveColor: color || '#ccc' }),
+                                label: __("Dots Color", "nasio-blocks"),
+                                disableCustomColors: false,
+                                clearable: false,
+                            },
+                            {
+                                value: paginationActiveColor,
+                                onChange: (color) => setAttributes({ paginationActiveColor: color || '#333' }),
+                                label: __("Active Dot Color", "nasio-blocks"),
+                                disableCustomColors: false,
+                                clearable: false,
+                            },
+                        ]}
+                    />
+                )}
             </InspectorControls>
 
             <div className="content-slider-wrapper" ref={containerRef}>

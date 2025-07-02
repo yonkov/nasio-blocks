@@ -39,6 +39,13 @@
 	width: 100%;
 }
 
+/* Testimonials slider */
+@media(max-width:60rem){
+	.nasio-pattern-testimonials-slider h2 {
+		font-size: 1.25rem !important;
+	}
+}
+
 /*Zoom in hover animation for tabs pattern */
 .nasio-pattern-tabs figure {
     display: inline-block;
