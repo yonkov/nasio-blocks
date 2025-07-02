@@ -53,7 +53,7 @@ $content= '<!-- wp:group {"align":"full","layout":{"type":"constrained","content
 <!-- /wp:heading -->
 
 <!-- wp:heading {"level":3,"className":"wp-block-heading"} -->
-<h3 class="wp-block-heading">Web development</h3>
+<h3 class="wp-block-heading"><a href="#">Web development</a></h3>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"verticalAlignment":"center"} -->
@@ -72,7 +72,7 @@ $content= '<!-- wp:group {"align":"full","layout":{"type":"constrained","content
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"blue","textColor":"white","width":100,"className":"p-btn-animation-hover-arrow","style":{"spacing":{"padding":{"left":"0","right":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|white"}}}}} -->
-<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" style="padding-right:0;padding-left:0">Start learning</a></div>
+<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" href="#" style="padding-right:0;padding-left:0">Start learning</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
@@ -89,7 +89,7 @@ $content= '<!-- wp:group {"align":"full","layout":{"type":"constrained","content
 <!-- /wp:heading -->
 
 <!-- wp:heading {"level":3,"className":"wp-block-heading"} -->
-<h3 class="wp-block-heading">Data Analysis</h3>
+<h3 class="wp-block-heading"><a href="#">Data Analysis</a></h3>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"verticalAlignment":"center"} -->
@@ -108,7 +108,7 @@ $content= '<!-- wp:group {"align":"full","layout":{"type":"constrained","content
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"blue","textColor":"white","width":100,"className":"p-btn-animation-hover-arrow","style":{"spacing":{"padding":{"left":"0","right":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|white"}}}}} -->
-<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" style="padding-right:0;padding-left:0">Start learning</a></div>
+<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" href="#" style="padding-right:0;padding-left:0">Start learning</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
@@ -125,7 +125,7 @@ $content= '<!-- wp:group {"align":"full","layout":{"type":"constrained","content
 <!-- /wp:heading -->
 
 <!-- wp:heading {"level":3,"className":"wp-block-heading"} -->
-<h3 class="wp-block-heading">Marketing Automation</h3>
+<h3 class="wp-block-heading"><a href="#">Marketing Automation</a></h3>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"verticalAlignment":"center"} -->
@@ -144,7 +144,7 @@ $content= '<!-- wp:group {"align":"full","layout":{"type":"constrained","content
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"blue","textColor":"white","width":100,"className":"p-btn-animation-hover-arrow","style":{"spacing":{"padding":{"left":"0","right":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|white"}}}}} -->
-<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" style="padding-right:0;padding-left:0">Start learning</a></div>
+<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" href="#" style="padding-right:0;padding-left:0">Start learning</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
@@ -310,7 +310,7 @@ $content= '<!-- wp:group {"align":"full","layout":{"type":"constrained","content
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"blue","textColor":"white","width":100,"className":"p-btn-animation-hover-arrow","style":{"spacing":{"padding":{"left":"0","right":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|white"}}}}} -->
-<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" style="padding-right:0;padding-left:0">Start learning</a></div>
+<div class="wp-block-button has-custom-width wp-block-button__width-100 p-btn-animation-hover-arrow"><a class="wp-block-button__link has-white-color has-blue-background-color has-text-color has-background has-link-color wp-element-button" href="#" style="padding-right:0;padding-left:0">Start learning</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>

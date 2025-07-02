@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes

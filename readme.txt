@@ -8,7 +8,7 @@ Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
