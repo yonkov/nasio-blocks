@@ -111,7 +111,7 @@
     },
     "arrowOffset": {
       "type": "number",
-      "default": 8
+      "default": -48
     },
     "arrowColor": {
       "type": "string",

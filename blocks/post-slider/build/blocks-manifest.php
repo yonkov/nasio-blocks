@@ -114,7 +114,7 @@ return array(
 			),
 			'arrowOffset' => array(
 				'type' => 'number',
-				'default' => 8
+				'default' => -48
 			),
 			'arrowColor' => array(
 				'type' => 'string',

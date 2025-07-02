@@ -60,7 +60,7 @@ function nasio_blocks_render_post_slider( $attributes, $content, $block ) {
 	$show_arrows     = ! empty( $attributes['showArrows'] ) ? 'true' : 'false';
 	$draggable       = ! empty( $attributes['draggable'] ) ? 'true' : 'false';
 	$slides_per_group = ( $display_mode === 'carousel' ) ? intval( $attributes['slidesPerGroup'] ?? 3 ) : 1;
-	$arrow_offset    = intval( $attributes['arrowOffset'] ?? 8 );
+	$arrow_offset    = intval( $attributes['arrowOffset'] ?? -48 );
 
 	// Color attributes
 	$arrow_color = $attributes['arrowColor'] ?? '#333';
