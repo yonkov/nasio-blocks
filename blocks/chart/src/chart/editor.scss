@@ -1,0 +1,138 @@
+/**
+ * Chart Block Editor Styles
+ */
+
+.wp-block-nasio-block-chart {
+
+	.chart-editor-title {
+        background: #f0f0f0;
+        font-size: .875rem;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 2px;
+        text-align: center;
+        border: 1px solid #ddd;
+	}
+	
+	// Editor specific styles
+	.chart-container {
+		min-height: 200px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+		position: relative;
+
+		padding: .75rem;
+	}
+	
+	// Loading state
+	&.is-loading {
+		.chart-container {
+			&::before {
+				content: "Loading Chart.js...";
+				color: #666;
+				font-style: italic;
+			}
+		}
+	}
+	
+	// Error state
+	&.has-error {
+		.chart-container {
+			border-color: #dc3232;
+			background-color: #fef7f7;
+			
+			&::before {
+				content: "Error loading chart";
+				color: #dc3232;
+			}
+		}
+	}
+	
+	// Loading state in chart container
+	.chart-loading {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		background-color: #f5f5f5;
+		border-radius: 4px;
+	}
+	
+
+}
+
+// Data item styling
+.chart-data-item {
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #c9c9c9;
+	border-radius: 4px;
+	
+	.data-item-controls {
+		margin-bottom: 10px;
+	}
+	
+	.data-item-remove {
+		margin-top: 5px;
+	}
+}
+
+// Labels section
+.chart-labels-section {
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background-color: #f5f5f5;
+	
+	.label-item {
+		margin-bottom: 10px;
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		
+		.label-input {
+			flex: 1;
+		}
+		
+		.label-remove {
+			margin-top: 20px;
+		}
+	}
+	
+	.add-label-btn {
+		margin-top: 10px;
+	}
+}
+
+// Add buttons
+.add-data-btn,
+.add-dataset-btn {
+	margin-top: 10px;
+}
+
+// Dataset styling
+.chart-dataset {
+	margin-bottom: 15px;
+	padding: 15px 10px;
+	border: 2px solid #0073aa;
+	border-radius: 4px;
+	background-color: #f0f8ff;
+	
+	.dataset-label {
+		margin-bottom: 15px;
+	}
+	
+	.dataset-values {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		gap: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.dataset-remove {
+		margin-top: 10px;
+	}
+}

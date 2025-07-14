@@ -67,9 +67,10 @@ function nasio_blocks_styles() {
 add_action( 'enqueue_block_assets', 'nasio_blocks_styles' );
 
 /**
- * Enqueue Swiper slider assets for the blocks that need them
+ * Enqueue block assets (Swiper for sliders, Chart.js for charts)
  */
-function nasio_blocks_enqueue_slider_assets() {
+function nasio_blocks_enqueue_block_assets() {
+	// Enqueue Swiper assets for slider blocks
 	if ( nasio_blocks_is_enabled( 'content_slider' ) ||
 		nasio_blocks_is_enabled( 'post_slider' ) ||
 		nasio_blocks_is_enabled( 'gallery_slider' )
@@ -89,8 +90,19 @@ function nasio_blocks_enqueue_slider_assets() {
 			'11.2.6'
 		);
 	}
+
+	// Enqueue Chart.js assets for chart block
+	if ( nasio_blocks_is_enabled( 'chart' ) ) {
+		wp_enqueue_script(
+			'nasio-chart-js',
+			plugins_url( 'assets/lib/chart.umd.min.js', __FILE__ ),
+			array(),
+			'4.5',
+			true
+		);
+	}
 }
-add_action( 'enqueue_block_assets', 'nasio_blocks_enqueue_slider_assets' );
+add_action( 'enqueue_block_assets', 'nasio_blocks_enqueue_block_assets' );
 
 function nasio_blocks_is_enabled( $block_key ) {
 	$settings = get_option( 'nasio_blocks_enabled_blocks', array() );
@@ -125,7 +137,8 @@ function nasio_blocks_register_settings() {
 				'gallery_slider' => 1,
 				'icon_block'     => 1,
 				'accordion'      => 1,
-				'tabs'           => 1
+				'tabs'           => 1,
+				'chart'          => 1
 			),
 		)
 	);
@@ -145,7 +158,8 @@ function nasio_blocks_register_settings() {
 		'gallery_slider' => esc_html__( 'Gallery Slider', 'nasio-blocks' ),
 		'icon_block'     => esc_html__( 'Icon Block', 'nasio-blocks' ),
 		'accordion'      => esc_html__( 'Accordion', 'nasio-blocks' ),
-		'tabs'           => esc_html__( 'Tabs', 'nasio-blocks' )
+		'tabs'           => esc_html__( 'Tabs', 'nasio-blocks' ),
+		'chart'          => esc_html__( 'Chart', 'nasio-blocks' )
 	);
 
 	foreach ( $fields as $field_id => $field_label ) {
@@ -172,7 +186,7 @@ add_action( 'admin_init', 'nasio_blocks_register_settings' );
  */
 function nasio_blocks_sanitize_settings( $input ) {
 	$sanitized  = array();
-	$valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion', 'tabs' );
+	$valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion', 'tabs', 'chart' );
 
 	foreach ( $valid_keys as $key ) {
 		$sanitized[ $key ] = isset( $input[ $key ] ) ? (int) (bool) $input[ $key ] : 0;
@@ -208,6 +222,7 @@ function nasio_blocks_page_content_callback() {
 					'icon_block'     => 1,
 					'accordion'      => 1,
 					'tabs'           => 1,
+					'chart'          => 1,
 				);
 				$saved = wp_parse_args( get_option( 'nasio_blocks_enabled_blocks', array() ), $defaults );
 				?>
@@ -243,6 +258,10 @@ function nasio_blocks_page_content_callback() {
 							<tr>
 								<th scope="row"><?php esc_html_e( 'Tabs', 'nasio-blocks' ); ?></th>
 								<td><input type="checkbox" name="nasio_blocks_enabled_blocks[tabs]" value="1" <?php checked( $saved['tabs'], 1 ); ?> /> Enable</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Chart', 'nasio-blocks' ); ?></th>
+								<td><input type="checkbox" name="nasio_blocks_enabled_blocks[chart]" value="1" <?php checked( $saved['chart'], 1 ); ?> /> Enable</td>
 							</tr>
 						</table>
 						<?php submit_button( __( 'Save Changes', 'nasio-blocks' ) ); ?>
@@ -285,6 +304,7 @@ $block_directories = array(
 	'icon_block'     => 'icon-block/icon-block.php',
 	'accordion'      => 'accordion/accordion.php',
 	'tabs'           => 'tabs/tabs.php',
+	'chart'          => 'chart/chart.php',
 );
 
 foreach ( $block_directories as $block_key => $block_file ) {

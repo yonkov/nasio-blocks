@@ -1,0 +1,126 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "version": "1.0.3.0.1",
+  "name": "nasio-block/chart",
+  "title": "Chart",
+  "category": "nasio-blocks",
+  "icon": "chart-bar",
+  "description": "Create beautiful charts with Chart.js - pie, doughnut, bar, and line charts.",
+  "keywords": [
+    "chart",
+    "graph",
+    "data",
+    "visualization",
+    "statistics"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "nasio-blocks",
+  "attributes": {
+    "chartType": {
+      "type": "string",
+      "default": "pie"
+    },
+    "chartData": {
+      "type": "array",
+      "default": [
+        {
+          "label": "Item 1",
+          "value": 64
+        },
+        {
+          "label": "Item 2",
+          "value": 6
+        },
+        {
+          "label": "Item 3",
+          "value": 3.6
+        },
+        {
+          "label": "Item 4",
+          "value": 27.5
+        }
+      ]
+    },
+    "chartDatasets": {
+      "type": "array",
+      "default": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            64,
+            6,
+            3.6,
+            27.5
+          ]
+        }
+      ]
+    },
+    "chartColors": {
+      "type": "array",
+      "default": [
+        "#36A2EB",
+        "#DC3545",
+        "#FFCE56",
+        "#4BC0C0",
+        "#9966FF",
+        "#FF9F40"
+      ]
+    },
+    "chartTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "showLegend": {
+      "type": "boolean",
+      "default": true
+    },
+    "legendPosition": {
+      "type": "string",
+      "default": "top"
+    },
+    "chartWidth": {
+      "type": "number",
+      "default": 400
+    },
+    "chartHeight": {
+      "type": "number",
+      "default": 300
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "borderColor": {
+      "type": "string"
+    },
+    "borderWidth": {
+      "type": "number",
+      "default": 1
+    },
+    "showDataLabels": {
+      "type": "boolean",
+      "default": false
+    },
+    "dataUnit": {
+      "type": "string",
+      "default": ""
+    },
+    "unitPosition": {
+      "type": "string",
+      "default": "after"
+    },
+    "labelThreshold": {
+      "type": "number"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

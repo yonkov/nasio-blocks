@@ -1,0 +1,19 @@
+/**
+ * Chart Block Styles
+ */
+
+.wp-block-nasio-block-chart {
+	margin: 2em 0;
+	
+	.chart-container {
+		padding: .75rem;
+	}
+	
+	// Editor specific styles
+	&.is-editor-preview {
+		.chart-container {
+			border: 1px dashed #ccc;
+			background: #f9f9f9;
+		}
+	}
+}

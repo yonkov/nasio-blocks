@@ -1,0 +1,4 @@
+/**
+ * Chart Block
+ */
+import './chart';
