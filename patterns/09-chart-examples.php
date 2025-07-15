@@ -1,14 +1,11 @@
 <?php
-/**
- * Title: Chart Examples
- * Slug: nasio-blocks/chart-examples
- * Categories: nasio-patterns
- * Keywords: chart, graph, data, statistics
- * Description: Various chart examples showcasing different chart types and configurations.
- */
 
- $content = '<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:heading {"textAlign":"center"} -->
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+$content = '<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"980px","wideSize":"1180px"}} -->
+<div class="wp-block-group alignwide"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Data Visualization</h2>
 <!-- /wp:heading -->
 

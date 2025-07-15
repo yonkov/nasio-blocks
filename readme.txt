@@ -8,13 +8,13 @@ Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
 
 == Description ==
-Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Tabs, Accordeon, and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
+Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Tabs, Accordeon, Chart, and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
 
 == Features ==
 
@@ -69,6 +69,16 @@ Create organized content sections with tabbed navigation.
 * Responsive design that stacks tabs vertically on mobile
 * Easy content management through the Block Editor interface
 
+#### [Chart Block](https://nasio-blocks.nasiothemes.com/chart/)
+
+Display data in beautiful, interactive charts using [Chart.js](https://www.chartjs.org/).
+
+* Support for multiple chart types: Pie, Doughnut, Bar, and Line charts
+* Fully customizable colors for chart segments and datasets
+* Interactive legends with customizable positioning
+* Data labels with custom units and threshold controls
+* Multiple datasets support
+
 = Template Library =
 
 List of Block patterns (ready to use demo content) created with the Block Editor.
@@ -99,6 +109,9 @@ Yes, the plugin registers block patterns that can easily be imported to your pos
 Yes, in the plugin settings page, you can choose which blocks to enable for maximum performance.
 
 == Changelog ==
+
+= 1.0.6 - July 2025 =
+* Add chart block
 
 = 1.0.5 - June 2025 =
 * Improve slider blocks to adjust arrow and dot colors.
