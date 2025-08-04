@@ -2,7 +2,7 @@
 Contributors: nasiothemes
 Plugin Name: Nasio Blocks
 Plugin URI: https://github.com/yonkov/nasio-blocks
-Tags: gutenberg, blocks, gutenberg blocks, swiper
+Tags: gutenberg, blocks, gutenberg blocks, swiper, chart
 Author URI: https://nasiothemes.com/
 Author: Nasio Themes
 Requires at least: 6.7
