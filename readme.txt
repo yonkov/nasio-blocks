@@ -14,7 +14,7 @@ License: GPLv2
 Small collection of essential blocks for the WordPress Block editor
 
 == Description ==
-Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Tabs, Accordeon, Chart, and Icon blocks. Features a template library with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
+Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Tabs, Accordeon, Chart, and Icon blocks. Features a [template library](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/#template-library) with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
 
 == Features ==
 
@@ -96,6 +96,9 @@ Simply edit a page or post with the Block Editor, click the "+" button to add a 
 = Can I customize how many posts appear in the post slider? =
 Yes, you can set the number of posts to display, filter by category, and adjust how many slides appear at once on different screen sizes.
 
+= Can I show custom post types using the post slider, e.g. projects, courses, movies, etc.? =
+Yes, this is possible in the [pro version](https://nasio-blocks.nasiothemes.com/) of the plugin.
+
 = Can I customize the height and the overlay ratio of the content slider? =
 Yes, you can control these settings per slide. Select a cover block from the content slider, click on Styles tab and adjust accordingly.
 
@@ -107,6 +110,9 @@ Yes, the plugin registers block patterns that can easily be imported to your pos
 
 = I need only the icon and the accordeon block. I don't want a slider. Can I switch on or off blocks that I don't plan to use? =
 Yes, in the plugin settings page, you can choose which blocks to enable for maximum performance.
+
+= Is there plugin documentation available? =
+Yes, here is the official [plugin documentation](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/).
 
 == Changelog ==
 
