@@ -375,7 +375,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                 slidesPerView: parseInt(slidesPerView),
                 spaceBetween: parseInt(spaceBetween),
                 slidesPerGroup: parseInt(slidesPerGroup),
-                rewind: loop,
+                loop: loop,
                 observer: true,
                 observeParents: true,
                 resizeObserver: true,

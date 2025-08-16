@@ -15,25 +15,38 @@
  * @return string Returns the gallery slider with images.
  */
 function nasio_blocks_render_gallery_slider( $attributes, $content, $block ) {
-    // Check if we need to handle custom image sizes
-    if (isset($attributes['imageSizeSlug'])) {
-        // Handle "uncropped" option - ensure we use the original aspect ratio
-        if ($attributes['imageSizeSlug'] === 'uncropped' && !empty($attributes['images'])) {
-            // No server-side manipulation needed - the frontend JS already uses full size images
-        }
+    // Handle custom image dimensions
+    if (isset($attributes['imageSizeSlug']) && $attributes['imageSizeSlug'] === 'custom') {
+        $customWidth = isset($attributes['customImageWidth']) ? $attributes['customImageWidth'] : '';
+        $customHeight = isset($attributes['customImageHeight']) ? $attributes['customImageHeight'] : '';
         
-        // Handle "custom" dimensions
-        if ($attributes['imageSizeSlug'] === 'custom' && 
-            !empty($attributes['images'])) {
-                
-            // The custom dimensions are applied via inline styles in the saved markup
-            // The frontend JavaScript (view.js) will respect these dimensions
+        if (!empty($customWidth) || !empty($customHeight)) {
+            // Build inline style for custom dimensions
+            $inlineStyles = array();
             
-            // No PHP image processing needed because the dimensions are applied via CSS
-            // We're using the full-sized image and letting CSS control the dimensions
+            if (!empty($customWidth)) {
+                $inlineStyles[] = 'width:' . esc_attr($customWidth);
+            }
+            
+            if (!empty($customHeight)) {
+                $inlineStyles[] = 'height:' . esc_attr($customHeight);
+            }
+            
+            // Apply object-fit if both dimensions are specified
+            if (!empty($customWidth) && !empty($customHeight)) {
+                $inlineStyles[] = 'object-fit:cover';
+            }
+            
+            $styleAttribute = 'style="' . implode(';', $inlineStyles) . '"';
+            
+            // Add inline styles to all gallery slider images
+            $content = preg_replace(
+                '/(<img[^>]*class="gallery-slider-image"[^>]*)(>)/',
+                '$1 ' . $styleAttribute . '$2',
+                $content
+            );
         }
     }
     
-    // Return the content since it already contains the complete slider markup
     return $content;
 } 

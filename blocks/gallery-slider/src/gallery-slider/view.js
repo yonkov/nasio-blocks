@@ -47,16 +47,13 @@ function initializeGallerySlider() {
         const desiredSlidesPerView = parseInt(slider.dataset.slidesPerView || 3);
         const spaceBetween = parseInt(slider.dataset.spaceBetween || 20);
         const slidesPerGroup = parseInt(slider.dataset.slidesPerGroup || 1);
-        const imageSize = slider.dataset.imageSize || 'large';
-        const customWidth = slider.dataset.customWidth || '';
-        const customHeight = slider.dataset.customHeight || '';
 
         // Base settings that apply to all gallery sliders
         const settings = {
             slidesPerView: 1, // Default for mobile
             spaceBetween: spaceBetween,
             slidesPerGroup: slidesPerGroup,
-            rewind: loop,
+            loop: loop,
             observer: true,
             observeParents: true,
             resizeObserver: true,
@@ -77,11 +74,11 @@ function initializeGallerySlider() {
             breakpoints: {
                 480: {
                     slidesPerView: Math.min(2, desiredSlidesPerView),
-                    slidesPerGroup: Math.min(2, slidesPerGroup) // <-- MODIFIED HERE
+                    slidesPerGroup: Math.min(2, slidesPerGroup)
                 },
                 768: {
                     slidesPerView: desiredSlidesPerView,
-                    slidesPerGroup: slidesPerGroup // <-- MODIFIED HERE
+                    slidesPerGroup: slidesPerGroup
                 }
             }
         };
@@ -102,24 +99,8 @@ function initializeGallerySlider() {
             };
         }
 
-        // Apply custom dimensions to images if using 'custom' image size
-        if (imageSize === 'custom' && (customWidth || customHeight)) {
-            const slideImages = swiperElement.querySelectorAll('.gallery-slider-image');
-            slideImages.forEach(img => {
-                if (customWidth) {
-                    img.style.width = customWidth;
-                }
-                if (customHeight) {
-                    img.style.height = customHeight;
-                }
-                
-                // Apply object-fit property if both width and height are specified
-                // This helps maintain image proportions while filling the specified dimensions
-                if (customWidth && customHeight) {
-                    img.style.objectFit = 'cover';
-                }
-            });
-        }
+        // Note: Custom dimensions are now handled server-side in render.php
+        // to prevent flash of unstyled content on slow servers
         
         try {
             new Swiper(swiperElement, settings);

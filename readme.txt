@@ -8,7 +8,7 @@ Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
@@ -115,6 +115,9 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 Yes, here is the official [plugin documentation](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/).
 
 == Changelog ==
+
+= 1.0.7 - August 2025 =
+* Add chart block
 
 = 1.0.6 - July 2025 =
 * Add chart block
