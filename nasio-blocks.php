@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 1.0.7
+ * Version: 1.0.8
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes
@@ -138,7 +138,8 @@ function nasio_blocks_register_settings() {
 				'icon_block'     => 1,
 				'accordion'      => 1,
 				'tabs'           => 1,
-				'chart'          => 1
+				'chart'          => 1,
+				'countdown'      => 1
 			),
 		)
 	);
@@ -159,7 +160,8 @@ function nasio_blocks_register_settings() {
 		'icon_block'     => esc_html__( 'Icon Block', 'nasio-blocks' ),
 		'accordion'      => esc_html__( 'Accordion', 'nasio-blocks' ),
 		'tabs'           => esc_html__( 'Tabs', 'nasio-blocks' ),
-		'chart'          => esc_html__( 'Chart', 'nasio-blocks' )
+		'chart'          => esc_html__( 'Chart', 'nasio-blocks' ),
+		'countdown'      => esc_html__( 'Countdown', 'nasio-blocks' )
 	);
 
 	foreach ( $fields as $field_id => $field_label ) {
@@ -186,7 +188,7 @@ add_action( 'admin_init', 'nasio_blocks_register_settings' );
  */
 function nasio_blocks_sanitize_settings( $input ) {
 	$sanitized  = array();
-	$valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion', 'tabs', 'chart' );
+	$valid_keys = array( 'post_slider', 'content_slider', 'gallery_slider', 'icon_block', 'accordion', 'tabs', 'chart', 'countdown' );
 
 	foreach ( $valid_keys as $key ) {
 		$sanitized[ $key ] = isset( $input[ $key ] ) ? (int) (bool) $input[ $key ] : 0;
@@ -223,6 +225,7 @@ function nasio_blocks_page_content_callback() {
 					'accordion'      => 1,
 					'tabs'           => 1,
 					'chart'          => 1,
+					'countdown'      => 1,
 				);
 				$saved = wp_parse_args( get_option( 'nasio_blocks_enabled_blocks', array() ), $defaults );
 				?>
@@ -262,6 +265,10 @@ function nasio_blocks_page_content_callback() {
 							<tr>
 								<th scope="row"><?php esc_html_e( 'Chart', 'nasio-blocks' ); ?></th>
 								<td><input type="checkbox" name="nasio_blocks_enabled_blocks[chart]" value="1" <?php checked( $saved['chart'], 1 ); ?> /> Enable</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Countdown', 'nasio-blocks' ); ?></th>
+								<td><input type="checkbox" name="nasio_blocks_enabled_blocks[countdown]" value="1" <?php checked( $saved['countdown'], 1 ); ?> /> Enable</td>
 							</tr>
 						</table>
 						<?php submit_button( __( 'Save Changes', 'nasio-blocks' ) ); ?>
@@ -305,6 +312,7 @@ $block_directories = array(
 	'accordion'      => 'accordion/accordion.php',
 	'tabs'           => 'tabs/tabs.php',
 	'chart'          => 'chart/chart.php',
+	'countdown'      => 'countdown/countdown.php',
 );
 
 foreach ( $block_directories as $block_key => $block_file ) {

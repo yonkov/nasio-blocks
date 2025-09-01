@@ -2,19 +2,19 @@
 Contributors: nasiothemes
 Plugin Name: Nasio Blocks
 Plugin URI: https://github.com/yonkov/nasio-blocks
-Tags: gutenberg, blocks, gutenberg blocks, swiper, chart
+Tags: blocks, gutenberg blocks, swiper, chart, countdown
 Author URI: https://nasiothemes.com/
 Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
 
 == Description ==
-Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Tabs, Accordeon, Chart, and Icon blocks. Features a [template library](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/#template-library) with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
+Custom Gutenberg Blocks for the WordPress Block editor. Easy to use, lightweight and super useful. Post slider, Content slider, Gallery slider, Tabs, Accordeon, Chart, Icon and Countdown blocks. Features a [template library](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/#template-library) with predefined demo content (block patterns) to speed up the page creation process. No unnecessary code to slow you down - you can choose which blocks to activate for maximum performance.
 
 == Features ==
 
@@ -79,6 +79,16 @@ Display data in beautiful, interactive charts using [Chart.js](https://www.chart
 * Data labels with custom units and threshold controls
 * Multiple datasets support
 
+#### [Countdown Block](https://nasio-blocks.nasiothemes.com/countdown/)
+
+Create engaging countdown timers to build anticipation for sales, events, or product launches.
+
+* Set custom target date and time for your countdown
+* Customizable time unit labels (Days, Hours, Minutes, Seconds)
+* Multiple display styles: Default (stacked) and Inline layout options
+* Multiple style options for countdown units
+* Unit delimiter options (e.g., ":", "-", " | ") between time units
+
 = Template Library =
 
 List of Block patterns (ready to use demo content) created with the Block Editor.
@@ -111,13 +121,16 @@ Yes, the plugin registers block patterns that can easily be imported to your pos
 = I need only the icon and the accordeon block. I don't want a slider. Can I switch on or off blocks that I don't plan to use? =
 Yes, in the plugin settings page, you can choose which blocks to enable for maximum performance.
 
-= Is there plugin documentation available? =
-Yes, here is the official [plugin documentation](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/).
+= Where is the plugin documentation? =
+Here is the official [plugin documentation](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/).
 
 == Changelog ==
 
+= 1.0.8 - September 2025 =
+* Add countdown block
+
 = 1.0.7 - August 2025 =
-* Add chart block
+* Add server side render for gallery slider image dimensions
 
 = 1.0.6 - July 2025 =
 * Add chart block

@@ -1,0 +1,138 @@
+/**
+ * The following styles get applied both in the editor and on the frontend.
+ */
+
+.wp-block-nasio-block-countdown {
+	// Text alignment support
+	&.has-text-align-left .countdown-container {
+		justify-content: flex-start;
+	}
+	
+	&.has-text-align-center .countdown-container {
+		justify-content: center;
+	}
+	
+	&.has-text-align-right .countdown-container {
+		justify-content: flex-end;
+	}
+	
+	// Only apply border to units when border size is actually set
+	&[style*="--countdown-unit-border-size"] .countdown-unit {
+		border: var(--countdown-unit-border-size) solid var(--countdown-unit-border-color, currentColor);
+	}
+
+	/* Container */
+	.countdown-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: var(--countdown-spacing, 20px);
+	}
+
+	/* Default countdown units */
+	.countdown-unit {
+		min-width: 60px;
+		padding: 16px 20px;
+		background-color: var(--countdown-unit-background-color, transparent);
+		border-radius: var(--countdown-unit-border-radius, 0);
+	}
+
+	/* Unit numbers */
+	.countdown-number {
+		line-height: 1;
+		margin: 0;
+	}
+
+	/* Unit labels */
+	.countdown-label {
+		font-size: 0.8em;
+		font-weight: normal;
+		opacity: 0.8;
+		margin-top: 4px;
+	}
+
+	/* Delimiter between units */
+	.countdown-delimiter {
+		font-size: 1.2em;
+		opacity: 0.6;
+		align-self: center;
+	}
+
+	&:not(.is-style-inline) {
+		.countdown-unit {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.countdown-number, .countdown-label {
+			display: block;
+		}
+	}
+
+	&.is-style-inline {
+		.countdown-container {
+			justify-content: center;
+			align-items: baseline;
+			gap: var(--countdown-spacing, 20px);
+		}
+		
+		.countdown-unit {
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+			min-width: auto;
+			padding: 0.5em 0.75em; // Give some padding back for styling
+			gap: 0.25em; // Gap between number and label within each unit
+		}
+		
+		.countdown-delimiter {
+			font-size: 1.5em;
+			opacity: 0.6;
+			margin: 0 0.25em;
+		}
+		
+		.countdown-number {
+			line-height: 1;
+			font-weight: bold;
+			font-variant-numeric: tabular-nums;
+			min-width: 1.2em;
+			text-align: center;
+		}
+		
+		.countdown-label {
+			font-size: 0.9em;
+			opacity: 0.8;
+			margin-top: 0;
+		}
+	}
+
+	/* Responsive design */
+	@media (max-width: 768px) {
+		.countdown-container {
+			gap: 10px;
+		}
+		
+		.countdown-unit {
+			min-width: 50px;
+			padding: 8px 12px;
+		}
+		
+		.countdown-label {
+			font-size: 0.8em;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.countdown-container {
+			gap: 8px;
+			flex-direction: column;
+		}
+		
+		.countdown-unit {
+			min-width: 40px;
+			padding: 16px 20px;
+		}
+		
+	}
+}

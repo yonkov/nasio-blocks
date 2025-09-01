@@ -1,0 +1,23 @@
+
+/**
+ * Editor-specific styles for the countdown block
+ */
+
+/* Editor specific styles */
+.block-editor-block-list__block[data-type="nasio-block/countdown"] {
+	.wp-block-nasio-block-countdown {
+		min-height: 80px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+		
+		.countdown-container .countdown-unit {
+			transition: all 0.2s ease;
+			
+			&:hover {
+				transform: translateY(-2px);
+			}
+		}
+	}
+}

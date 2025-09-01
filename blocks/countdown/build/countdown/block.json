@@ -1,0 +1,106 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "version": "1.0.0",
+  "name": "nasio-block/countdown",
+  "title": "Countdown",
+  "category": "nasio-blocks",
+  "icon": "clock",
+  "description": "Display a countdown timer to a specific date and time.",
+  "keywords": [
+    "countdown",
+    "timer",
+    "date",
+    "time"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "left",
+      "center",
+      "right",
+      "wide",
+      "full"
+    ],
+    "typography": {
+      "fontSize": true,
+      "lineHeight": false,
+      "fontWeight": true
+    },
+    "color": {
+      "text": true,
+      "background": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
+  },
+  "textdomain": "nasio-blocks",
+  "attributes": {
+    "targetDate": {
+      "type": "string",
+      "default": ""
+    },
+    "targetTime": {
+      "type": "string",
+      "default": "23:59"
+    },
+    "daysLabel": {
+      "type": "string",
+      "default": "Days"
+    },
+    "hoursLabel": {
+      "type": "string",
+      "default": "Hours"
+    },
+    "minutesLabel": {
+      "type": "string",
+      "default": "Minutes"
+    },
+    "secondsLabel": {
+      "type": "string",
+      "default": "Seconds"
+    },
+    "spacing": {
+      "type": "number",
+      "default": 20
+    },
+    "textAlign": {
+      "type": "string",
+      "default": "center"
+    },
+    "fontWeight": {
+      "type": "string",
+      "default": "normal"
+    },
+    "unitBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "unitBorderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "unitBorderWidth": {
+      "type": "number",
+      "default": 0
+    },
+    "unitBorderRadius": {
+      "type": "number",
+      "default": 0
+    },
+    "delimiter": {
+      "type": "string",
+      "default": ""
+    },
+    "unitPrefix": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
