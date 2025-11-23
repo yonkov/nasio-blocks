@@ -1,0 +1,119 @@
+/**
+ * Admin styles for Nasio Blocks
+ */
+
+/* Black Friday Cyber Monday Notice */
+.nasio-blocks-bfcm-notice {
+	background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+	border-left: 4px solid #facc15;
+	padding: 25px 35px;
+	margin: 20px 20px 20px 0;
+	position: relative;
+}
+
+.nasio-blocks-bfcm-notice .notice-dismiss {
+	top: 20px;
+	right: 20px;
+	color: #fff;
+	opacity: 0.7;
+}
+
+.nasio-blocks-bfcm-notice .notice-dismiss:hover {
+	opacity: 1;
+}
+
+.nasio-blocks-bfcm-notice .notice-dismiss:before {
+	color: #fff;
+}
+
+.nasio-blocks-bfcm-content {
+	color: #fff;
+}
+
+.nasio-blocks-bfcm-heading {
+	margin: 0 0 10px 0;
+	font-size: 2em;
+	color: #fff;
+}
+
+.nasio-blocks-bfcm-offer {
+	margin: 0 0 15px 0;
+	font-size: 1.2em;
+	font-weight: 500;
+}
+
+.nasio-blocks-bfcm-discount {
+	color: #facc15;
+	font-weight: 700;
+	font-size: 1.5em;
+}
+
+.nasio-blocks-bfcm-description {
+	margin: 0 0 15px 0;
+	font-size: 1em;
+	line-height: 1.6;
+}
+
+.nasio-blocks-bfcm-coupon {
+	margin: 0 0 20px 0;
+	font-size: 1.1em;
+	line-height: 1.6;
+}
+
+.nasio-blocks-bfcm-coupon strong {
+	color: #facc15;
+	font-size: 1.2em;
+	letter-spacing: 0.05em;
+}
+
+.nasio-blocks-bfcm-buttons {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.nasio-blocks-bfcm-buttons a {
+	display: flex !important;
+}
+
+.nasio-blocks-bfcm-notice .button-hero {
+	padding: 12px 30px;
+	font-size: 16px;
+	height: auto;
+	line-height: 1.4;
+}
+
+.nasio-blocks-bfcm-btn-primary {
+	background: #facc15 !important;
+	border-color: #facc15 !important;
+	color: #000 !important;
+	font-weight: 600;
+	margin-right: 10px;
+	text-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.nasio-blocks-bfcm-btn-secondary {
+	background: rgba(255, 255, 255, 0.2) !important;
+	border-color: rgba(255, 255, 255, 0.5) !important;
+	color: #fff !important;
+	text-shadow: none !important;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+@media (max-width: 782px) {
+	.nasio-blocks-bfcm-notice {
+		padding: 20px 25px;
+	}
+	
+	.nasio-blocks-bfcm-buttons {
+		flex-direction: column;
+	}
+	
+	.nasio-blocks-bfcm-buttons .button {
+		margin-right: 0 !important;
+		text-align: center;
+	}
+}
