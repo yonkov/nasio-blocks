@@ -71,10 +71,23 @@ export default function save({ attributes }) {
 	
 	const currentIcon = getCurrentIcon();
 	
-	// Create icon content
+	// Generate screen reader text from icon name
+	const getScreenReaderText = () => {
+		if (iconType === 'custom') {
+			return 'icon';
+		}
+		// Convert camelCase icon name to readable text
+		// e.g., "starFilled" becomes "star filled"
+		return icon 
+			? icon.replace(/([A-Z])/g, ' $1').trim().toLowerCase()
+			: 'icon';
+	};
+	
+	// Create icon content with screen reader text
 	const iconContent = (
 		<div className={`nasio-icon-wrapper is-justified-${itemsJustification}`}>
 			{currentIcon && currentIcon}
+			<span className="screen-reader-text">{getScreenReaderText()}</span>
 		</div>
 	);
 	

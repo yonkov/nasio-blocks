@@ -19,11 +19,20 @@ function initAccordions() {
                 openAccordionItem(item);
             }
 
-            // Add click event listeners to headers
+            // Add event listeners to headers
             const header = item.querySelector('.nasio-accordion-item-header');
             if (header) {
+                // Click event
                 header.addEventListener('click', () => {
                     toggleAccordionItem(item);
+                });
+
+                // Keyboard events
+                header.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleAccordionItem(item);
+                    }
                 });
             }
         });
@@ -54,6 +63,7 @@ function toggleAccordionItem(item) {
 
 function openAccordionItem(item) {
     const content = item.querySelector('.nasio-accordion-item-content');
+    const header = item.querySelector('.nasio-accordion-item-header');
 	item.classList.add('is-open');
     if (!content) return;
 
@@ -67,10 +77,16 @@ function openAccordionItem(item) {
     if (icon) {
         icon.style.transform = 'rotate(180deg)';
     }
+
+    // Update aria-expanded for accessibility
+    if (header) {
+        header.setAttribute('aria-expanded', 'true');
+    }
 }
 
 function closeAccordionItem(item) {
     const content = item.querySelector('.nasio-accordion-item-content');
+    const header = item.querySelector('.nasio-accordion-item-header');
     if (!content) return;
 
     item.classList.remove('is-open');
@@ -82,5 +98,10 @@ function closeAccordionItem(item) {
     const icon = item.querySelector('.nasio-accordion-icon');
     if (icon) {
         icon.style.transform = 'rotate(0deg)';
+    }
+
+    // Update aria-expanded for accessibility
+    if (header) {
+        header.setAttribute('aria-expanded', 'false');
     }
 }

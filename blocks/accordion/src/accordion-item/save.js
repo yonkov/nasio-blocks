@@ -21,13 +21,18 @@ export default function save({ attributes }) {
 
     return (
         <div {...blockProps}>
-            <div className="nasio-accordion-item-header">
+            <button 
+                className="nasio-accordion-item-header"
+                type="button"
+                aria-expanded="false"
+            >
                 <h3 className="nasio-accordion-item-title">{title}</h3>
                 <Icon 
                     icon={chevronDown} 
                     className="nasio-accordion-icon"
+                    aria-hidden="true"
                 />
-            </div>
+            </button>
             <div className="nasio-accordion-item-content">
                 <div className="nasio-accordion-item-content-inner">
                     <InnerBlocks.Content />

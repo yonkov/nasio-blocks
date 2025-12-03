@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 1.0.9
+ * Version: 1.1.0
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes
@@ -361,52 +361,26 @@ require_once NASIO_BLOCKS_PATH . '/plugins/template-library.php';
 require_once NASIO_BLOCKS_PATH . '/assets/svg/svg-icons.php';
 
 /**
- * Display Black Friday Cyber Monday admin notice
+ * Displayadmin notice
  */
-function nasio_blocks_bfcm_admin_notice() {
+function nasio_blocks_admin_notice() {
 	// Check if user has dismissed the notice
-	$user_id = get_current_user_id();
-	if ( get_user_meta( $user_id, 'nasio_blocks_bfcm_2025_dismissed', true ) ) {
-		return;
-	}
-
-	// Don't show on post/page editor screens
-	$screen = get_current_screen();
-	if ( $screen && in_array( $screen->base, array( 'post' ) ) ) {
-		return;
-	}
-
-	// Only show during Black Friday / Cyber Monday period (customize dates as needed)
-	$current_date = current_time( 'Y-m-d' );
-	$start_date   = '2025-11-23'; // Start date
-	$end_date     = '2025-12-02'; // End date
-
-	if ( $current_date < $start_date || $current_date > $end_date ) {
-		return;
-	}
 
 	?>
-	<div class="notice notice-info is-dismissible nasio-blocks-bfcm-notice" data-notice="nasio_blocks_bfcm_2025">
-		<div class="nasio-blocks-bfcm-content">
-			<div class="nasio-blocks-bfcm-text">
-				<h2 class="nasio-blocks-bfcm-heading">
+	<div class="notice notice-info is-dismissible nasio-blocks-admin-notice" data-notice="nasio_blocks_notice">
+		<div class="nasio-blocks-admin-notice-content">
+			<div class="nasio-blocks-admin-text">
+				<h2 class="nasio-blocks-admin-heading">
 					<?php esc_html_e( 'Get More with Nasio Blocks Pro 🚀', 'nasio-blocks' ); ?>
 				</h2>
-				<p class="nasio-blocks-bfcm-offer">
-					<span class="nasio-blocks-bfcm-discount">50% OFF</span> 
-					<?php esc_html_e( '- Our Biggest Discount! Very Limited Black Friday - Cyber Monday Time Offer!', 'nasio-blocks' ); ?>
+				<p class="nasio-blocks-admin-description">
+					<?php esc_html_e( 'More customization options, dedicated support, and priority updates.', 'nasio-blocks' ); ?>
 				</p>
-				<p class="nasio-blocks-bfcm-description">
-					<?php esc_html_e( 'Get premium features, dedicated support, and priority updates. Don\'t miss this exclusive deal! Only between 28 November - 2 December.', 'nasio-blocks' ); ?>
-				</p>
-				<p class="nasio-blocks-bfcm-coupon">
-					<?php esc_html_e( 'Coupon code:', 'nasio-blocks' ); ?> <strong>nasio50</strong> 🎁
-				</p>
-				<div class="nasio-blocks-bfcm-buttons">
-					<a href="https://nasiothemes.com/deals" target="_blank" class="button button-primary button-hero nasio-blocks-bfcm-btn-primary">
-						<?php esc_html_e( 'Claim Your 50% Discount', 'nasio-blocks' ); ?>
+				<div class="nasio-blocks-admin-buttons">
+					<a href="https://nasio-blocks.nasiothemes.com/" target="_blank" class="button button-primary button-hero nasio-blocks-admin-btn-primary">
+						<?php esc_html_e( 'Learn more', 'nasio-blocks' ); ?>
 					</a>
-					<a href="https://nasio-blocks.nasiothemes.com" target="_blank" class="button button-secondary button-hero nasio-blocks-bfcm-btn-secondary">
+					<a href="https://nasio-blocks.nasiothemes.com/#free-vs-pro" target="_blank" class="button button-secondary button-hero nasio-blocks-admin-btn-secondary">
 						<span class="dashicons dashicons-cart"></span>
 						<?php esc_html_e( 'Upgrade to Pro', 'nasio-blocks' ); ?>
 					</a>
@@ -416,23 +390,23 @@ function nasio_blocks_bfcm_admin_notice() {
 	</div>
 	<?php
 }
-add_action( 'admin_notices', 'nasio_blocks_bfcm_admin_notice' );
+add_action( 'admin_notices', 'nasio_blocks_admin_notice' );
 
 /**
  * Handle AJAX request to dismiss Black Friday notice
  */
-function nasio_blocks_dismiss_bfcm_notice() {
+function nasio_blocks_dismiss_admin_notice() {
 	check_ajax_referer( 'nasio_blocks_nonce', 'nonce' );
 	
 	$user_id = get_current_user_id();
 	if ( $user_id ) {
-		update_user_meta( $user_id, 'nasio_blocks_bfcm_2025_dismissed', true );
+		update_user_meta( $user_id, 'nasio_blocks_admin_notice', true );
 		wp_send_json_success();
 	}
 	
 	wp_send_json_error();
 }
-add_action( 'wp_ajax_nasio_blocks_dismiss_bfcm', 'nasio_blocks_dismiss_bfcm_notice' );
+add_action( 'wp_ajax_nasio_blocks_dismiss_bfcm', 'nasio_blocks_dismiss_admin_notice' );
 
 /**
  * Enqueue admin styles
@@ -454,8 +428,8 @@ function nasio_blocks_admin_scripts() {
 	?>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			$(document).on('click', '.nasio-blocks-bfcm-notice .notice-dismiss', function() {
-				var noticeType = $(this).closest('.nasio-blocks-bfcm-notice').data('notice');
+			$(document).on('click', '.nasio-blocks-admin-notice .notice-dismiss', function() {
+				var noticeType = $(this).closest('.nasio-blocks-admin-notice').data('notice');
 				$.ajax({
 					url: ajaxurl,
 					type: 'POST',

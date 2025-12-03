@@ -8,7 +8,6 @@ import {
 	BlockControls,
 	__experimentalLinkControl as LinkControl,
 	JustifyToolbar,
-	BlockVerticalAlignmentToolbar,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,

@@ -3,8 +3,8 @@
 return array(
 	'chart' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
-		'apiVersion' => 2,
-		'version' => '1.0.3.0.1',
+		'apiVersion' => 3,
+		'version' => '1.0.3',
 		'name' => 'nasio-block/chart',
 		'title' => 'Chart',
 		'category' => 'nasio-blocks',

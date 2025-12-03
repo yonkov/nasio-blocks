@@ -2,88 +2,87 @@
  * Admin styles for Nasio Blocks
  */
 
-/* Black Friday Cyber Monday Notice */
-.nasio-blocks-bfcm-notice {
-	background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-	border-left: 4px solid #facc15;
+.nasio-blocks-admin-notice {
+	background: linear-gradient(135deg, #3b82f6 0%, #094aca 100%);
+	border-left: 0;
 	padding: 25px 35px;
 	margin: 20px 20px 20px 0;
 	position: relative;
 }
 
-.nasio-blocks-bfcm-notice .notice-dismiss {
-	top: 20px;
-	right: 20px;
+.nasio-blocks-admin-notice .notice-dismiss {
+	top: .75rem;
+	right: 1rem;
 	color: #fff;
 	opacity: 0.7;
 }
 
-.nasio-blocks-bfcm-notice .notice-dismiss:hover {
+.nasio-blocks-admin-notice .notice-dismiss:hover {
 	opacity: 1;
 }
 
-.nasio-blocks-bfcm-notice .notice-dismiss:before {
+.nasio-blocks-admin-notice .notice-dismiss:before {
 	color: #fff;
 }
 
-.nasio-blocks-bfcm-content {
+.nasio-blocks-admin-notice-content {
 	color: #fff;
 }
 
-.nasio-blocks-bfcm-heading {
-	margin: 0 0 10px 0;
+.nasio-blocks-admin-heading {
+	margin: 0 !important;
 	font-size: 2em;
 	color: #fff;
 }
 
-.nasio-blocks-bfcm-offer {
+.nasio-blocks-admin-offer {
 	margin: 0 0 15px 0;
 	font-size: 1.2em;
 	font-weight: 500;
 }
 
-.nasio-blocks-bfcm-discount {
+.nasio-blocks-admin-discount {
 	color: #facc15;
 	font-weight: 700;
 	font-size: 1.5em;
 }
 
-.nasio-blocks-bfcm-description {
-	margin: 0 0 15px 0;
+.nasio-blocks-admin-description {
+	padding: 1rem 0 !important;
 	font-size: 1em;
 	line-height: 1.6;
 }
 
-.nasio-blocks-bfcm-coupon {
+.nasio-blocks-admin-coupon {
 	margin: 0 0 20px 0;
 	font-size: 1.1em;
 	line-height: 1.6;
 }
 
-.nasio-blocks-bfcm-coupon strong {
+.nasio-blocks-admin-coupon strong {
 	color: #facc15;
 	font-size: 1.2em;
 	letter-spacing: 0.05em;
 }
 
-.nasio-blocks-bfcm-buttons {
+.nasio-blocks-admin-buttons {
 	display: flex;
 	gap: 10px;
 	flex-wrap: wrap;
 }
 
-.nasio-blocks-bfcm-buttons a {
+.nasio-blocks-admin-buttons a {
 	display: flex !important;
 }
 
-.nasio-blocks-bfcm-notice .button-hero {
+.nasio-blocks-admin-notice .button-hero {
 	padding: 12px 30px;
 	font-size: 16px;
 	height: auto;
 	line-height: 1.4;
 }
 
-.nasio-blocks-bfcm-btn-primary {
+.nasio-blocks-admin-btn-primary {
 	background: #facc15 !important;
 	border-color: #facc15 !important;
 	color: #000 !important;
@@ -93,7 +92,7 @@
 	box-shadow: none !important;
 }
 
-.nasio-blocks-bfcm-btn-secondary {
+.nasio-blocks-admin-btn-secondary {
 	background: rgba(255, 255, 255, 0.2) !important;
 	border-color: rgba(255, 255, 255, 0.5) !important;
 	color: #fff !important;
@@ -104,15 +103,15 @@
 }
 
 @media (max-width: 782px) {
-	.nasio-blocks-bfcm-notice {
+	.nasio-blocks-admin-notice {
 		padding: 20px 25px;
 	}
 	
-	.nasio-blocks-bfcm-buttons {
+	.nasio-blocks-admin-buttons {
 		flex-direction: column;
 	}
 	
-	.nasio-blocks-bfcm-buttons .button {
+	.nasio-blocks-admin-buttons .button {
 		margin-right: 0 !important;
 		text-align: center;
 	}

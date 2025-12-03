@@ -7,8 +7,8 @@ Author URI: https://nasiothemes.com/
 Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
-Tested up to: 6.8
-Stable tag: 1.0.9
+Tested up to: 6.9
+Stable tag: 1.1.0
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
@@ -125,6 +125,9 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 Here is the official [plugin documentation](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/).
 
 == Changelog ==
+
+= 1.1.0 - December 2025 =
+* Improve plugin accessibility
 
 = 1.0.9 - November 2025 =
 * Update docs

@@ -15,8 +15,10 @@
 		}
 		
 		.nasio-accordion-item-header {
+			width: 100%;
 			padding: 1rem;
 			background-color: var(--nasio-blocks-accordion-header-bgr-color, #f7f7f7);
+			color: var(--nasio-blocks-accordion-header-text-color, #333);
 			cursor: pointer;
 			display: flex;
 			justify-content: space-between;
@@ -25,11 +27,14 @@
 			border: 1px solid #ddd;
 			border-radius: 4px;
 			margin-bottom: 0.5rem;
+			text-align: left;
+
 			h3 {
-				color: var(--nasio-blocks-accordion-header-text-color, inherit);
+
+				text-align: left;
 			}
 			svg {
-				fill: var(--nasio-blocks-accordion-header-text-color, inherit);
+				fill: currentColor;
 			}
 		}
 	}
