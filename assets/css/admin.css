@@ -3,18 +3,15 @@
  */
 
 .nasio-blocks-admin-notice {
-	background: linear-gradient(135deg, #3b82f6 0%, #094aca 100%);
+	background: linear-gradient(135deg, #5d95f1 0%, #094aca 100%);
 	border-left: 0;
-	padding: 25px 35px;
-	margin: 20px 20px 20px 0;
+	padding: 1.5rem !important;
 	position: relative;
 }
 
 .nasio-blocks-admin-notice .notice-dismiss {
-	top: .75rem;
-	right: 1rem;
 	color: #fff;
-	opacity: 0.7;
+	opacity: .85;
 }
 
 .nasio-blocks-admin-notice .notice-dismiss:hover {
@@ -31,7 +28,7 @@
 
 .nasio-blocks-admin-heading {
 	margin: 0 !important;
-	font-size: 2em;
+	font-size: 1.5em;
 	color: #fff;
 }
 
@@ -56,7 +53,7 @@
 .nasio-blocks-admin-coupon {
 	margin: 0 0 20px 0;
 	font-size: 1.1em;
-	line-height: 1.6;
+	line-height: 1.7;
 }
 
 .nasio-blocks-admin-coupon strong {
@@ -71,35 +68,37 @@
 	flex-wrap: wrap;
 }
 
-.nasio-blocks-admin-buttons a {
+.nasio-blocks-admin-buttons .button {
 	display: flex !important;
+	min-height: unset;
+	line-height: 2rem;
 }
 
-.nasio-blocks-admin-notice .button-hero {
-	padding: 12px 30px;
-	font-size: 16px;
-	height: auto;
-	line-height: 1.4;
+.nasio-blocks-admin-notice .button {
+	padding: 0 1rem !important;
+}
+
+.button.nasio-blocks-admin-btn-primary {
+	font-weight: 600;
+	margin-right: 10px;
 }
 
 .nasio-blocks-admin-btn-primary {
-	background: #facc15 !important;
-	border-color: #facc15 !important;
+	background: #fff !important;
+	border-color: #fff !important;
 	color: #000 !important;
-	font-weight: 600;
-	margin-right: 10px;
-	text-shadow: none !important;
-	box-shadow: none !important;
+}
+
+.button.nasio-blocks-admin-btn-secondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
 }
 
 .nasio-blocks-admin-btn-secondary {
 	background: rgba(255, 255, 255, 0.2) !important;
-	border-color: rgba(255, 255, 255, 0.5) !important;
 	color: #fff !important;
-	text-shadow: none !important;
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
+	border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 @media (max-width: 782px) {

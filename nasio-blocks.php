@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes
@@ -361,28 +361,35 @@ require_once NASIO_BLOCKS_PATH . '/plugins/template-library.php';
 require_once NASIO_BLOCKS_PATH . '/assets/svg/svg-icons.php';
 
 /**
- * Displayadmin notice
+ * Display admin notice
  */
 function nasio_blocks_admin_notice() {
+
 	// Check if user has dismissed the notice
+	if ( get_user_meta( get_current_user_id(), 'nasio_blocks_admin_notice', true ) ) {
+		return;
+	}
 
 	?>
 	<div class="notice notice-info is-dismissible nasio-blocks-admin-notice" data-notice="nasio_blocks_notice">
 		<div class="nasio-blocks-admin-notice-content">
 			<div class="nasio-blocks-admin-text">
 				<h2 class="nasio-blocks-admin-heading">
-					<?php esc_html_e( 'Get More with Nasio Blocks Pro 🚀', 'nasio-blocks' ); ?>
+					<?php esc_html_e( 'Get more with Nasio Blocks Pro! 🚀', 'nasio-blocks' ); ?>
 				</h2>
 				<p class="nasio-blocks-admin-description">
-					<?php esc_html_e( 'More customization options, dedicated support, and priority updates.', 'nasio-blocks' ); ?>
+					<?php esc_html_e( 'Unlimited sliders: slide through custom post types and filter slides by custom taxonomies. Unique transitions and animations.', 'nasio-blocks' ); ?>
+					<br>
+					<?php esc_html_e( 'Additional styling options for svg icons, tabs and chart block and many more advanced features.', 'nasio-blocks' ); ?>
 				</p>
 				<div class="nasio-blocks-admin-buttons">
-					<a href="https://nasio-blocks.nasiothemes.com/" target="_blank" class="button button-primary button-hero nasio-blocks-admin-btn-primary">
-						<?php esc_html_e( 'Learn more', 'nasio-blocks' ); ?>
-					</a>
-					<a href="https://nasio-blocks.nasiothemes.com/#free-vs-pro" target="_blank" class="button button-secondary button-hero nasio-blocks-admin-btn-secondary">
+					<a href="https://nasio-blocks.nasiothemes.com/" target="_blank" class="button button-secondary nasio-blocks-admin-btn-secondary">
 						<span class="dashicons dashicons-cart"></span>
 						<?php esc_html_e( 'Upgrade to Pro', 'nasio-blocks' ); ?>
+					</a>
+
+					<a href="https://nasio-blocks.nasiothemes.com/#free-vs-pro" target="_blank" class="button button-primary nasio-blocks-admin-btn-primary">
+						<?php esc_html_e( 'Learn more', 'nasio-blocks' ); ?>
 					</a>
 				</div>
 			</div>
