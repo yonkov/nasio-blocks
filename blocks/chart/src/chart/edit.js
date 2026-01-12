@@ -193,7 +193,13 @@ export default function Edit({ attributes, setAttributes, clientId, className })
             
             config.options.scales = {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: chartType === 'bar',
+                    ticks: {
+                        callback: function(value) {
+                            const unit = dataUnit || '';
+                            return unitPosition === 'before' ? unit + value : value + unit;
+                        }
+                    }
                 }
             };
         } else {

@@ -49,7 +49,7 @@ export default function save({ attributes }) {
         'data-show-data-labels': showDataLabels,
         'data-data-unit': dataUnit || '',
         'data-unit-position': unitPosition || 'after',
-        'data-label-threshold': labelThreshold !== undefined ? labelThreshold : '',
+        'data-label-threshold': labelThreshold || '',
     });
 
     return (

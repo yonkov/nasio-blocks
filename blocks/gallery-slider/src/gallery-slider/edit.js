@@ -125,6 +125,8 @@ export default function Edit({ attributes, setAttributes, clientId, className })
     // Set custom CSS variables based on attributes
     const blockProps = useBlockProps({
         className: `wp-block-nasio-block-gallery-slider ${className || ''}`,
+            'data-show-dots': showDots,
+            'data-show-arrows': showArrows,
         style: {
             '--space-between': `${spaceBetween}px`,
             '--swiper-navigation-sides-dynamic-offset': `${arrowOffset}px`,

@@ -20,7 +20,10 @@
         position: static;
         width: 100%;
         overflow: hidden;
-        padding-bottom: 6rem;
+    }
+
+    &[data-show-dots="true"] .nasio-gallery-slider {
+	    padding-bottom: 6rem;
     }
     
     .swiper-wrapper {
