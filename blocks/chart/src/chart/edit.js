@@ -394,6 +394,7 @@ export default function Edit({ attributes, setAttributes, clientId, className })
         <div {...blockProps}>
             <InspectorControls>
                 <PanelBody title={__('Chart Settings', 'nasio-blocks')}>
+                    <p>{__('6 different chart animations, additional legend styles and many other customization options - ', 'nasio-blocks')}<a href="https://nasio-blocks.nasiothemes.com/chart#free-vs-pro" target="_blank" rel="noopener noreferrer">{__('Upgrade to Pro', 'nasio-blocks')}</a>.</p>
                     <SelectControl
                         label={__('Chart Type', 'nasio-blocks')}
                         value={chartType}

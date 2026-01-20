@@ -197,6 +197,7 @@ export default function Edit({ attributes, setAttributes, className }) {
 							: __("Slider Settings", "nasio-blocks")
 					}
 				>
+					<p>{__('Slide through custom post types, filter by custom taxonomies, 6 different slide transition animations and more customization options - ', 'nasio-blocks')}<a href="https://nasio-blocks.nasiothemes.com/post-slider#free-vs-pro" target="_blank" rel="noopener noreferrer">{__('Upgrade to Pro', 'nasio-blocks')}</a>.</p>
 					<SelectControl
 						label={__("Display Mode", "nasio-blocks")}
 						value={displayMode}

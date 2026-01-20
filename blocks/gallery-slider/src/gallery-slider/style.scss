@@ -119,7 +119,7 @@
     }
     
     @media screen and (max-width: 768px) {
-        .nasio-gallery-slider {
+        &[data-show-dots="true"] .nasio-gallery-slider {
             padding-bottom: 3rem;
         }
         

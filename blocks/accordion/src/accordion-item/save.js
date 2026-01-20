@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks, RichText } from '@wordpress/block-editor';
 import { Icon, chevronDown } from '@wordpress/icons';
 
 /**
@@ -26,7 +26,11 @@ export default function save({ attributes }) {
                 type="button"
                 aria-expanded="false"
             >
-                <h3 className="nasio-accordion-item-title">{title}</h3>
+                <RichText.Content 
+                    tagName="h3" 
+                    className="nasio-accordion-item-title" 
+                    value={title} 
+                />
                 <Icon 
                     icon={chevronDown} 
                     className="nasio-accordion-icon"

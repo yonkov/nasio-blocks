@@ -38,10 +38,8 @@ export default function Edit({ attributes, setAttributes, clientId, context }) {
                     onChange={(newTitle) => setAttributes({ title: newTitle })}
                     placeholder={__('Accordion Item Title', 'nasio-blocks')}
                 />
-                <Icon 
-                    icon={chevronDown} 
-                    className="nasio-accordion-icon" 
-                />
+                <Icon icon={chevronDown} className="nasio-accordion-icon" />
+
             </div>
             <div className="nasio-accordion-item-content">
                 <div className="nasio-accordion-item-content-inner">

@@ -96,6 +96,9 @@ function renderCustomSvg(svgString, iconSize, textColor) {
 		const svgElement = doc.querySelector('svg');
 		
 		if (!svgElement) return null;
+
+		// Add custom class for styling differentiation
+		svgElement.classList.add('custom-svg');
 		
 		// Apply size and color styling
 		svgElement.setAttribute('width', iconSize);
@@ -104,10 +107,12 @@ function renderCustomSvg(svgString, iconSize, textColor) {
 		// Apply color to fill attribute if textColor is set
 		if (textColor) {
 			const colorValue = textColor.startsWith('var(') ? textColor : `var(--wp--preset--color--${textColor})`;
-			svgElement.setAttribute('fill', 'currentColor');
-			svgElement.style.color = colorValue;
-		} else {
-			svgElement.setAttribute('fill', 'currentColor');
+			if (svgElement.style) {
+				svgElement.style.color = colorValue;
+			} else {
+				const currentStyle = svgElement.getAttribute('style') || '';
+				svgElement.setAttribute('style', `${currentStyle}${currentStyle && !currentStyle.endsWith(';') ? ';' : ''}color:${colorValue}`);
+			}
 		}
 		
 		// Return the modified SVG as JSX

@@ -4,7 +4,7 @@ return array(
 	'content-slider' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 2,
-		'version' => '1.0.2.1.7',
+		'version' => '1.0.3',
 		'name' => 'nasio-block/content-slider',
 		'title' => 'Content Slider',
 		'category' => 'nasio-blocks',

@@ -297,7 +297,9 @@ export default function Edit({ attributes, setAttributes, clientId, className })
                             ? __('Carousel Settings', 'nasio-blocks')
                             : __('Slider Settings', 'nasio-blocks')
                     }
-                >   
+                >
+                    <p>{__('6 different slide transition animations, 4 dots positions, slide on scrollwheel and more options - ', 'nasio-blocks')}<a href="https://nasio-blocks.nasiothemes.com/content-slider#free-vs-pro" target="_blank" rel="noopener noreferrer">{__('Upgrade to Pro', 'nasio-blocks')}</a>.</p>   
+                    
                     <SelectControl
                         label={__('Display Mode', 'nasio-blocks')}
                         value={displayMode}

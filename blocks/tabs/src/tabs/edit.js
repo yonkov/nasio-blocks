@@ -127,6 +127,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
         <div {...blockProps}>
             <InspectorControls group="settings">
                 <PanelBody title={__('Tabs Settings', 'nasio-blocks')}>
+                <p>{__('4 different tab button styles and more customization options - ', 'nasio-blocks')}<a href="https://nasio-blocks.nasiothemes.com/tabs#free-vs-pro" target="_blank" rel="noopener noreferrer">{__('Upgrade to Pro', 'nasio-blocks')}</a>.</p>
                     <SelectControl
                         label={__('Default Active Tab', 'nasio-blocks')}
                         value={defaultActiveTab}

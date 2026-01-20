@@ -51,10 +51,13 @@ export default function save({ attributes }) {
 				const svgElement = doc.querySelector('svg');
 				
 				if (svgElement) {
+					// Add custom class for styling differentiation
+					svgElement.classList.add('custom-svg');
+
 					// Apply size attributes
 					svgElement.setAttribute('width', iconSize);
 					svgElement.setAttribute('height', iconSize);
-					svgElement.setAttribute('fill', 'currentColor');
+					svgElement.setAttribute('aria-hidden', 'true');
 					
 					// Return as dangerouslySetInnerHTML for frontend rendering
 					return <div dangerouslySetInnerHTML={{ __html: svgElement.outerHTML }} />;
