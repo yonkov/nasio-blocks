@@ -127,7 +127,7 @@ Here is the official [plugin documentation](https://nasio-blocks.nasiothemes.com
 == Changelog ==
 
 = 1.1.4 - January 2026 =
-* Tabs block rewrite css variables for easier style overwrite.
+* Improve icons block. Tabs block rewrite css variables for easier style overwrite.
 
 = 1.1.3 - January 2026 =
 * Fix accordeon block header strong tag not working. Fix color options in icon block for custom svgs.

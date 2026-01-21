@@ -3,6 +3,7 @@
  */
 import { useBlockProps } from '@wordpress/block-editor';
 import * as allIcons from '@wordpress/icons';
+import DOMPurify from 'dompurify';
 
 /**
  * The save function for the icon block.
@@ -45,11 +46,14 @@ export default function save({ attributes }) {
 		if (iconType === 'custom' && customSvg) {
 			// For custom SVG, we need to sanitize and render it safely
 			try {
+				// Sanitize the SVG string using DOMPurify
+				const sanitizedSvg = DOMPurify.sanitize(customSvg, { USE_PROFILES: { svg: true } });
+
 				// Parse the SVG to modify its attributes
 				const parser = new DOMParser();
-				const doc = parser.parseFromString(customSvg, 'image/svg+xml');
+				const doc = parser.parseFromString(sanitizedSvg, 'image/svg+xml');
 				const svgElement = doc.querySelector('svg');
-				
+
 				if (svgElement) {
 					// Add custom class for styling differentiation
 					svgElement.classList.add('custom-svg');
@@ -74,23 +78,10 @@ export default function save({ attributes }) {
 	
 	const currentIcon = getCurrentIcon();
 	
-	// Generate screen reader text from icon name
-	const getScreenReaderText = () => {
-		if (iconType === 'custom') {
-			return 'icon';
-		}
-		// Convert camelCase icon name to readable text
-		// e.g., "starFilled" becomes "star filled"
-		return icon 
-			? icon.replace(/([A-Z])/g, ' $1').trim().toLowerCase()
-			: 'icon';
-	};
-	
 	// Create icon content with screen reader text
 	const iconContent = (
 		<div className={`nasio-icon-wrapper is-justified-${itemsJustification}`}>
 			{currentIcon && currentIcon}
-			<span className="screen-reader-text">{getScreenReaderText()}</span>
 		</div>
 	);
 	
