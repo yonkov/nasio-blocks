@@ -11,7 +11,7 @@
 		
 		.nasio-tab-nav-button {
 			padding: 1rem 1.5rem;
-			background-color: var(--tabs-bg-color);
+			background-color: var(--tabs-bg-color, #f7f7f7);
 			color: var(--tabs-text-color);
 			border: none;
 			border-top: 1px solid #e0e0e0;
@@ -28,12 +28,12 @@
 			}
 			
 			&:hover {
-				background-color: #e0e0e0;
+				filter: brightness(0.95);
 			}
 			
 			&.is-active {
-				background-color: var(--tabs-active-bg-color);
-				color: var(--tabs-active-text-color);
+				background-color: var(--tabs-active-bg-color, #0073aa);
+				color: var(--tabs-active-text-color, #ffffff);
 			}
 		}
 	}

@@ -17,10 +17,10 @@ export default function save({ attributes }) {
         className: 'nasio-tabs',
         'data-default-active': defaultActiveTab || '',
         style: {
-            '--tabs-bg-color': tabHeaderBackgroundColor || '#f7f7f7',
-            '--tabs-text-color': tabHeaderTextColor || 'inherit',
-            '--tabs-active-bg-color': tabHeaderActiveBackgroundColor || '#0073aa',
-            '--tabs-active-text-color': tabHeaderActiveTextColor || '#ffffff',
+        '--tabs-bg-color': tabHeaderBackgroundColor ? tabHeaderBackgroundColor : undefined,
+        '--tabs-text-color': tabHeaderTextColor ? tabHeaderTextColor : undefined,
+        '--tabs-active-bg-color': tabHeaderActiveBackgroundColor ? tabHeaderActiveBackgroundColor : undefined,
+        '--tabs-active-text-color': tabHeaderActiveTextColor ? tabHeaderActiveTextColor : undefined,
         }
     });
 
