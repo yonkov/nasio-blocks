@@ -9,7 +9,6 @@ import {
 	SelectControl,
 	ToggleControl,
 	Spinner,
-	__experimentalText as Text
 } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import apiFetch from '@wordpress/api-fetch';
@@ -94,8 +93,8 @@ export default function Edit({ attributes, setAttributes, className }) {
 			rewind: loop,
 			observer: true,
 			observeParents: true,
-			allowTouchMove: draggable,
-			simulateTouch: draggable,
+			allowTouchMove: false,
+			simulateTouch: false,
 			keyboard: {
 				enabled: true,
 				onlyInViewport: true,
@@ -112,15 +111,15 @@ export default function Edit({ attributes, setAttributes, className }) {
 
 		if (showDots) {
 			settings.pagination = {
-				el: ".swiper-pagination",
+				el: swiperElement.querySelector(".swiper-pagination"),
 				clickable: true,
 			};
 		}
 
 		if (showArrows) {
 			settings.navigation = {
-				nextEl: ".swiper-button-next",
-				prevEl: ".swiper-button-prev",
+				nextEl: swiperElement.querySelector(".swiper-button-next"),
+				prevEl: swiperElement.querySelector(".swiper-button-prev"),
 			};
 		}
 
