@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 1.1.5
+ * Version: 1.1.6
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes
@@ -366,7 +366,7 @@ require_once NASIO_BLOCKS_PATH . '/assets/svg/svg-icons.php';
 function nasio_blocks_admin_notice() {
 
 	// Check if user has dismissed the notice
-	if ( get_user_meta( get_current_user_id(), 'nasio_blocks_admin_notice', true ) ) {
+	if ( get_user_meta( get_current_user_id(), 'nasio_blocks_pro_admin_notice', true ) ) {
 		return;
 	}
 
@@ -378,9 +378,9 @@ function nasio_blocks_admin_notice() {
 					<?php esc_html_e( 'Get more with Nasio Blocks Pro! 🚀', 'nasio-blocks' ); ?>
 				</h2>
 				<p class="nasio-blocks-admin-description">
-					<?php esc_html_e( 'Supercharge your website with premium features: beautiful slide animations, slide unlimited types of content and apply advanced filters.', 'nasio-blocks' ); ?>
+					<?php esc_html_e( 'Premium sliders: 9 slide animations, slide unlimited types of content and filter slides by custom post type.', 'nasio-blocks' ); ?>
 					<br>
-					<?php esc_html_e( 'Stand out from the crowd with additional customization options for tabs, svg icons and chart block.', 'nasio-blocks' ); ?>
+					<?php esc_html_e( 'Stand out from the crowd with advanced ui customization options for tabs, svg icons and chart block.', 'nasio-blocks' ); ?>
 				</p>
 				<div class="nasio-blocks-admin-buttons">
 					<a href="https://nasio-blocks.nasiothemes.com/" target="_blank" class="button button-secondary nasio-blocks-admin-btn-secondary">
@@ -407,7 +407,7 @@ function nasio_blocks_dismiss_admin_notice() {
 	
 	$user_id = get_current_user_id();
 	if ( $user_id ) {
-		update_user_meta( $user_id, 'nasio_blocks_admin_notice', true );
+		update_user_meta( $user_id, 'nasio_blocks_pro_admin_notice', true );
 		wp_send_json_success();
 	}
 	

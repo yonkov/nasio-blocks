@@ -7,8 +7,8 @@ Author URI: https://nasiothemes.com/
 Author: Nasio Themes
 Requires at least: 6.7
 Requires PHP: 7.2
-Tested up to: 6.9
-Stable tag: 1.1.5
+Tested up to: 7.0
+Stable tag: 1.1.6
 License: GPLv2
 
 Small collection of essential blocks for the WordPress Block editor
@@ -125,6 +125,9 @@ Yes, in the plugin settings page, you can choose which blocks to enable for maxi
 Here is the official [plugin documentation](https://nasio-blocks.nasiothemes.com/nasio-blocks-documentation/).
 
 == Changelog ==
+
+= 1.1.6 - April 2026 =
+* Update admin box
 
 = 1.1.5 - February 2026 =
 * Migrate blocks to apiVersion 3 to ensure wp >= 7.0 compatibility. Disable touch interactions for post slider and content slider blocks.

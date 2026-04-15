@@ -3,7 +3,7 @@
  */
 
 .nasio-blocks-admin-notice {
-	background: linear-gradient(135deg, #5d95f1 0%, #094aca 100%);
+	background: linear-gradient(135deg, #3858e9 0%, #094aca 100%);
 	border-left: 0;
 	padding: 1.5rem !important;
 	position: relative;
@@ -19,10 +19,6 @@
 }
 
 .nasio-blocks-admin-notice .notice-dismiss:before {
-	color: #fff;
-}
-
-.nasio-blocks-admin-notice-content {
 	color: #fff;
 }
 
@@ -48,6 +44,7 @@
 	padding: 1rem 0 !important;
 	font-size: 1em;
 	line-height: 1.6;
+	color: #fff !important
 }
 
 .nasio-blocks-admin-coupon {
@@ -68,10 +65,8 @@
 	flex-wrap: wrap;
 }
 
-.nasio-blocks-admin-buttons .button {
-	display: flex !important;
-	min-height: unset;
-	line-height: 2rem;
+.nasio-blocks-admin-buttons .button span{
+	line-height: 1 !important;
 }
 
 .nasio-blocks-admin-notice .button {
