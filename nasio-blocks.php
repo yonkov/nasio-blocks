@@ -3,7 +3,7 @@
  * Plugin Name: Nasio Blocks
  * Plugin URI: https://github.com/yonkov/nasio-blocks
  * Description: Custom blocks for the WordPress Block editor. Easy to use, lightweight and useful.
- * Version: 1.1.6
+ * Version: 1.1.7
  * Requires at least: 6.7
  * Requires PHP: 7.2
  * Author: Nasio Themes
@@ -366,7 +366,7 @@ require_once NASIO_BLOCKS_PATH . '/assets/svg/svg-icons.php';
 function nasio_blocks_admin_notice() {
 
 	// Check if user has dismissed the notice
-	if ( get_user_meta( get_current_user_id(), 'nasio_blocks_pro_admin_notice', true ) ) {
+	if ( get_user_meta( get_current_user_id(), 'nasio_blocks_upgrade_notice', true ) ) {
 		return;
 	}
 
@@ -400,14 +400,14 @@ function nasio_blocks_admin_notice() {
 add_action( 'admin_notices', 'nasio_blocks_admin_notice' );
 
 /**
- * Handle AJAX request to dismiss Black Friday notice
+ * Handle AJAX request to dismiss admin notice
  */
 function nasio_blocks_dismiss_admin_notice() {
 	check_ajax_referer( 'nasio_blocks_nonce', 'nonce' );
 	
 	$user_id = get_current_user_id();
 	if ( $user_id ) {
-		update_user_meta( $user_id, 'nasio_blocks_pro_admin_notice', true );
+		update_user_meta( $user_id, 'nasio_blocks_upgrade_notice', true );
 		wp_send_json_success();
 	}
 	
